@@ -9,7 +9,9 @@ import gameengine.Coordinates;
  */
 public abstract class Entity{
 	private Coordinates coordinates;		//the coordinates of the entity
-	
+
+	// speed = number block per seconds
+	private int speed = 2;
 	/**
 	 * a constructor.
 	 */
@@ -33,4 +35,19 @@ public abstract class Entity{
 	public final Coordinates getCoordinates() {
 		return coordinates;
 	}
+
+	public void moveRight() {
+		int newPosition = coordinates.getX() + 1;
+		coordinates.setX(newPosition);
+	}
+
+	public void moveLeft() {
+
+	}
+
+	// rename Jump ?
+	public void moveUp() {
+
+	}
+
 }
