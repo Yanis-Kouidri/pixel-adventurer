@@ -1,9 +1,8 @@
 package game;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.util.logging.Logger;
 
-import game.gameloop.GameLoop;
+import gameengine.gameloop.GameLoop;
 import gameengine.GameWindow;
 import gameengine.Utils;
 import gameengine.characters.model.Character;
