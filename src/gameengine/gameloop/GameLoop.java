@@ -28,10 +28,9 @@ public abstract class GameLoop {
         return status == GameStatus.RUNNING;
     }
 
-    protected void processInput() {
+    protected void processInput(int updatePerSecond) {
         try {
-            int lag = 300;
-            Thread.sleep(lag);
+            Thread.sleep(1000 / updatePerSecond);
         } catch (InterruptedException e) {
             logger.severe(e.getMessage());
         }

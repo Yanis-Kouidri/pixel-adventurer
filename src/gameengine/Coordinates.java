@@ -1,9 +1,9 @@
 package gameengine;
 
 public class Coordinates {
-	private int x, y;
+	private float x, y;
 	
-	public Coordinates(int x, int y) {
+	public Coordinates(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -12,19 +12,19 @@ public class Coordinates {
 		x = y = 0;
 	}
 	
-	final public int getX() {
+	final public float getX() {
 		return x;
 	}
 	
-	final public int getY() {
+	final public float getY() {
 		return y;
 	}
 
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 }

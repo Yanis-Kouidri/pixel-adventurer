@@ -2,6 +2,9 @@ package gameengine.characters.model;
 
 import gameengine.Coordinates;
 
+import static gameengine.Physics.GRAVITY;
+import static gameengine.Physics.SPEED;
+
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.
  * @author n7student
@@ -10,8 +13,8 @@ import gameengine.Coordinates;
 public abstract class Entity{
 	private Coordinates coordinates;		//the coordinates of the entity
 
+	private float gravitySpeed = 0;
 	// speed = number block per seconds
-	private int speed = 2;
 	/**
 	 * a constructor.
 	 */
@@ -37,17 +40,20 @@ public abstract class Entity{
 	}
 
 	public void moveRight() {
-		int newPosition = coordinates.getX() + 1;
+		float newPosition = coordinates.getX() + SPEED;
 		coordinates.setX(newPosition);
 	}
 
 	public void moveLeft() {
-
+		float newPosition = coordinates.getX() - SPEED;
+		coordinates.setX(newPosition);
 	}
 
 	// rename Jump ?
 	public void moveUp() {
-
+		gravitySpeed += GRAVITY;
+		float newPosition = coordinates.getY() - SPEED + gravitySpeed;
+		coordinates.setY(newPosition);
 	}
 
 }

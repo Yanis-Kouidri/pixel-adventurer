@@ -1,5 +1,5 @@
 package game;
-import java.awt.Image;
+import java.awt.*;
 import java.util.logging.Logger;
 
 import gameengine.gameloop.GameLoop;
@@ -20,6 +20,8 @@ public class PixelAdventure extends GameLoop {
 	private EntityView entityView;		//the view that need to be displayed on the window
 	private Image image;
 
+	private int updatePerSecond = 2;
+
 	protected final Logger logger = Logger.getLogger(String.valueOf(this.getClass()));
 
 	/**
@@ -33,23 +35,31 @@ public class PixelAdventure extends GameLoop {
 
 	 }
 
+
 	@Override
 	protected void processGameLoop() {
 		while (isGameRunning()) {
-			processInput();
-			update();
-			render();
+			processInput(30);
+			update(); // Model Update
+			render(); // View update
 		}
 	}
 
 	@Override
 	protected void render() {
-		entityView.setLocation(mainCharacter.getCoordinates().getX(), mainCharacter.getCoordinates().getY());
-
+	 	entityView.updateLocation();
 	}
+
 	protected void update() {
-		mainCharacter.moveRight();
-		logger.info(String.valueOf(mainCharacter.getCoordinates().getX()));
+		 for (int i = 0; i < 1; i++) {
+			 mainCharacter.moveRight();
+		 }
+
+		for (int i = 0; i < 1; i++) {
+			mainCharacter.moveUp();
+		}
+
+		logger.info("X= " + mainCharacter.getCoordinates().getX() + "Y= " + mainCharacter.getCoordinates().getY());
 	}
 
 }

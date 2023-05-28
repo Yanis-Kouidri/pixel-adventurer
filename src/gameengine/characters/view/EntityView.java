@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 
 import gameengine.characters.model.Entity;
 
+import static gameengine.Constants.BLOCK_LENGHT;
+
 /**
  * the view class for all entities objects.
  * @author n7student
@@ -42,5 +44,11 @@ public class EntityView extends JPanel{
 		//g.drawRect(100, 100, width, height);
 		g.drawImage(image, width, height, this);
 	
+	}
+
+	public void updateLocation() {
+		float x = entity.getCoordinates().getX() / BLOCK_LENGHT;
+		float y = entity.getCoordinates().getY() / BLOCK_LENGHT;
+		this.setLocation(Math.round(x), Math.round(y));
 	}
 }
