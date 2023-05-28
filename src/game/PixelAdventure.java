@@ -36,7 +36,7 @@ public class PixelAdventure extends GameLoop {
 	@Override
 	protected void processGameLoop() {
 		while (isGameRunning()) {
-			processInput();
+			processInput(60);
 			update();
 			render();
 		}
