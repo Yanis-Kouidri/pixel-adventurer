@@ -47,8 +47,8 @@ public class EntityView extends JPanel{
 	}
 
 	public void updateLocation() {
-		float x = entity.getCoordinates().getX() / BLOCK_LENGHT;
-		float y = entity.getCoordinates().getY() / BLOCK_LENGHT;
+		float x = entity.getCoordinates().getX() * BLOCK_LENGHT;
+		float y = entity.getCoordinates().getY() * BLOCK_LENGHT;
 		this.setLocation(Math.round(x), Math.round(y));
 	}
 }

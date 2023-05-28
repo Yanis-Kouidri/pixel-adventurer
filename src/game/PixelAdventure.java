@@ -51,13 +51,13 @@ public class PixelAdventure extends GameLoop {
 	}
 
 	protected void update() {
-		 for (int i = 0; i < 1; i++) {
+/*		 for (int i = 0; i < 1; i++) {*/
 			 mainCharacter.moveRight();
-		 }
+/*		 }*/
 
-		for (int i = 0; i < 1; i++) {
+/*		for (int i = 0; i < 1; i++) {
 			mainCharacter.moveUp();
-		}
+		}*/
 
 		logger.info("X= " + mainCharacter.getCoordinates().getX() + "Y= " + mainCharacter.getCoordinates().getY());
 	}
