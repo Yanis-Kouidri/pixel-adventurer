@@ -27,4 +27,8 @@ public class Coordinates {
 	public void setY(float y) {
 		this.y = y;
 	}
+	@Override
+	public String toString() {
+		return "X=" + x + " Y=" + y;
+	}
 }

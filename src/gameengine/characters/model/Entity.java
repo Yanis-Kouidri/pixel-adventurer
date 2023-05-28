@@ -55,5 +55,8 @@ public abstract class Entity{
 		float newPosition = coordinates.getY() - SPEED + gravitySpeed;
 		coordinates.setY(newPosition);
 	}
-
+	@Override
+	public String toString() {
+		return coordinates.toString();
+	}
 }
