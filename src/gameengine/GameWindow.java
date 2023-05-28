@@ -1,6 +1,7 @@
 package gameengine;
 
 import java.awt.*;
+import java.awt.event.KeyListener;
 import javax.swing.*;
 
 import gameengine.characters.view.EntityView;
@@ -26,32 +27,6 @@ public final class GameWindow {
 		window.setSize(dimension);
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);		//exit the program on close button press
 		window.add(entityView);		//we link the view to the window
-		int nombreCases = 8;
-		JPanel panel = new JPanel(new GridLayout(nombreCases, nombreCases));
-
-		boolean couleurBlanche = true; // Indicateur pour alterner la couleur des cases
-
-		for (int i = 0; i < nombreCases; i++) {
-			for (int j = 0; j < nombreCases; j++) {
-				JPanel casePanel = new JPanel();
-
-				if (couleurBlanche) {
-					casePanel.setBackground(Color.WHITE);
-				} else {
-					casePanel.setBackground(Color.BLACK);
-				}
-
-				panel.add(casePanel);
-
-				couleurBlanche = !couleurBlanche; // Changer la couleur pour la prochaine case
-			}
-
-			if (nombreCases % 2 == 0) {
-				couleurBlanche = !couleurBlanche; // Inverser la couleur pour la première case de la ligne suivante
-			}
-		}
-
-
 		window.setVisible(true);
 	}
 
@@ -76,5 +51,13 @@ public final class GameWindow {
 	 */
 	public static GameWindow getInstance() {
 		return INSTANCE;
+	}
+
+	/**
+	 * permit to add key listener on window
+	 * @param l a KeyListener who will attach to window
+	 */
+	public static void addKeyListener(KeyListener l) {
+		window.addKeyListener(l);
 	}
 }

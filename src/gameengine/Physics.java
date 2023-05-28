@@ -6,6 +6,6 @@ public class Physics {
 
     public static final float GRAVITY = 0.08f;
 
-    public static final float SPEED = 0.8f;
+    public static final float SPEED = 0.3f;
 
 }
