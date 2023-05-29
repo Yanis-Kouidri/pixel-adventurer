@@ -16,16 +16,19 @@ note left : The player himself
 
 class Inventory {
 - content: Item[]
-- placeNumber: int
+- numberOfPlace: int
 
 ----
-+ getPlaceNumber(): int
++ getNumberOfPlace(): int
 + isFull(): boolean
-+ remove(placeIndex: int)
-+ add(placeIndex: int, newItem: Item)
++ isEmpty(): boolean
++ getNumberOfItems();
++ remove(indexPlace: int) throws NothingToRemoveException, ArrayIndexOutOfBoundsException
 + getFirstEmptySpace(): int
 ' Get the index of the first free space of inventory
-+ getByIndex(index: int): Item
++ add(indexPlace: int, newItem: Item) throws ArrayIndexOutOfBoundsException, NotEmptyPlaceException
++ getItemByIndex(indexPlace: int): Item throws ArrayIndexOutOfBoundsException
+- relevantIndex(indexToCheck: int, numberOfPlace: int) throws ArrayIndexOutOfBoundsException
 
 - show()
 'Print the inventory on the console to debug
