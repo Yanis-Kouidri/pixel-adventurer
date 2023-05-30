@@ -1,29 +1,12 @@
 package gameengine.inventory;
 
-/**
- * This class define the player inventory
- * @author Yanis Kouidri
- * @version 0.1
- */
 public class Inventory {
 
     // Attributes :
-
-    /**
-     * An array of Items that represent the player inventory
-     */
     private final Item[] content;
-
-    /**
-     * The fix number of spaces of an inventory
-     */
     private final int numberOfPlace;
 
     // Constructor :
-
-    /**
-     * @param numberOfPlace The number of available places in the inventory
-     */
     public Inventory(int numberOfPlace) {
         this.content = new Item[numberOfPlace];
         this.numberOfPlace = numberOfPlace;
@@ -51,26 +34,14 @@ public class Inventory {
         return nbOfItems;
     }
 
-    /**
-     * @return True if all the inventory places are occupied, if not, return false
-     */
     public boolean isFull() {
         return getNumberOfItems() == this.numberOfPlace;
     }
 
-    /**
-     * @return True is there is no item in the inventory, false if not.
-     */
     public boolean isEmpty() {
         return getNumberOfItems() == 0;
     }
 
-    /**
-     * Remove an item from inventory
-     * @param indexPlace The place of the inventory that you want to remove the item
-     * @throws NothingToRemoveException Throws if the place is empty
-     * @throws ArrayIndexOutOfBoundsException Throws if the indexPlace are irrelevant
-     */
     public void remove(int indexPlace) throws NothingToRemoveException, ArrayIndexOutOfBoundsException {
         //Checking if indexPlace get in parameter is relevant
         relevantIndex(indexPlace, this.numberOfPlace);
@@ -83,12 +54,6 @@ public class Inventory {
         this.content[indexPlace] = null;
     }
 
-    /**
-     * To get the first empty place of the inventory
-     * Useful if you don't know how to place an item
-     * @return The index of the first empty place of the inventory
-     * @throws InventoryFullException Throws if the inventory is full
-     */
     public int getFirstEmptyPlace() throws InventoryFullException {
         // If inventory is full, there is no empty place
         if (this.isFull()) {
@@ -107,14 +72,6 @@ public class Inventory {
         return emptyPlaceNumber;
     }
 
-    /**
-     * Add an item to the inventory
-     * @param indexPlace The number of the place to insert the new item
-     * @param newItem The item to add to the inventory
-     * @throws ArrayIndexOutOfBoundsException Throws if the indexPlace is irrelevant
-     * @throws NotEmptyPlaceException Throws if the indexPlace specify is not empty (there is already an item at this
-     * place).
-     */
     public void add(int indexPlace, Item newItem) throws ArrayIndexOutOfBoundsException, NotEmptyPlaceException {
         //Checking if indexPlace get in parameter is relevant
         relevantIndex(indexPlace, this.numberOfPlace);
