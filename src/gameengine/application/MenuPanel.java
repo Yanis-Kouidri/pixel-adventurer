@@ -12,9 +12,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Displays the Main menu panel
+ * @author Eric YU
+ *
+ */
 public class MenuPanel extends JPanel {
-	ApplicationWindow appWindow;
+	ApplicationWindow appWindow; // The Application Window associated
 
+	/**
+	 * Creates a new menu panel with a small vertical menu and a title
+	 * @param aW the related app window
+	 */
 		public MenuPanel(ApplicationWindow aW) {
 			super();
 			appWindow = aW;
@@ -43,6 +52,11 @@ public class MenuPanel extends JPanel {
 			add(buttons, gbc);
 		}
 		
+		/**
+		 * Associate each button from the menu to an action
+		 * @author n7student
+		 *
+		 */
 		public class BtnListener implements ActionListener {
 			
 			public BtnListener() {
