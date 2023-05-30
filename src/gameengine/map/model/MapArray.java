@@ -20,20 +20,20 @@ public class MapArray {
 	public static Tile[][] generateMapArray(MapType type, int width, int height, long seed, double amplitude, double scale) {
 
 		// Initializes an empty 2D array representing a map of tiles
-		Tile[][] mapArray = new Tile[width][height];
+		Tile[][] mapArray = new Tile[height][width];
 
 		// Loops on the array tiles, calculates the groundLevel and fills the array
 		try {
-			for (int y = 0; y < width; y++) {
-				for (int x = 0; x < height; x ++) {
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x ++) {
 					double perlinNoise = computePerlinNoise(x * scale, seed);
 					double groundLevel = perlinNoise * amplitude + height / 2.0;
 					if (y == (int) groundLevel) {
-						mapArray[x][y] = type.getSurfaceTile();
+						mapArray[y][x] = type.getSurfaceTile();
 					} else if (y > groundLevel) {
-						mapArray[x][y] = type.getUndergroundTile();
+						mapArray[y][x] = type.getUndergroundTile();
 					} else {
-						mapArray[x][y] = type.getEmptyTile();
+						mapArray[y][x] = type.getEmptyTile();
 					}
 				}
 			}
@@ -89,12 +89,22 @@ public class MapArray {
 	 */
 	private static double generateRandomValue(int integer, long seed) {
 		try {
-			Random random = new Random(integer * 42 + seed);
+			Random random = new Random(integer * 1337 + seed);
 			return random.nextDouble();
 		} catch (Exception e) {
 			System.out.println("Error trying to generate a random double");
 			return 0.0;
 		}
 	}
+	
+	//FOR TESTING PURPOSES
+    public static void printMapForTest(Tile[][] map, int width, int height) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                System.out.print(map[y][x].getTileId());
+            }
+            System.out.println();
+        }
+    }
 }
 
