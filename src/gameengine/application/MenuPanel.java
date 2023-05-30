@@ -14,86 +14,97 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 /**
- * Displays the Main menu panel 
+ * Displays the Main menu panel
+ * 
  * @author Eric YU
  *
  */
-public class MenuPanel extends JPanel {
-	ApplicationWindow appWindow; // The Application Window associated
+public class MenuPanel extends CustomPanel {
 
 	/**
 	 * Creates a new menu panel with a small vertical menu and a title
+	 * 
+	 * 
 	 * @param aW the related app window
 	 */
-		public MenuPanel(ApplicationWindow aW) {
-			super();
-			appWindow = aW;
-			setBorder(new EmptyBorder(10, 10, 10, 10));
-			setLayout(new GridBagLayout());
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.gridwidth = GridBagConstraints.REMAINDER;
-			gbc.anchor = GridBagConstraints.NORTH;
+	public MenuPanel(PanelMediator pm) {
+		super(pm);
+		pm.setMenuPanel(this);
+		setBorder(new EmptyBorder(10, 10, 10, 10));
+		setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.NORTH;
 
-			add(new JLabel("Pixel Adventurer"), gbc);
+		JLabel title = new JLabel("Pixel Adventurer");
+		title.setFont(new Font("Arial", Font.BOLD, 40));
+		add(title, gbc);
+		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-			gbc.anchor = GridBagConstraints.CENTER;
-			gbc.fill = GridBagConstraints.HORIZONTAL;
+		JPanel buttons = new JPanel(new GridBagLayout());
 
-			JPanel buttons = new JPanel(new GridBagLayout());
+		// The button to switch to the game panel
+		JButton PlayBtn = new MenuButton("PLAY", Color.BLUE);
 
-			// The button to switch to the game panel
-			JButton PlayBtn = new JButton("PLAY");
-			PlayBtn.setFont(new Font("Arial", Font.BOLD, 16)); // Set font
-        	PlayBtn.setForeground(Color.BLUE); // Set text color
+		// The button to exit the program
+		JButton ExitBtn = new MenuButton("EXIT", Color.RED);
 
-			// The button to exit the program
-			JButton ExitBtn = new JButton("EXIT");
-			ExitBtn.setFont(new Font("Arial", Font.BOLD, 16)); // Set font
-			ExitBtn.setForeground(Color.RED); // Set text color
+		// Adding listeners to the buttons
+		PlayBtn.addActionListener(new BtnListener());
+		ExitBtn.addActionListener(new BtnListener());
+		buttons.add(PlayBtn, gbc);
+		buttons.add(ExitBtn, gbc);
 
-			// Adding listeners to the buttons
-			PlayBtn.addActionListener(new BtnListener());
-          	ExitBtn.addActionListener(new BtnListener());
+		gbc.weighty = 1;
+		add(buttons, gbc);
+	}
 
-			buttons.add(PlayBtn, gbc);
-			buttons.add(ExitBtn, gbc);
+	/**
+	 * Associate each button from the menu to an action
+	 * 
+	 * @author n7student
+	 *
+	 */
+	public class BtnListener implements ActionListener {
 
-			gbc.weighty = 1;
-			add(buttons, gbc);
+		public BtnListener() {
 		}
-		
-		/**
-		 * Associate each button from the menu to an action
-		 * @author n7student
-		 *
-		 */
-		public class BtnListener implements ActionListener {
-			
-			public BtnListener() {
+
+		public void actionPerformed(ActionEvent e) {
+			JFrame frame = aW.getFrame();
+			JButton o = (JButton) e.getSource();
+			String name = o.getActionCommand();
+
+			if (name == "PLAY") {
+				try {
+					frame.remove(MenuPanel.this);
+					frame.add(pm.getGamePanel());
+				} catch (NullPointerException exception) {
+					System.out.print(exception.getMessage());
+				}
+			} else {
+				System.out.println("> EXIT Clicked ! ");
+				frame.dispose();
 			}
 
-			public void actionPerformed(ActionEvent e) {
-				JFrame frame = appWindow.getFrame();
-		        JButton o = (JButton)e.getSource();
-		        String name = o.getActionCommand();
+			frame.revalidate();
+			frame.repaint();
+		}
 
-		        if (name == "PLAY")
-		        {
-					try {
-						frame.remove(appWindow.getA());
-						frame.add(appWindow.getB());	
-					} catch (NullPointerException exception) {
-						System.out.print(exception.getMessage());
-					}
-		        }
-		        else{
-		            System.out.println("> EXIT Clicked ! ");
-					frame.dispose();
-		        }
-		     
-				frame.revalidate();
-				frame.repaint();
-			}
+	}
 
+	public class MenuButton extends JButton {
+		MenuButton(String text) {
+			super(text);
+			setFont(new Font("Arial", Font.BOLD, 16)); // Set font
+		}
+
+		MenuButton(String text, Color c) {
+			super(text);
+			setFont(new Font("Arial", Font.BOLD, 16)); // Set font
+			setForeground(c); // Set text color
+
+		}
 	}
 }
