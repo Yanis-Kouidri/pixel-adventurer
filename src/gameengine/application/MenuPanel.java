@@ -1,6 +1,7 @@
 package src.gameengine.application;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -27,7 +28,6 @@ public class MenuPanel extends JPanel {
 		public MenuPanel(ApplicationWindow aW) {
 			super();
 			appWindow = aW;
-			setBackground(Color.red);
 			setBorder(new EmptyBorder(10, 10, 10, 10));
 			setLayout(new GridBagLayout());
 
@@ -35,18 +35,25 @@ public class MenuPanel extends JPanel {
 			gbc.gridwidth = GridBagConstraints.REMAINDER;
 			gbc.anchor = GridBagConstraints.NORTH;
 
-			add(new JLabel("Title"), gbc);
+			add(new JLabel("Pixel Adventurer"), gbc);
 
 			gbc.anchor = GridBagConstraints.CENTER;
 			gbc.fill = GridBagConstraints.HORIZONTAL;
 
 			JPanel buttons = new JPanel(new GridBagLayout());
 			JButton PlayBtn = new JButton("PLAY");
-//			JButton ExitBtn = new JButton("EXIT");
+			PlayBtn.setFont(new Font("Arial", Font.BOLD, 16)); // Set font
+        	PlayBtn.setForeground(Color.BLUE); // Set text color
+
+			JButton ExitBtn = new JButton("EXIT");
+			ExitBtn.setFont(new Font("Arial", Font.BOLD, 16)); // Set font
+			ExitBtn.setForeground(Color.RED); // Set text color
 			PlayBtn.addActionListener(new BtnListener());
-//            ExitBtn.addActionListener(new BtnListener());
+          	ExitBtn.addActionListener(new BtnListener());
+
+
 			buttons.add(PlayBtn, gbc);
-//			buttons.add(ExitBtn, gbc);
+			buttons.add(ExitBtn, gbc);
 
 			gbc.weighty = 1;
 			add(buttons, gbc);
@@ -74,6 +81,7 @@ public class MenuPanel extends JPanel {
 		        }
 		        else{
 		            System.out.println("> EXIT Clicked ! ");
+					frame.dispose();
 		        }
 		     
 				frame.revalidate();
