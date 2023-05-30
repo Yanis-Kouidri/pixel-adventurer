@@ -8,8 +8,11 @@ package gameengine.map.model;
 public class Tile {
 
 	// The tile identifier
-	private String identifier;
-	
+	private int identifier;
+
+	// The tile name
+	private String name;
+
 	// The tile collision behavior
 	private boolean collision;
 
@@ -17,9 +20,10 @@ public class Tile {
 	 * @param identifier The desired tile identifier
 	 * @param collision The desired value for the collision behavior boolean
 	 */
-	public Tile(String identifier, boolean collision) {
+	public Tile(int identifier, String name, boolean collision) {
 		try {
 			this.identifier = identifier;
+			this.name = name;
 			this.collision = collision;
 		} catch (Exception e) {
 			System.out.println("Error trying to initialize a Tile object");
@@ -29,8 +33,15 @@ public class Tile {
 	/** Gets the tile identifier
 	 * @return this.identifier The tile identifier
 	 */
-	public String getTileId() {
+	public int getTileId() {
 		return this.identifier;
+	}
+
+	/** Gets the tile name
+	 * @return this.name The tile name
+	 */
+	public String getTileName() {
+		return this.name;
 	}
 
 	/** Gets the collision behavior
