@@ -96,15 +96,15 @@ public class MapArray {
 			return 0.0;
 		}
 	}
-	
+
 	//FOR TESTING PURPOSES
-    public static void printMapForTest(Tile[][] map, int width, int height) {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                System.out.print(map[y][x].getTileId());
-            }
-            System.out.println();
-        }
-    }
+	public static void printMapForTest(Tile[][] map, int width, int height) {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				System.out.print(map[y][x].getTileId());
+			}
+			System.out.println();
+		}
+	}
 }
 
