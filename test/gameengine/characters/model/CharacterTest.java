@@ -1,10 +1,7 @@
 package gameengine.characters.model;
 
 import org.junit.*;
-
 import java.lang.reflect.Field;
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 public class CharacterTest {
