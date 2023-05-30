@@ -1,4 +1,4 @@
-package gameengine.inventory;
+package gameengine.inventory.model;
 
 import gameengine.inventory.model.*;
 import org.junit.jupiter.api.AfterEach;
