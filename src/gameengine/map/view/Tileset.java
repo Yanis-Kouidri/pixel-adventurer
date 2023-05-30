@@ -14,6 +14,9 @@ public class Tileset {
 
 	// The tileset
 	private BufferedImage set;
+	
+	// The sprite dimension constant
+	protected static final int SPRITE_DIM = 32;
 
 	/** Instantiates a Tileset object
 	 * @param tilesetPath The path to the tileset image
@@ -32,11 +35,11 @@ public class Tileset {
 	 */
 	public Image getTileSprite(int tileIdentifier) {
 		try {
-			int numberOfColumns = set.getWidth() / MapPanel.SPRITE_DIM;
+			int numberOfColumns = set.getWidth() / SPRITE_DIM;
 			int x = tileIdentifier / numberOfColumns;
 			int y = tileIdentifier % numberOfColumns;
-			Image sprite = set.getSubimage(y * MapPanel.SPRITE_DIM
-					, x * MapPanel.SPRITE_DIM, MapPanel.SPRITE_DIM, MapPanel.SPRITE_DIM);
+			Image sprite = set.getSubimage(y * SPRITE_DIM
+					, x * SPRITE_DIM, SPRITE_DIM, SPRITE_DIM);
 			return sprite;
 		} catch (Exception e) {
 			System.out.println("Error trying to get the sprite from the tileset");
@@ -44,4 +47,5 @@ public class Tileset {
 		}
 	}
 }
+
 
