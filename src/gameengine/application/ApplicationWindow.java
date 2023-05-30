@@ -8,15 +8,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Window displaying the game application
+ * The ApplicationWindow class create the application window where all the graphics of the game will be displayed (singleton = only one instance of ApplicationWindow can be create).
  * @author Eric YU
  */
 public class ApplicationWindow {
 
-	MenuPanel a; // MenuPanel used to show the main menu
-	JPanel b; // Another panel
-	JFrame frame; // Main frame used for the application
-
+	private static ApplicationWindow INSTANCE;		//the ApplicationWindow instance.
+	private static JFrame frame;			//the window.
+	private static JPanel a;
+	private static JPanel b;
 	/**
 	 * ApplicationWindow constructor
 	 */
@@ -48,7 +48,7 @@ public class ApplicationWindow {
 	 * @param args : arguments used to 
 	 */
 	public static void main(String[] args) {
-		ApplicationWindow a = new ApplicationWindow();
+		ApplicationWindow a = ApplicationWindow.createInstance();
 	}
 
 	/**
@@ -73,6 +73,27 @@ public class ApplicationWindow {
 	 */
 	public JFrame getFrame() {
 		return frame;
+	}
+
+	/**
+	 * createInstance to create an instance by calling the constructor.
+	 * @return ApplicationWindow
+	 */
+	public static ApplicationWindow createInstance() {
+		//if the instance doesn't exist, it create it
+		if(INSTANCE == null) {
+			INSTANCE = new ApplicationWindow();
+		}
+		
+		return INSTANCE;
+	}
+	
+	/**
+	 * getInstance permit to get the instance of the ApplicationWindow.
+	 * @return ApplicationWindow.
+	 */
+	public static ApplicationWindow getInstance() {
+		return INSTANCE;
 	}
 
 }

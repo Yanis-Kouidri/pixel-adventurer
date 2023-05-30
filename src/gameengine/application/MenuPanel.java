@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 /**
- * Displays the Main menu panel
+ * Displays the Main menu panel 
  * @author Eric YU
  *
  */
