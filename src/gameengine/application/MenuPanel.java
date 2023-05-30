@@ -30,7 +30,6 @@ public class MenuPanel extends JPanel {
 			appWindow = aW;
 			setBorder(new EmptyBorder(10, 10, 10, 10));
 			setLayout(new GridBagLayout());
-
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.gridwidth = GridBagConstraints.REMAINDER;
 			gbc.anchor = GridBagConstraints.NORTH;
@@ -41,16 +40,20 @@ public class MenuPanel extends JPanel {
 			gbc.fill = GridBagConstraints.HORIZONTAL;
 
 			JPanel buttons = new JPanel(new GridBagLayout());
+
+			// The button to switch to the game panel
 			JButton PlayBtn = new JButton("PLAY");
 			PlayBtn.setFont(new Font("Arial", Font.BOLD, 16)); // Set font
         	PlayBtn.setForeground(Color.BLUE); // Set text color
 
+			// The button to exit the program
 			JButton ExitBtn = new JButton("EXIT");
 			ExitBtn.setFont(new Font("Arial", Font.BOLD, 16)); // Set font
 			ExitBtn.setForeground(Color.RED); // Set text color
+
+			// Adding listeners to the buttons
 			PlayBtn.addActionListener(new BtnListener());
           	ExitBtn.addActionListener(new BtnListener());
-
 
 			buttons.add(PlayBtn, gbc);
 			buttons.add(ExitBtn, gbc);
@@ -76,8 +79,12 @@ public class MenuPanel extends JPanel {
 
 		        if (name == "PLAY")
 		        {
-		            frame.remove(appWindow.getA());
-		            frame.add(appWindow.getB());
+					try {
+						frame.remove(appWindow.getA());
+						frame.add(appWindow.getB());	
+					} catch (NullPointerException exception) {
+						System.out.print(exception.getMessage());
+					}
 		        }
 		        else{
 		            System.out.println("> EXIT Clicked ! ");
