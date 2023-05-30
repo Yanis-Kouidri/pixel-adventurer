@@ -1,9 +1,8 @@
 package game;
 import java.awt.Image;
-import java.awt.Toolkit;
 
-import gameengine.GameWindow;
-import gameengine.Utils;
+import gameengine.utils.view.GameWindow;
+import gameengine.utils.model.Utils;
 import gameengine.characters.model.Character;
 import gameengine.characters.model.Entity;
 import gameengine.characters.view.EntityView;

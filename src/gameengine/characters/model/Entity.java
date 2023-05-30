@@ -1,6 +1,6 @@
 package gameengine.characters.model;
 
-import gameengine.Coordinates;
+import gameengine.utils.model.Coordinates;
 
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.
