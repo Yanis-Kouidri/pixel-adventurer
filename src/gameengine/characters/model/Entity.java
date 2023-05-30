@@ -1,6 +1,6 @@
 package gameengine.characters.model;
 
-import gameengine.Coordinates;
+import gameengine.utils.model.Coordinates;
 
 import static gameengine.Physics.GRAVITY;
 import static gameengine.Physics.SPEED;

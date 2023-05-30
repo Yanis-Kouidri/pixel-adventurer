@@ -1,4 +1,4 @@
-package gameengine;
+package gameengine.utils.model;
 
 import java.awt.Image;
 import java.awt.Toolkit;

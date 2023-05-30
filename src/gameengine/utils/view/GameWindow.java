@@ -1,4 +1,4 @@
-package gameengine;
+package gameengine.utils.view;
 
 import java.awt.*;
 import java.awt.event.KeyListener;
