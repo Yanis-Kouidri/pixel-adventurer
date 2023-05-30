@@ -1,11 +1,10 @@
 package src.gameengine.application;
 
 import javax.swing.*;
-import java.awt.*;
 
 public abstract class CustomPanel extends JPanel {
-    protected static ApplicationWindow aW;
-    protected static PanelMediator pm;
+    protected ApplicationWindow aW;
+    protected PanelMediator pm;
 
     public CustomPanel(PanelMediator pm) {
         super();

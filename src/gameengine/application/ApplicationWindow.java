@@ -1,9 +1,5 @@
 package src.gameengine.application;
 
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
