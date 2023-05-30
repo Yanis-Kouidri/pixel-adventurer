@@ -1,4 +1,4 @@
-package gameengine.inventory;
+package gameengine.inventory.model;
 
 /**
  * Exception throws when you try to remove an item from the inventory but the place is already empty.

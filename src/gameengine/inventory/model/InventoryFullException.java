@@ -1,4 +1,4 @@
-package gameengine.inventory;
+package gameengine.inventory.model;
 
 /**
  * Exception throws when you try to get an empty place but the inventory is full.

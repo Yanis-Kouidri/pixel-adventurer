@@ -1,4 +1,4 @@
-package gameengine.inventory;
+package gameengine.inventory.model;
 
 /**
  * Exception throws when you try to add an item to the inventory but the place is already taken by another item

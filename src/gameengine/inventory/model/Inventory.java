@@ -1,4 +1,4 @@
-package gameengine.inventory;
+package gameengine.inventory.model;
 
 public class Inventory {
 
