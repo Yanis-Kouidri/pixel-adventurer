@@ -1,5 +1,10 @@
 package gameengine.inventory.view;
 
+import gameengine.inventory.model.Inventory;
+import gameengine.inventory.model.InventoryFullException;
+import gameengine.inventory.model.Item;
+import gameengine.inventory.model.NotEmptyPlaceException;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,30 +12,26 @@ public class InventoryViewTest {
     public static void createAndShowGUI() {
         JFrame frame = new JFrame("Inventory frame testing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 100);
+        frame.setSize(500, 500);
+        frame.setLayout(new FlowLayout());
 
         // Create the inventory panel
-        JPanel inventoryPanel = new JPanel();
-        inventoryPanel.setLayout(new GridLayout(1, 9));
-        inventoryPanel.setBackground(Color.BLACK);
+        InventoryBar inventoryBar = new InventoryBar();
 
-        // Create an array of item labels
-        JLabel[] itemLabels = new JLabel[9];
+        Inventory inventoryExample = new Inventory(10);
 
-        // Add the item labels to the inventory panel
-        for (int i = 0; i < itemLabels.length; i++) {
-            itemLabels[i] = new JLabel();
-            itemLabels[i].setOpaque(true);
-            itemLabels[i].setBackground(Color.GRAY);
-            itemLabels[i].setPreferredSize(new Dimension(40, 40));
-            inventoryPanel.add(itemLabels[i]);
+        ImageIcon coeur = new ImageIcon("coeur.png");
+
+        Item firstItem = new Item("Coeur", new JLabel(coeur));
+        try {
+            inventoryExample.add(inventoryExample.getFirstEmptyPlace(), firstItem);
+        } catch (NotEmptyPlaceException | InventoryFullException e) {
+            throw new RuntimeException(e);
         }
 
-        // Update the first item label to simulate a change
-        Timer timer = new Timer(1000, e -> itemLabels[0].setBackground(Color.BLUE));
-        timer.start();
+        inventoryBar.displayInventory(inventoryExample);
 
-        frame.add(inventoryPanel);
+        frame.add(inventoryBar);
 
 
         frame.setVisible(true);
