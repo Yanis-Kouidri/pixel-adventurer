@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 import gameengine.characters.model.Entity;
 
-import static gameengine.Constants.BLOCK_LENGHT;
+import static gameengine.utils.model.Constants.BLOCK_LENGHT;
 
 /**
  * the view class for all entities objects.

@@ -2,8 +2,8 @@ package gameengine.characters.model;
 
 import gameengine.utils.model.Coordinates;
 
-import static gameengine.Physics.GRAVITY;
-import static gameengine.Physics.SPEED;
+import static gameengine.utils.model.Physics.GRAVITY;
+import static gameengine.utils.model.Physics.SPEED;
 
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.

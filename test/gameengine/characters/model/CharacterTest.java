@@ -4,8 +4,8 @@ import org.junit.*;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-import static gameengine.Physics.GRAVITY;
-import static gameengine.Physics.SPEED;
+import static gameengine.utils.model.Physics.GRAVITY;
+import static gameengine.utils.model.Physics.SPEED;
 import static org.junit.Assert.*;
 
 public class CharacterTest {

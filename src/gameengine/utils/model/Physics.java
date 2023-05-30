@@ -1,4 +1,4 @@
-package gameengine;
+package gameengine.utils.model;
 
 public class Physics {
 
