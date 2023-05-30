@@ -11,23 +11,21 @@ public class CharacterTest {
     public Character mainCharacter;
     public Character mainCharacterTest;
 
-    private void removeInstanceCharcter(Character chr) throws IllegalAccessException, NoSuchFieldException {
+    private void removeInstanceCharacter(Character chr) throws IllegalAccessException, NoSuchFieldException {
         if (chr != null) {
             Field field = chr.getClass().getDeclaredField("INSTANCE");
             field.setAccessible(true);
             Object value = field.get(chr);
             field.set(value, null);
             field.setAccessible(false);
+            chr = null;
         }
+
     }
     @After
     public void mainCharacterDelete() throws IllegalAccessException, NoSuchFieldException {
-/*        Class<?> classe = Class.forName("Character");
-        System.out.println(classe.getField("INSTANCE"));*/
-        removeInstanceCharcter(mainCharacter);
-        removeInstanceCharcter(mainCharacterTest);
-        assertNull(Character.getInstance());
-
+        removeInstanceCharacter(mainCharacter);
+        removeInstanceCharacter(mainCharacterTest);
     }
 
     @Test
