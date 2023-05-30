@@ -77,7 +77,7 @@ public class Inventory {
         relevantIndex(indexPlace, this.numberOfPlace);
 
         // Checking if this indexPlace is empty
-        if (this.content[indexPlace] == null) {
+        if (this.content[indexPlace] != null) {
             throw new NotEmptyPlaceException("This inventory space is already taken by an item");
         }
 
