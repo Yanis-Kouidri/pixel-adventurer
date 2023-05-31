@@ -6,7 +6,10 @@ import java.util.Random;
  * @version 0.1
  */
 
-public class MapArray {
+public final class MapArray {
+
+    // A constant for random generation
+    private static final int GEN_CONST = 1337;
 
 	/** Procedurally generates a 2D array of tiles
 	 * @param width The desired array width
@@ -89,7 +92,7 @@ public class MapArray {
 	 */
 	private static double generateRandomValue(int integer, long seed) {
 		try {
-			Random random = new Random(integer * 1337 + seed);
+			Random random = new Random(integer * GEN_CONST + seed);
 			return random.nextDouble();
 		} catch (Exception e) {
 			System.out.println("Error trying to generate a random double");
