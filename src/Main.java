@@ -11,7 +11,6 @@ public class Main {
 
 	public static void main(String[] args) {
 		PixelAdventure game = new PixelAdventure();
-		game.run();
 	}
 
 }

@@ -1,6 +1,6 @@
 package gameengine.characters.model;
 
-import gameengine.Coordinates;
+import gameengine.utils.model.Coordinates;
 
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.
@@ -10,8 +10,6 @@ import gameengine.Coordinates;
 public abstract class Entity{
 	private Coordinates coordinates;		//the coordinates of the entity
 
-	// speed = number block per seconds
-	private int speed = 2;
 	/**
 	 * a constructor.
 	 */

@@ -24,6 +24,11 @@ hs_err_pid*
 
 # Intellij
 .idea
+<<<<<<< HEAD
 *.iml
 out
 bin
+=======
+out
+bin
+>>>>>>> 0fadd29de7a60b55986e486b812543552c6292aa

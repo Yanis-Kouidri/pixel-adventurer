@@ -5,14 +5,14 @@ package gameengine.characters.model;
  * @author n7student
  *
  */
-public class Character extends Entity{
+public class MainCharacter extends Entity{
 	
-	private static Character INSTANCE = null;		//the instance of the main character
+	private static MainCharacter INSTANCE = null;		//the instance of the main character
 	
 	/**
 	 * a constructor.
 	 */
-	private Character() {
+	private MainCharacter() {
 		super();
 	}
 	
@@ -21,7 +21,7 @@ public class Character extends Entity{
 	 * @param coordX
 	 * @param coordY
 	 */
-	private Character(int coordX, int coordY) {
+	private MainCharacter(int coordX, int coordY) {
 		super(coordX, coordY);
 	}
 	
@@ -29,9 +29,9 @@ public class Character extends Entity{
 	 * a method to create the instance.
 	 * @return Character
 	 */
-	public static Character createInstance() {
+	public static MainCharacter createInstance() {
 		if(INSTANCE == null) {
-			INSTANCE = new Character();
+			INSTANCE = new MainCharacter();
 		}
 		
 		return INSTANCE;
@@ -43,9 +43,9 @@ public class Character extends Entity{
 	 * @param coordY
 	 * @return Character
 	 */
-	public static Character createInstance(int coordX, int coordY) {
+	public static MainCharacter createInstance(int coordX, int coordY) {
 		if(INSTANCE == null) {
-			INSTANCE = new Character(coordX, coordY);
+			INSTANCE = new MainCharacter(coordX, coordY);
 		}
 		
 		return INSTANCE;
@@ -55,7 +55,7 @@ public class Character extends Entity{
 	 * a method returning the instance of the mainCharacter.
 	 * @return Character
 	 */
-	public static Character getInstance() {
+	public static MainCharacter getInstance() {
 		return INSTANCE;
 	}
 }

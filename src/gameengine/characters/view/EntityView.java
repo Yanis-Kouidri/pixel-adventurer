@@ -14,6 +14,7 @@ import gameengine.characters.model.Entity;
  */
 public class EntityView extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
 	private Entity entity;		//the entity object to display
 	private int width, height;	//the object displayed dimensions
 	private Image image;		//the sprite to be displayed
