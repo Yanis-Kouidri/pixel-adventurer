@@ -1,7 +1,6 @@
 package gameengine.inventory.view;
 
 import gameengine.inventory.model.Inventory;
-import gameengine.inventory.model.InventoryFullException;
 import gameengine.inventory.model.Item;
 import gameengine.inventory.model.NotEmptyPlaceException;
 
@@ -20,12 +19,25 @@ public class InventoryViewTest {
 
         Inventory inventoryExample = new Inventory(10);
 
-        ImageIcon coeur = new ImageIcon("coeur.png");
+        ImageIcon potionsIcon = new ImageIcon("test/gameassets/item/potions.png");
+        ImageIcon crabIcon = new ImageIcon("test/gameassets/item/crab.png");
+        ImageIcon fishingRodIcon = new ImageIcon("test/gameassets/item/fishing-rod.png");
+        ImageIcon troutIcon = new ImageIcon("test/gameassets/item/trout.png");
 
-        Item firstItem = new Item("Coeur", new JLabel(coeur));
+
+        Item potionItem = new Item("Potions", new JLabel(potionsIcon));
+        Item crabItem = new Item("Crab", new JLabel(crabIcon));
+        Item fishRodItem = new Item("Fishing", new JLabel(fishingRodIcon));
+        Item troutItem = new Item("Trout", new JLabel(troutIcon));
+
         try {
-            inventoryExample.add(inventoryExample.getFirstEmptyPlace(), firstItem);
-        } catch (NotEmptyPlaceException | InventoryFullException e) {
+            inventoryExample.add(0, potionItem);
+            inventoryExample.add(2, crabItem);
+            inventoryExample.add(4, fishRodItem);
+            inventoryExample.add(6, troutItem);
+
+
+        } catch (NotEmptyPlaceException e) {
             throw new RuntimeException(e);
         }
 

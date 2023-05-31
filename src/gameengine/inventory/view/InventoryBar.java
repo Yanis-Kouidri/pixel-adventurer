@@ -4,6 +4,7 @@ import gameengine.inventory.model.Inventory;
 import gameengine.inventory.model.Item;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class InventoryBar extends InventoryPanel {
@@ -18,32 +19,33 @@ public class InventoryBar extends InventoryPanel {
     }
 
     public void displayInventory(Inventory inventoryToDisplay) {
-        //this.removeAll(); // Clear the inventory bar before adding new items sprite
+        this.removeAll(); // Clear the inventory bar before adding new items sprite
+
+        // Creation of border
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
+
 
         for (int i = 0; i < NUMBER_OF_ITEMS_DISPLAY_IN_BAR; i++) {
             // Get the i th item
             Item currentItem = inventoryToDisplay.getItemByIndex(i);
+            JLabel itemSpaceSprite;
 
             if (currentItem != null) { // If there is an item at i th position, display it :
 
-                JLabel itemSprite = currentItem.getSprite();
-                //itemSprite.setPreferredSize(new Dimension(40,40));
-                System.out.println(currentItem.getName());
-                //FIXME We don't see the png
+                itemSpaceSprite = currentItem.getSprite();
+                itemSpaceSprite.setPreferredSize(new Dimension(40,40));
 
-                itemSprite.setOpaque(true);
-                //itemSprite.setVisible(true);
+            } else { // Adding an empty case.
 
-                this.add(itemSprite);
+                itemSpaceSprite = new JLabel();
+                itemSpaceSprite.setBackground(Color.GRAY);
 
-            } else {
+                itemSpaceSprite.setPreferredSize(new Dimension(40,40));
+                itemSpaceSprite.setOpaque(true);
 
-                JLabel emptyPlace = new JLabel();
-                emptyPlace.setBackground(Color.GRAY);
-                emptyPlace.setPreferredSize(new Dimension(40,40));
-                emptyPlace.setOpaque(true);
-                this.add(emptyPlace); // Adding an empty case.
             }
+            itemSpaceSprite.setBorder(border);
+            this.add(itemSpaceSprite);
 
             revalidate();
             repaint();
