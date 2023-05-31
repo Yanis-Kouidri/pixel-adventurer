@@ -8,6 +8,7 @@ public class GamePanel extends CustomPanel {
     private static final long serialVersionUID = 1L;
 	private GameLayerPanel gameLayerPanel;
     private HUDPanel hudPanel;
+    private JLayeredPane layeredPane;
 
     public GamePanel(PanelMediator pm) {
         super(pm);
@@ -16,7 +17,7 @@ public class GamePanel extends CustomPanel {
         setLayout(new BorderLayout());
 
         // Create a JLayeredPane as the main container
-        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane = new JLayeredPane();
         add(layeredPane, BorderLayout.CENTER);
 
         // Create the game layer panel
@@ -27,12 +28,15 @@ public class GamePanel extends CustomPanel {
         hudPanel = new HUDPanel();
         layeredPane.add(hudPanel, Integer.valueOf(1)); // Set higher layer index
     }
+    
+    public void addGameLayerPanel(JPanel panel) {
+    	// Il faut l'ajouter au GameLayerPanel et non au JLayeredPanel, c'est lui qui devra contenir tous nos JPanel
+    	layeredPane.add(panel, Integer.valueOf(1));
+    }
 
     private class HUDPanel extends JPanel {
         // Implement the HUD panel appearance and behavior (inventory, buttons, etc.)
         // ...
     }
-
-    
 
 }
