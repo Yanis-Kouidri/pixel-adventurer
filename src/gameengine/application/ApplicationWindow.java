@@ -1,4 +1,4 @@
-package src.gameengine.application;
+package gameengine.application;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -38,7 +38,7 @@ public class ApplicationWindow {
 	 * 
 	 * @return the frame of the application
 	 */
-	public JFrame getFrame() {
+	public static JFrame getFrame() {
 		return frame;
 	}
 

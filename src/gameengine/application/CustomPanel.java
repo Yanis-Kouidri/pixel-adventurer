@@ -1,4 +1,4 @@
-package src.gameengine.application;
+package gameengine.application;
 
 import javax.swing.*;
 

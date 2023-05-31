@@ -1,6 +1,6 @@
-package src.main;
+package main;
 
-import src.game.PixelAdventure;
+import game.PixelAdventure;
 
 public class Main {
     public static void main(String[] args) {

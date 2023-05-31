@@ -1,4 +1,4 @@
-package src.gameengine.application;
+package gameengine.application;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,6 +7,8 @@ public class GamePanel extends CustomPanel {
     private GameLayerPanel gameLayerPanel;
     private HUDPanel hudPanel;
 
+    private JLayeredPane layeredPane;
+
     public GamePanel(PanelMediator pm) {
         super(pm);
         pm.setGamePanel(this);
@@ -14,16 +16,20 @@ public class GamePanel extends CustomPanel {
         setLayout(new BorderLayout());
 
         // Create a JLayeredPane as the main container
-        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane = new JLayeredPane();
         add(layeredPane, BorderLayout.CENTER);
 
         // Create the game layer panel
         gameLayerPanel = new GameLayerPanel();
-        layeredPane.add(gameLayerPanel, Integer.valueOf(0)); // Set lower layer index
+        layeredPane.add(gameLayerPanel, JLayeredPane.DEFAULT_LAYER); // Set lower layer index
 
         // Create the GUI panel
         hudPanel = new HUDPanel();
-        layeredPane.add(hudPanel, Integer.valueOf(1)); // Set higher layer index
+        layeredPane.add(hudPanel); // Set higher layer index
+    }
+
+    public void addlayeredPanel(JPanel comp, Integer constraints) {
+        layeredPane.add(comp, constraints);
     }
 
     private class HUDPanel extends JPanel {
