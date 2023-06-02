@@ -13,14 +13,19 @@ public class MapArrayClassTest {
 	@Test
 	public void testGenerateMapArray() {
 
-		// Creates the tiles and the type to generate the array
+		// Creates the parameters, the tiles and the type to generate the array
+		int testWidth = 50;
+		int testHeight = 50;
+		long testSeed = 42;
+		double testAmplitude = 0.1;
+		double testScale = 0.1;
 		Tile testEmptyTile = new Tile(0, "testEmptyTile", false);
 		Tile testSurfaceTile = new Tile(1, "testSurfaceTile", true);
 		Tile testUndergroundTile = new Tile(3, "testUndergroundTile", true);
 		MapType testType = new MapType("testType", testEmptyTile, testSurfaceTile, testUndergroundTile);
 
 		// Generates the array
-		Tile[][] testMapArray = MapArray.generateMapArray(testType, 50, 50, 42, 0.42, 0.42);
+		Tile[][] testMapArray = MapArray.generateMapArray(testType, testWidth, testHeight, testSeed, testAmplitude, testScale);
 
 		// Checks that width and height specified as parameters matches the array width and height
 		assertEquals(50, testMapArray.length);
@@ -34,4 +39,3 @@ public class MapArrayClassTest {
         }
 	}
 }
-
