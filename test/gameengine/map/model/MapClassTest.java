@@ -27,11 +27,15 @@ public class MapClassTest {
 
 	@Before
 	public void setUp() throws Exception {
+		int testWidth = 100;
+		int testHeight = 50;
+		double testAmplitude = 0.1;
+		double testScale = 0.1;
 		testEmptyTile = new Tile(0, "testEmptyTile", false);
 		testSurfaceTile = new Tile(1, "testSurfaceTile", true);
 		testUndergroundTile = new Tile(2, "testUndergroundTile", true);
 		testMapType = new MapType("testMapType", testEmptyTile, testSurfaceTile, testUndergroundTile);
-		testMap = new Map("testMap", testMapType, 100, 50, 0.1, 0.1);
+		testMap = new Map("testMap", testMapType, testWidth, testHeight, testAmplitude, testScale);
 	}
 
 	// Tests if the name returned by the getMapName() method is correct
@@ -78,4 +82,5 @@ public class MapClassTest {
 		assertEquals(testUndergroundTile, testMap.getTileAtPos(0, 0));
 	}	
 }
+
 
