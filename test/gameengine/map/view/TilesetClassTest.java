@@ -28,9 +28,10 @@ public class TilesetClassTest {
 	@Test
 	public void testGetTileSprite() {
 		Image dirtSprite = testTileset.getTileSprite(3);
+		int expectedSizeInPixels = 32;
 		assertNotNull(dirtSprite);
-		assertEquals(32, dirtSprite.getWidth(null));
-		assertEquals(32, dirtSprite.getHeight(null));
+		assertEquals(expectedSizeInPixels, dirtSprite.getWidth(null));
+		assertEquals(expectedSizeInPixels, dirtSprite.getHeight(null));
 	}
 }
 
