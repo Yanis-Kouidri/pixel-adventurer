@@ -6,7 +6,7 @@ public abstract class GameLoop {
 
     protected final Logger logger = Logger.getLogger(String.valueOf(this.getClass()));
 
-    protected volatile GameStatus status;
+    private GameStatus status;
 
     private Thread gameThread;
 

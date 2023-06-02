@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import static gameengine.utils.model.Physics.GRAVITY;
-import static gameengine.utils.model.Physics.SPEED;
+import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
 import static org.junit.Assert.*;
 
 public class CharacterTest {
@@ -108,7 +108,7 @@ public class CharacterTest {
 
         mainCharacter.moveRight();
 
-        assertEquals(testX + SPEED, mainCharacter.getCoordinates().getX(), EPSILON);
+        assertEquals(testX + NB_DEPLACEMENT_BLOCK, mainCharacter.getCoordinates().getX(), EPSILON);
         assertEquals(testY, mainCharacter.getCoordinates().getY(), EPSILON);
     }
 
@@ -120,7 +120,7 @@ public class CharacterTest {
 
         mainCharacter.moveLeft();
 
-        assertEquals(testX - SPEED, mainCharacter.getCoordinates().getX(), EPSILON);
+        assertEquals(testX - NB_DEPLACEMENT_BLOCK, mainCharacter.getCoordinates().getX(), EPSILON);
         assertEquals(testY, mainCharacter.getCoordinates().getY(), EPSILON);
     }
 
@@ -134,7 +134,7 @@ public class CharacterTest {
         mainCharacter.moveUp();
 
         assertEquals(testX, mainCharacter.getCoordinates().getX(), EPSILON);
-        assertEquals(testY - SPEED + GRAVITY,
+        assertEquals(testY - NB_DEPLACEMENT_BLOCK + GRAVITY,
                 mainCharacter.getCoordinates().getY(), EPSILON);
     }
 
@@ -149,7 +149,7 @@ public class CharacterTest {
         mainCharacter.moveUp();
 
         assertEquals(testX, mainCharacter.getCoordinates().getX(), EPSILON);
-        assertEquals(testY - (SPEED * howMany) + (GRAVITY * naturalSum(howMany)),
+        assertEquals(testY - (NB_DEPLACEMENT_BLOCK * howMany) + (GRAVITY * naturalSum(howMany)),
                 mainCharacter.getCoordinates().getY(), EPSILON);
     }
 
@@ -165,7 +165,7 @@ public class CharacterTest {
         }
 
         assertEquals(testX, mainCharacter.getCoordinates().getX(), EPSILON);
-        assertEquals(testY - (SPEED * howMany) + (GRAVITY * naturalSum(howMany)),
+        assertEquals(testY - (NB_DEPLACEMENT_BLOCK * howMany) + (GRAVITY * naturalSum(howMany)),
                 mainCharacter.getCoordinates().getY(), EPSILON);
     }
 
@@ -181,7 +181,7 @@ public class CharacterTest {
         }
 
         assertEquals(testX, mainCharacter.getCoordinates().getX(), EPSILON);
-        assertEquals(testY - (SPEED * howMany) + (GRAVITY * naturalSum(howMany)),
+        assertEquals(testY - (NB_DEPLACEMENT_BLOCK * howMany) + (GRAVITY * naturalSum(howMany)),
                 mainCharacter.getCoordinates().getY(), EPSILON);
     }
 
@@ -220,8 +220,8 @@ public class CharacterTest {
         mainCharacter.moveLeft();
         mainCharacter.moveUp();
 
-        assertEquals(testX - SPEED, mainCharacter.getCoordinates().getX(), EPSILON);
-        assertEquals(testY - SPEED + GRAVITY,
+        assertEquals(testX - NB_DEPLACEMENT_BLOCK, mainCharacter.getCoordinates().getX(), EPSILON);
+        assertEquals(testY - NB_DEPLACEMENT_BLOCK + GRAVITY,
                 mainCharacter.getCoordinates().getY(), EPSILON);
     }
 
@@ -234,8 +234,8 @@ public class CharacterTest {
         mainCharacter.moveUp();
         mainCharacter.moveLeft();
 
-        assertEquals(testX - SPEED, mainCharacter.getCoordinates().getX(), EPSILON);
-        assertEquals(testY - SPEED + GRAVITY,
+        assertEquals(testX - NB_DEPLACEMENT_BLOCK, mainCharacter.getCoordinates().getX(), EPSILON);
+        assertEquals(testY - NB_DEPLACEMENT_BLOCK + GRAVITY,
                 mainCharacter.getCoordinates().getY(), EPSILON);
     }
 
@@ -248,8 +248,8 @@ public class CharacterTest {
         mainCharacter.moveRight();
         mainCharacter.moveUp();
 
-        assertEquals(testX + SPEED, mainCharacter.getCoordinates().getX(), EPSILON);
-        assertEquals(testY - SPEED + GRAVITY,
+        assertEquals(testX + NB_DEPLACEMENT_BLOCK, mainCharacter.getCoordinates().getX(), EPSILON);
+        assertEquals(testY - NB_DEPLACEMENT_BLOCK + GRAVITY,
                 mainCharacter.getCoordinates().getY(), EPSILON);
     }
 
@@ -262,8 +262,8 @@ public class CharacterTest {
         mainCharacter.moveUp();
         mainCharacter.moveRight();
 
-        assertEquals(testX + SPEED, mainCharacter.getCoordinates().getX(), EPSILON);
-        assertEquals(testY - SPEED + GRAVITY,
+        assertEquals(testX + NB_DEPLACEMENT_BLOCK, mainCharacter.getCoordinates().getX(), EPSILON);
+        assertEquals(testY - NB_DEPLACEMENT_BLOCK + GRAVITY,
                 mainCharacter.getCoordinates().getY(), EPSILON);
     }
 }

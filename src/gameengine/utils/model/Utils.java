@@ -10,7 +10,7 @@ import java.awt.Toolkit;
  *
  */
 public class Utils {
-	private final static String imagePath = "/src/gameassets/images/";
+	private final static String imagePath = "/src/gameassets/";
 	private static String sourcePath = null;
 	
 	private Utils() {

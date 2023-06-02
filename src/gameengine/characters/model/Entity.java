@@ -3,7 +3,7 @@ package gameengine.characters.model;
 import gameengine.utils.model.Coordinates;
 
 import static gameengine.utils.model.Physics.GRAVITY;
-import static gameengine.utils.model.Physics.SPEED;
+import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
 
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.
@@ -39,22 +39,32 @@ public abstract class Entity{
 		return coordinates;
 	}
 
+	/**
+	 * a method to move the entity to the right of NB_DEPLACEMENT_BLOCK
+	 */
 	public void moveRight() {
-		float newPosition = coordinates.getX() + SPEED;
+		float newPosition = coordinates.getX() + NB_DEPLACEMENT_BLOCK;
 		coordinates.setX(newPosition);
 	}
+
+	/**
+	 * a method to move the entity to the left of NB_DEPLACEMENT_BLOCK
+	 */
 
 	public void moveLeft() {
-		float newPosition = coordinates.getX() - SPEED;
+		float newPosition = coordinates.getX() - NB_DEPLACEMENT_BLOCK;
 		coordinates.setX(newPosition);
 	}
 
-	// rename Jump ?
+	/**
+	 * a method to jump the entity from NB_DEPLACEMENT_BLOCK
+	 */
 	public void moveUp() {
 		gravitySpeed += GRAVITY;
-		float newPosition = coordinates.getY() - SPEED + gravitySpeed;
+		float newPosition = coordinates.getY() - NB_DEPLACEMENT_BLOCK + gravitySpeed;
 		coordinates.setY(newPosition);
 	}
+
 	@Override
 	public String toString() {
 		return coordinates.toString();

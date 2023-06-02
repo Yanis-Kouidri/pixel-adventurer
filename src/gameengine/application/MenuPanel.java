@@ -24,8 +24,7 @@ public class MenuPanel extends CustomPanel {
 	/**
 	 * Creates a new menu panel with a small vertical menu and a title
 	 * 
-	 * 
-	 * @param aW the related app window
+	 * @param pm the related app window
 	 */
 	public MenuPanel(PanelMediator pm) {
 		super(pm);
@@ -45,27 +44,21 @@ public class MenuPanel extends CustomPanel {
 		JPanel buttons = new JPanel(new GridBagLayout());
 
 		// The button to switch to the game panel
-		JButton PlayBtn = new MenuButton("PLAY", Color.BLUE);
+		JButton playBtn = new MenuButton("PLAY", Color.BLUE);
 
 		// The button to exit the program
-		JButton ExitBtn = new MenuButton("EXIT", Color.RED);
+		JButton exitBtn = new MenuButton("EXIT", Color.RED);
 
 		// Adding listeners to the buttons
-		PlayBtn.addActionListener(new BtnListener());
-		ExitBtn.addActionListener(new BtnListener());
-		buttons.add(PlayBtn, gbc);
-		buttons.add(ExitBtn, gbc);
+		playBtn.addActionListener(new BtnListener());
+		exitBtn.addActionListener(new BtnListener());
+		buttons.add(playBtn, gbc);
+		buttons.add(exitBtn, gbc);
 
 		gbc.weighty = 1;
 		add(buttons, gbc);
 	}
-
-	/**
-	 * Associate each button from the menu to an action
-	 * 
-	 * @author n7student
-	 *
-	 */
+	
 	public class BtnListener implements ActionListener {
 
 		public BtnListener() {
@@ -80,6 +73,11 @@ public class MenuPanel extends CustomPanel {
 				try {
 					frame.remove(MenuPanel.this);
 					frame.add(pm.getGamePanel());
+
+					// Focus frame for the KeyListeners work
+					frame.toFront();
+					frame.requestFocus();
+
 				} catch (NullPointerException exception) {
 					System.out.print(exception.getMessage());
 				}

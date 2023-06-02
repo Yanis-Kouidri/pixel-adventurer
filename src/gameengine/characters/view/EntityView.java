@@ -1,7 +1,8 @@
 package gameengine.characters.view;
 
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
+import java.util.logging.Logger;
+
 
 import javax.swing.JPanel;
 
@@ -15,7 +16,7 @@ import static gameengine.utils.model.Constants.BLOCK_LENGHT;
  *
  */
 public class EntityView extends JPanel{
-	
+	private final Logger LOGGER = Logger.getLogger(String.valueOf(this.getClass()));
 	private Entity entity;		//the entity object to display
 	private int width, height;	//the object displayed dimensions
 	private Image image;		//the sprite to be displayed
@@ -26,24 +27,22 @@ public class EntityView extends JPanel{
 	 * @param width
 	 * @param height
 	 */
-	public EntityView(Entity entity, int width, int height, Image image) {
+	public EntityView(Entity entity, Image image) {
 		this.entity = entity;
-		this.width = width;
-		this.height = height;
 		this.image = image;
 	}
 	
-	@Override
+
 	/**
-	 * paint component add what need to be displayed.
+	 * paint add what need to be displayed.
 	 * @param g
 	 */
-	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
-		
-		//g.drawRect(100, 100, width, height);
-		g.drawImage(image, width, height, this);
-	
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+
+		g.drawImage(image, 0, 0, this);
+		LOGGER.info("mainCharacter Paint");
 	}
 
 	public void updateLocation() {
