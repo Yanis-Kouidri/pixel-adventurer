@@ -26,6 +26,9 @@ public class Inventory {
      * @param numberOfPlace The number of available places in the inventory
      */
     public Inventory(int numberOfPlace) {
+        if (numberOfPlace <= 0) {
+            throw new IllegalArgumentException("Inventory number of place must be positive");
+        }
         this.content = new Item[numberOfPlace];
         this.numberOfPlace = numberOfPlace;
     }
@@ -102,8 +105,9 @@ public class Inventory {
         int counter = 0;
 
         for (Item oneItem: this.content) {
-            if (oneItem != null){
+            if (oneItem == null){
                 emptyPlaceNumber = counter;
+                break; // I found an empty place
             }
             counter++;
         }
@@ -124,7 +128,7 @@ public class Inventory {
 
         // Checking if this indexPlace is empty
         if (this.content[indexPlace] != null) {
-            throw new NotEmptyPlaceException("This inventory space is already taken by an item");
+            throw new NotEmptyPlaceException("The inventory space number " + indexPlace + " is already taken by an item");
         }
 
         content[indexPlace] = new Item(newItem.getName(), newItem.getSprite());
@@ -138,7 +142,7 @@ public class Inventory {
      * @throws ArrayIndexOutOfBoundsException Exception throw if you specify an indexPlace grater than inventory length
      */
     public Item getItemByIndex(int indexPlace) throws ArrayIndexOutOfBoundsException {
-        //Checking if indexPlace get in parameter is relevant
+        // Checking if indexPlace get in parameter is relevant
         relevantIndex(indexPlace, this.numberOfPlace);
 
         if (this.content[indexPlace] == null) {
@@ -155,8 +159,8 @@ public class Inventory {
      * @throws ArrayIndexOutOfBoundsException exception throws if index is irrelevant
      */
     private static void relevantIndex(int indexToCheck, int numberOfPlace) throws ArrayIndexOutOfBoundsException {
-        if (indexToCheck > numberOfPlace - 1) {
-            throw new ArrayIndexOutOfBoundsException("This index place is out of inventory bound");
+        if (indexToCheck > numberOfPlace - 1 || indexToCheck < 0) {
+            throw new ArrayIndexOutOfBoundsException("The index place " + indexToCheck + " is out of inventory bound");
         }
 
     }

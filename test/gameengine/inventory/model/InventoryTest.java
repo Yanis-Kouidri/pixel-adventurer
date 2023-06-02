@@ -1,6 +1,5 @@
 package gameengine.inventory.model;
 
-import gameengine.inventory.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,15 +7,21 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryTest {
 
+    private final int RANDOM_GENERATOR_SEED = 260417;
+
+    private final Random randomGenerator = new Random(RANDOM_GENERATOR_SEED);
+
     private Inventory testInventory;
-    private final String ITEM1NAME = "Sword";
-    private final String ITEM2NAME = "Bow";
-    private final String ITEM3NAME = "Potion";
-    private final int NUMBER_OF_PLACE = 50;
+    /**
+     * If this value is too low, some tests could fail
+     */
+    private final int NUMBER_OF_PLACE = randomGenerator.nextInt(50, 100);
 
     private Item item1, item2, item3;
     private final JLabel dummySprite = new JLabel();
@@ -24,13 +29,34 @@ class InventoryTest {
     @BeforeEach
     void setUp() {
         testInventory = new Inventory(NUMBER_OF_PLACE);
-        item1 = new Item(ITEM1NAME, dummySprite);
-        item2 = new Item(ITEM2NAME, dummySprite);
-        item3 = new Item(ITEM3NAME, dummySprite);
+        String item1name = "Sword";
+        item1 = new Item(item1name, dummySprite);
+        String item2name = "Bow";
+        item2 = new Item(item2name, dummySprite);
+        String item3name = "Potion";
+        item3 = new Item(item3name, dummySprite);
     }
 
     @AfterEach
     void tearDown() {
+        testInventory = null; // Reset the reference to the object
+
+        // Optionally, you can also reset the other variables used in the setup
+        item1 = null;
+        item2 = null;
+        item3 = null;
+
+
+    }
+
+    @Test
+    void constructorNullNbOfItem() {
+        assertThrows(IllegalArgumentException.class, () -> new Inventory(0));
+    }
+
+    @Test
+    void constructorNegativeNbOfItem() {
+        assertThrows(IllegalArgumentException.class, () -> new Inventory(randomGenerator.nextInt(-100, 0)));
     }
 
     @Test
@@ -45,16 +71,63 @@ class InventoryTest {
                 "The inventory should have 0 item");
     }
 
-    // In an empty inventory
     @Test
-    void isFull1() {
-        Assertions.assertFalse(testInventory.isFull());
+    void getNumberOfItemsNotEmpty() {
+        int nbOfItemAdd = 0; //The number of items add into the inventory
+        try {
+            testInventory.add(nbOfItemAdd++, item1);
+            testInventory.add(nbOfItemAdd++, item2);
+            testInventory.add(nbOfItemAdd++, item3);
+        } catch (NotEmptyPlaceException e) {
+            throw new RuntimeException(e);
+        }
+        Assertions.assertEquals(nbOfItemAdd, testInventory.getNumberOfItems(),
+                "The inventory should have" + nbOfItemAdd + "item");
     }
 
     // In an empty inventory
     @Test
-    void isEmpty1() {
+    void isFullEmpty() {
+        Assertions.assertFalse(testInventory.isFull());
+    }
+
+    @Test
+    void isFullNotEmpty() {
+        try {
+            for (int i = 0 ; i < NUMBER_OF_PLACE - 1 ; i++)
+                testInventory.add(testInventory.getFirstEmptyPlace(), item1);
+        } catch (NotEmptyPlaceException | InventoryFullException e) {
+            throw new RuntimeException(e);
+        }
+        Assertions.assertFalse(testInventory.isFull());
+    }
+
+    @Test
+    void isFulYes() {
+        try {
+            for (int i = 0 ; i < NUMBER_OF_PLACE; i++) { // Set the inventory full
+                testInventory.add(testInventory.getFirstEmptyPlace(), item1);
+            }
+        } catch (NotEmptyPlaceException | InventoryFullException e) {
+            throw new RuntimeException(e);
+        }
+        Assertions.assertTrue(testInventory.isFull());
+    }
+
+    // In an empty inventory
+    @Test
+    void isEmptyYes() {
         Assertions.assertTrue(testInventory.isEmpty());
+    }
+
+    @Test
+    void isEmptyNo() {
+        try {
+            testInventory.add(testInventory.getFirstEmptyPlace(), item1);
+        } catch (NotEmptyPlaceException | InventoryFullException e) {
+            throw new RuntimeException(e);
+        }
+        Assertions.assertFalse(testInventory.isEmpty());
     }
 
 
@@ -68,8 +141,42 @@ class InventoryTest {
     }
 
     @Test
-    void testAddSimple() {
-        int placeToAdd = 0;
+    void testGetFirstEmptyPlaceNotEmpty() {
+        int nbOfItemAdd = 0; //The number of items added into the inventory
+        final int NB_OF_ITEMS_TO_ADD = randomGenerator.nextInt(NUMBER_OF_PLACE) ;
+        try {
+            for (int i = 0 ; i < NB_OF_ITEMS_TO_ADD; i++) { // Set the inventory full
+                testInventory.add(nbOfItemAdd++, item1);
+            }
+        } catch (NotEmptyPlaceException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        try {
+            assertEquals(NB_OF_ITEMS_TO_ADD, testInventory.getFirstEmptyPlace());
+        } catch (InventoryFullException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void testGetFirstEmptyPlaceFull() {
+        try {
+            for (int i = 0 ; i < NUMBER_OF_PLACE; i++) { // Set the inventory full
+                testInventory.add(i, item1);
+            }
+        } catch (NotEmptyPlaceException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Here, I except a InventoryFullException because my inventory is indeed full
+        assertThrows(InventoryFullException.class, () -> testInventory.getFirstEmptyPlace());
+    }
+
+    @Test
+    void AddSimple() {
+        int placeToAdd = randomGenerator.nextInt(NUMBER_OF_PLACE);
         try {
             testInventory.add(placeToAdd, item1);
         } catch (NotEmptyPlaceException e) {
@@ -85,11 +192,25 @@ class InventoryTest {
 
     }
 
+    @Test
+    void AddAtNotEmptyPlace() {
+        int placeToAdd = randomGenerator.nextInt(NUMBER_OF_PLACE);
+        try {
+            testInventory.add(placeToAdd, item1);
+        } catch (NotEmptyPlaceException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Here, I except a NotEmptyPlaceException because I have already added an Item at this place.
+        assertThrows(NotEmptyPlaceException.class, () -> testInventory.add(placeToAdd, item1));
+
+    }
+
 
     @Test
-    void testRemoveSimple() {
+    void RemoveSimple() {
         // Adding an item :
-        int placeToAddAndRemove = 0;
+        int placeToAddAndRemove = randomGenerator.nextInt(NUMBER_OF_PLACE);
         try {
             testInventory.add(placeToAddAndRemove, item1);
         } catch (NotEmptyPlaceException e) {
@@ -108,6 +229,22 @@ class InventoryTest {
     }
 
     @Test
-    void getItemByIndex() {
+    void RemoveEmpty() {
+        assertThrows(NothingToRemoveException.class, () ->
+                testInventory.remove(randomGenerator.nextInt(NUMBER_OF_PLACE)));
+    }
+
+    @Test
+    void getItemByIndexEmpty() {
+        assertNull(testInventory.getItemByIndex(randomGenerator.nextInt(NUMBER_OF_PLACE)));
+    }
+
+    @Test
+    void getItemByIndexOutOfBound() {
+        // I test the limit
+        assertThrows(ArrayIndexOutOfBoundsException.class, () ->
+                testInventory.getItemByIndex(NUMBER_OF_PLACE));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () ->
+                testInventory.getItemByIndex(-1));
     }
 }
