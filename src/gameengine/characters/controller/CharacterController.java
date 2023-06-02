@@ -12,10 +12,10 @@ public class CharacterController implements KeyListener {
     // Change type to Character (modifiy instance methode in CHaracter)
 
     private final Logger logger = Logger.getLogger(String.valueOf(this.getClass()));
-    private Entity mainCharacter;
+    private Character mainCharacter;
 
     public boolean rightPressed, leftPressed, upPressed;
-    public CharacterController(Entity mainCharacter) {
+    public CharacterController(Character mainCharacter) {
         this.mainCharacter = mainCharacter;
     }
     @Override

@@ -29,7 +29,7 @@ class PixelAdventure extends GameLoop {
 
     private GamePanel gamePanel;
 
-    private Entity mainCharacter;		//the main character object
+    private Character mainCharacter;		//the main character object
     private EntityView entityView;		//the view that need to be displayed on the window
     private Image image;
     private CharacterController mainCharacterController;

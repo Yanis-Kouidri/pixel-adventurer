@@ -2,10 +2,10 @@ package gameengine.characters.model;
 
 /**
  * The Character class is the class for the main character. It's a singleton because only one main character can be create in a game.
- * @author n7student
+ * @author thomas
  *
  */
-public class Character extends Entity{
+public class Character extends Entity {
 	
 	private static Character instance = null;		//the instance of the main character
 	
