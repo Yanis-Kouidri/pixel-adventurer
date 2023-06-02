@@ -1,4 +1,4 @@
-package gameengine.gameloop;
+package gameengine.gameloop.model;
 
 public enum GameStatus {
 

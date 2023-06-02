@@ -1,17 +1,15 @@
 package main;
 
 import java.awt.*;
-import java.io.File;
 
 import gameengine.application.*;
 import gameengine.characters.controller.CharacterController;
 import gameengine.characters.model.Character;
 import gameengine.characters.model.Entity;
 import gameengine.characters.view.EntityView;
-import gameengine.gameloop.GameLoop;
+import gameengine.gameloop.model.GameLoop;
 import gameengine.utils.model.Utils;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import static gameengine.utils.model.Constants.CHARACTER_LENGHT;

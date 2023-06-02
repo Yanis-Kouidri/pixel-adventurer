@@ -18,12 +18,12 @@ public class CharacterTest {
     private void removeInstanceCharacter(Character chr)  {
         try {
             if (chr != null) {
-                Field field = chr.getClass().getDeclaredField("INSTANCE");
+                Field field = chr.getClass().getDeclaredField("instance");
                 field.setAccessible(true);
                 Object value = field.get(chr);
                 field.set(value, null);
                 field.setAccessible(false);
-                chr = null;
+                //chr = null;
             }
         } catch (Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));

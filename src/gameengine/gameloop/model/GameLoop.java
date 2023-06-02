@@ -1,4 +1,4 @@
-package gameengine.gameloop;
+package gameengine.gameloop.model;
 
 import java.util.logging.Logger;
 

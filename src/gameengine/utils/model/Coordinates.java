@@ -9,7 +9,8 @@ public class Coordinates {
 	}
 	
 	public Coordinates() {
-		x = y = 0;
+		x = 0;
+		y = 0;
 	}
 	
 	final public float getX() {
