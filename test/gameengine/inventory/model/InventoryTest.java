@@ -186,8 +186,8 @@ class InventoryTest {
                 "This place should be not null and have the added item");
         assertEquals(item1.getName(), testInventory.getItemByIndex(placeToAdd).getName(),
                 "The item1 should be at place " + placeToAdd);
-        assertEquals(item1.getSprite(),
-                testInventory.getItemByIndex(placeToAdd).getSprite(),
+        assertEquals(item1.getSprite().getIcon(),
+                testInventory.getItemByIndex(placeToAdd).getSprite().getIcon(),
                 "The item1 should be at place " + placeToAdd);
 
     }

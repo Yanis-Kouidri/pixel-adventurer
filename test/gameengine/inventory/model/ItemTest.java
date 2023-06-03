@@ -42,7 +42,7 @@ class ItemTest {
 
     @Test
     void getSprite() {
-        assertEquals(lemonJlabel, lemon.getSprite());
+        assertEquals(lemonJlabel.getIcon(), lemon.getSprite().getIcon());
     }
 
     @Test
