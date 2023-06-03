@@ -13,7 +13,7 @@ import javax.swing.WindowConstants;
  */
 public class ApplicationWindow {
 
-	private static ApplicationWindow INSTANCE; // the ApplicationWindow instance.
+	private static ApplicationWindow instance; // the ApplicationWindow instance.
 	private static JFrame frame; // the window.
 
 	/**
@@ -23,13 +23,13 @@ public class ApplicationWindow {
 
 		// instantiation of Main Frame
 		frame = new JFrame();
-		frame.setSize(1920, 1080);
+		frame.setSize(1024, 720);
 		frame.setTitle("Pixel Adventurer");
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit the program on close button press
 
-		// instantiation of panel a
+		// instantiation of panel
 		frame.add(panel);
 	}
 
@@ -49,12 +49,12 @@ public class ApplicationWindow {
 	 */
 	public static ApplicationWindow createInstance(CustomPanel panel) {
 		// if the instance doesn't exist, it create it
-		if (INSTANCE == null) {
-			INSTANCE = new ApplicationWindow(panel);
-			panel.addAppWindow(INSTANCE);
+		if (instance == null) {
+			instance = new ApplicationWindow(panel);
+			panel.addAppWindow(instance);
 		}
 
-		return INSTANCE;
+		return instance;
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class ApplicationWindow {
 	 * @return ApplicationWindow.
 	 */
 	public static ApplicationWindow getInstance() {
-		return INSTANCE;
+		return instance;
 	}
 
 }

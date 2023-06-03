@@ -2,6 +2,7 @@ package gameengine.application;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 public class GamePanel extends CustomPanel {
     private GameLayerPanel gameLayerPanel;
@@ -19,17 +20,21 @@ public class GamePanel extends CustomPanel {
         layeredPane = new JLayeredPane();
         add(layeredPane, BorderLayout.CENTER);
 
-        // Create the game layer panel
+/*        // Create the game layer panel
         gameLayerPanel = new GameLayerPanel();
         layeredPane.add(gameLayerPanel, JLayeredPane.DEFAULT_LAYER); // Set lower layer index
 
         // Create the GUI panel
         hudPanel = new HUDPanel();
-        layeredPane.add(hudPanel); // Set higher layer index
+        layeredPane.add(hudPanel, JLayeredPane.DEFAULT_LAYER); // Set higher layer index*/
     }
 
     public void addlayeredPanel(JPanel comp, Integer constraints) {
         layeredPane.add(comp, constraints);
+    }
+
+    public JLayeredPane getLayeredPane() {
+        return layeredPane;
     }
 
     private class HUDPanel extends JPanel {

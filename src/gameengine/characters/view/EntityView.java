@@ -1,46 +1,59 @@
 package gameengine.characters.view;
 
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
+import java.util.logging.Logger;
+
 
 import javax.swing.JPanel;
 
 import gameengine.characters.model.Entity;
 
+import static gameengine.utils.model.Constants.BLOCK_LENGHT;
+import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
+
 /**
  * the view class for all entities objects.
- * @author n7student
+ * @author thomas
  *
  */
 public class EntityView extends JPanel{
-	
+	private final Logger logger = Logger.getLogger(String.valueOf(this.getClass()));
 	private Entity entity;		//the entity object to display
-	private int width, height;	//the object displayed dimensions
 	private Image image;		//the sprite to be displayed
 	
 	/**
-	 * a constructor.
+	 * a constructor for create a EntityView with a Entity and image.
 	 * @param entity
-	 * @param width
-	 * @param height
+	 * @param image
 	 */
-	public EntityView(Entity entity, int width, int height, Image image) {
+	public EntityView(Entity entity, Image image) {
 		this.entity = entity;
-		this.width = width;
-		this.height = height;
 		this.image = image;
+
+		// Transparency Image character
+		setBackground( new Color(0, 0, 0, 0) );
 	}
 	
-	@Override
+
 	/**
-	 * paint component add what need to be displayed.
+	 * paint add what need to be displayed.
 	 * @param g
 	 */
-	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
-		
-		//g.drawRect(100, 100, width, height);
-		g.drawImage(image, width, height, this);
-	
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+
+		g.drawImage(image, 0, 0, CHARACTER_LENGHT, CHARACTER_LENGHT,this);
+		logger.info("mainCharacter Paint");
+	}
+
+	/**
+	 * update the location in the screen with the character coordinates
+	 * (temporally method)
+	 */
+	public void updateLocation() {
+		float x = entity.getCoordinates().getX() * BLOCK_LENGHT;
+		float y = entity.getCoordinates().getY() * BLOCK_LENGHT;
+		this.setLocation(Math.round(x), Math.round(y));
 	}
 }
