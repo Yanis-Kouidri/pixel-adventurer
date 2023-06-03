@@ -7,7 +7,7 @@ import gameengine.inventory.model.NotEmptyPlaceException;
 import javax.swing.*;
 import java.awt.*;
 
-public class InventoryViewTest {
+public class InventoryBarViewTest {
     public static void createAndShowGUI() {
         JFrame frame = new JFrame("Inventory frame testing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +50,6 @@ public class InventoryViewTest {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(InventoryViewTest::createAndShowGUI);
+        SwingUtilities.invokeLater(InventoryBarViewTest::createAndShowGUI);
     }
 }
