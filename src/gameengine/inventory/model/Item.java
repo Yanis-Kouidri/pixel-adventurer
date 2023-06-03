@@ -50,7 +50,12 @@ public class Item {
     }
 
     public JLabel getSprite() {
-        return sprite;
+        JLabel copySprite = new JLabel();
+        Icon icon = sprite.getIcon();
+        if (icon != null) {
+            copySprite.setIcon(icon);
+        }
+        return copySprite;
     }
 
     public String getDescription() {
