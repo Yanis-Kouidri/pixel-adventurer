@@ -24,6 +24,11 @@ public class InventoryPanel extends JPanel {
         super();
     }
 
+    /**
+     * This method add to the Panel all the inventory items and put empty square when there is no item
+     * @param inventoryToDisplay The inventory that you want to display (to draw)
+     * @param nbOfItem The number of items to display
+     */
     protected void displayInventory(Inventory inventoryToDisplay, int nbOfItem) {
         this.removeAll(); // Clear the inventory bar before adding new items sprite
 
@@ -59,6 +64,14 @@ public class InventoryPanel extends JPanel {
             revalidate();
             repaint();
         }
+    }
+
+    /**
+     * A method to hide/show the inventory panel
+     */
+    public void toggleInventoryVisibility() {
+        boolean isVisible = this.isVisible();
+        this.setVisible(!isVisible);
     }
 
 
