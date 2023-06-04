@@ -1,0 +1,54 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+title "Class diagram for Inventory"
+
+class Player {
+- name: String
+- inventory: Inventory
+----
++ getName(): String
++ getInventory(): Inventory
+----
++ Player(name: String)
+}
+note left : The player himself
+
+class Inventory {
+- content: Item[]
+- numberOfPlace: int
+
+----
++ getNumberOfPlace(): int
++ isFull(): boolean
++ isEmpty(): boolean
++ getNumberOfItems();
++ remove(indexPlace: int) throws NothingToRemoveException, ArrayIndexOutOfBoundsException
++ getFirstEmptySpace(): int
+' Get the index of the first free space of inventory
++ add(indexPlace: int, newItem: Item) throws ArrayIndexOutOfBoundsException, NotEmptyPlaceException
++ getItemByIndex(indexPlace: int): Item throws ArrayIndexOutOfBoundsException
+- relevantIndex(indexToCheck: int, numberOfPlace: int) throws ArrayIndexOutOfBoundsException
+
+- show()
+'Print the inventory on the console to debug
+----
++ Inventory(nbOfSpace: int)
+}
+note left : The player inventory
+
+class Item {
+- name: String
+- sprite: JLabel
+----
++ getName(): String
++ getSprite(): JLabel
+}
+note right : Any object that a player can hold in its inventory
+
+
+Inventory *-- Item
+Player *-- Inventory
+
+
+@enduml
