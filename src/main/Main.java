@@ -2,10 +2,9 @@ package main;
 
 import java.awt.*;
 
-import gameengine.application.*;
+import gameengine.application.view;
 import gameengine.characters.controller.CharacterController;
 import gameengine.characters.model.Character;
-import gameengine.characters.model.Entity;
 import gameengine.characters.view.EntityView;
 import gameengine.gameloop.model.GameLoop;
 import gameengine.utils.model.Utils;
