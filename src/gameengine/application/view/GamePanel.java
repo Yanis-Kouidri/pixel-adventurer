@@ -1,50 +1,64 @@
 package gameengine.application.view;
 
+import gameengine.characters.view.EntityView;
+import gameengine.map.view.MapPanel;
+import gameengine.utils.model.Constants;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 
+import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
+
 public class GamePanel extends CustomPanel {
-    private GameLayerPanel gameLayerPanel;
-    private HUDPanel hudPanel;
 
     private JLayeredPane layeredPane;
+    private EntityView entityView;
+    private MapPanel mapPanel;
 
-    public GamePanel(PanelMediator pm) {
+    private int cameraX; // The X pos of the camera
+    private int cameraY; // The Y pos of the camera
+
+    public GamePanel(PanelMediator pm, EntityView ev, MapPanel mp) {
         super(pm);
         pm.setGamePanel(this);
         setBackground(Color.BLUE);
         setLayout(new BorderLayout());
+        entityView = ev;
+        mapPanel = mp;
 
         // Create a JLayeredPane as the main container
         layeredPane = new JLayeredPane();
         add(layeredPane, BorderLayout.CENTER);
 
-/*        // Create the game layer panel
-        gameLayerPanel = new GameLayerPanel();
-        layeredPane.add(gameLayerPanel, JLayeredPane.DEFAULT_LAYER); // Set lower layer index
+        layeredPane.add(entityView, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(mapPanel, JLayeredPane.DEFAULT_LAYER);
 
-        // Create the GUI panel
-        hudPanel = new HUDPanel();
-        layeredPane.add(hudPanel, JLayeredPane.DEFAULT_LAYER); // Set higher layer index*/
+        // Camera instantiation
+        this.cameraX=0;
+        this.cameraY=0;
+
+        entityView.setBounds(1000,50, CHARACTER_LENGHT, CHARACTER_LENGHT);
+        mapPanel.setBounds(0,0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+
+
     }
-
-    public void addlayeredPanel(JPanel comp, Integer constraints) {
-        layeredPane.add(comp, constraints);
-    }
-
     public JLayeredPane getLayeredPane() {
         return layeredPane;
     }
 
-    private class HUDPanel extends JPanel {
-        // Implement the HUD panel appearance and behavior (inventory, buttons, etc.)
-        // ...
-    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Calculate the offset for drawing based on the camera position
+        int offsetX = -cameraX;
+        int offsetY = -cameraY;
 
-    private class GameLayerPanel extends JPanel {
-        // Implement the Game panel appearance
-        // ...
+        // Draw the game world based on the camera position
+
+        // You can adjust the drawing coordinates by adding the offset
+
+        // Draw the player
     }
 
 }

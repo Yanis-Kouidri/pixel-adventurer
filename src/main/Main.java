@@ -48,7 +48,6 @@ class PixelAdventure extends GameLoop {
      */
     public PixelAdventure() {
         panelMediator = new PanelMediator();
-        gamePanel = new GamePanel(panelMediator);
         menuPanel = new MenuPanel(panelMediator);
 
         mainCharacterImage = Utils.getImage("character/mainCharacter.png");
@@ -56,15 +55,11 @@ class PixelAdventure extends GameLoop {
         mainCharacter = Character.createInstance();						//we want to display the main character so we create it
         entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
         mainCharacterController = new CharacterController(mainCharacter);
-
         MapPanel mapPanel = initMapPanel();
+        gamePanel = new GamePanel(panelMediator, entityView, mapPanel);
 
         ApplicationWindow.createInstance(menuPanel);
-        gamePanel.addlayeredPanel(entityView, JLayeredPane.PALETTE_LAYER);
-        gamePanel.addlayeredPanel(mapPanel, JLayeredPane.DEFAULT_LAYER);
 
-        entityView.setBounds(50,50, CHARACTER_LENGHT, CHARACTER_LENGHT);
-        mapPanel.setBounds(0,0, ApplicationWindow.getFrame().getWidth(), ApplicationWindow.getFrame().getHeight());
         ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
     }
 
