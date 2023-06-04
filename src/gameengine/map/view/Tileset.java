@@ -1,9 +1,12 @@
 package gameengine.map.view;
+
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.awt.Image;
+
+import static gameengine.utils.model.Constants.SPRITE_DIM;
 
 /** This class defines the Tileset object
  * @author Cédric Abdelbaki
@@ -14,9 +17,7 @@ public class Tileset {
 
 	// The tileset
 	private BufferedImage set;
-	
-	// The sprite dimension constant
-	protected static final int SPRITE_DIM = 32;
+
 
 	/** Instantiates a Tileset object
 	 * @param tilesetPath The path to the tileset image
@@ -47,5 +48,3 @@ public class Tileset {
 		}
 	}
 }
-
-

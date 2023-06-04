@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import gameengine.map.model.Map;
 import gameengine.map.model.Tile;
+import static gameengine.utils.model.Constants.SPRITE_DIM;
 
 /** This class defines the MapPanel object
  * @author Cédric Abdelbaki
@@ -31,8 +32,6 @@ public class MapPanel extends JPanel {
 	// The map height
 	private int height;
 
-	// A constant for the sprite dimensions
-	private final static int SPRITE_DIM = 32;
 
 	// The first x coordinate in pixels
 	private final static int FIRST_X_PIXEL = 0;
@@ -53,7 +52,7 @@ public class MapPanel extends JPanel {
 
 		// Tries to open and store the background image file
 		try {
-		this.background = ImageIO.read(new File(backgroundPath));
+			this.background = ImageIO.read(new File(backgroundPath));
 		} catch (IOException e) {
 			System.out.println("Error trying to read the background image file");
 		}
@@ -85,4 +84,3 @@ public class MapPanel extends JPanel {
 		}
 	}
 }
-
