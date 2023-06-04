@@ -4,6 +4,11 @@ import gameengine.inventory.model.Inventory;
 
 import java.awt.*;
 
+/**
+ * The inventory bar represent a short view of the 10 first items of the inventory
+ * @author Yanis Kouidri
+ * @version 0.1
+ */
 public class InventoryBar extends InventoryPanel {
 
     /**
@@ -20,9 +25,7 @@ public class InventoryBar extends InventoryPanel {
     public InventoryBar() {
         super();
         this.setLayout(new GridLayout(NB_OF_ROWS, NB_OF_ITEMS_DISPLAY_IN_BAR));
-
     }
-
 
     /**
      * @param inventoryToDisplay The inventory that you want to display

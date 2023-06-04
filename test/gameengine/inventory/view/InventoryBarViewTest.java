@@ -7,6 +7,11 @@ import gameengine.inventory.model.NotEmptyPlaceException;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Test class to test the view of the inventory bar in a test Jframe
+ * @author Yanis Kouidri
+ * @version 0.1
+ */
 public class InventoryBarViewTest {
     public static void createAndShowGUI() {
         JFrame frame = new JFrame("Inventory frame testing");

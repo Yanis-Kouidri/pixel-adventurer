@@ -9,6 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * Test class to test inventory menu view and controler on a test frame.
+ * @author Yanis Kouidri
+ * @version 0.1
+ */
 public class InventoryMenuViewTest {
 
     private static final int INVENTORY_SIZE = 40;

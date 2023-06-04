@@ -16,7 +16,7 @@ public class Inventory {
     private final Item[] content;
 
     /**
-     * The fix number of spaces of an inventory
+     * The fix number of spot of an inventory
      */
     private final int numberOfPlace;
 

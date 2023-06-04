@@ -11,11 +11,18 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class based on Junit 5.8 to test Inventory class
+ * @author Yanis Kouidri
+ * @version 0.1
+ */
 class InventoryTest {
 
-    private final int RANDOM_GENERATOR_SEED = 260417;
 
-    private final Random randomGenerator = new Random(RANDOM_GENERATOR_SEED);
+    /**
+     * Adding a random number generator to randomise tests and cover more cases
+     */
+    private final Random randomGenerator = new Random();
 
     private Inventory testInventory;
     /**

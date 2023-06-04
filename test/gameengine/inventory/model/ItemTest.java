@@ -8,6 +8,11 @@ import javax.swing.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class based on Junit 5.8 to test Item class
+ * @author Yanis Kouidri
+ * @version 0.1
+ */
 class ItemTest {
 
     private Item lemon;

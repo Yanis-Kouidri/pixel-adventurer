@@ -2,6 +2,11 @@ package gameengine.inventory.model;
 
 import javax.swing.*;
 
+/**
+ * This class defines the notion of item, an object that the player can hold with at least a name and a visual
+ * @author Yanis Kouidri
+ * @version 0.1
+ */
 public class Item {
 
     // Attributes :

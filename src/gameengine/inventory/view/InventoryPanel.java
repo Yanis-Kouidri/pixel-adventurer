@@ -7,6 +7,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
+/**
+ * A generic class for Inventory displaying
+ * @author Yanis Kouidri
+ * @version 0.1
+ */
 public class InventoryPanel extends JPanel {
 
     /**
@@ -54,8 +59,11 @@ public class InventoryPanel extends JPanel {
 
             }
 
+            // Defining the size of each place in the inventory menu
             itemSpaceSprite.setPreferredSize(new Dimension(INVENTORY_SQUARE_SIZE,
                     INVENTORY_SQUARE_SIZE));
+
+            // Setting a border to each square for a better visual
             itemSpaceSprite.setBorder(border);
 
             // Adding newly creating item or empty
