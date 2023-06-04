@@ -55,10 +55,12 @@ class PixelAdventure extends GameLoop {
      * a constructor.
      */
     public PixelAdventure() {
+        // Init the firsts elements to Application
         panelMediator = new PanelMediator();
         gamePanel = new GamePanel(panelMediator);
         menuPanel = new MenuPanel(panelMediator);
-
+        ApplicationWindow.createInstance(menuPanel);
+        
 
         // -------------------- Main Character model --------------------
         mainCharacter = Character.createInstance();						//we want to display the main character so we create it
@@ -67,7 +69,7 @@ class PixelAdventure extends GameLoop {
         mainCharacterImage = Utils.getImage("character/mainCharacter.png");
         entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
 
-        // -------------------- Main Character Controller --------------------
+        // -------------------- Main Character controller --------------------
         mainCharacterController = new CharacterController(mainCharacter);
 
 
@@ -81,7 +83,7 @@ class PixelAdventure extends GameLoop {
 
 
 
-        // -------------------- Map View --------------------
+        // -------------------- Map view --------------------
         String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
         String backgroudImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
         Tileset set = new Tileset(tileSetPath);
@@ -102,9 +104,6 @@ class PixelAdventure extends GameLoop {
 
         // -------------------- Inventory controller --------------------
         InventoryKeyController inventoryController = new InventoryKeyController(iventoryMenu);
-
-        // Add menu panel to Application
-        ApplicationWindow.createInstance(menuPanel);
 
         // Add view element to game panel
         gamePanel.addlayeredPanel(entityView, JLayeredPane.PALETTE_LAYER);
