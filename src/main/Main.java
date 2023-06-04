@@ -2,11 +2,17 @@ package main;
 
 import java.awt.*;
 
-import gameengine.application.view;
+import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
 import gameengine.characters.model.Character;
 import gameengine.characters.view.EntityView;
 import gameengine.gameloop.model.GameLoop;
+import gameengine.map.model.Map;
+import gameengine.map.model.MapArray;
+import gameengine.map.model.MapType;
+import gameengine.map.model.Tile;
+import gameengine.map.view.MapPanel;
+import gameengine.map.view.Tileset;
 import gameengine.utils.model.Utils;
 
 import javax.swing.*;
@@ -30,7 +36,8 @@ class PixelAdventure extends GameLoop {
 
     private Character mainCharacter;		//the main character object
     private EntityView entityView;		//the view that need to be displayed on the window
-    private Image image;
+    private Image mainCharacterImage, backgroundImage;
+
     private CharacterController mainCharacterController;
 
     private int updatePerSecond = 30;
@@ -43,16 +50,33 @@ class PixelAdventure extends GameLoop {
         gamePanel = new GamePanel(panelMediator);
         menuPanel = new MenuPanel(panelMediator);
 
-        image = Utils.getImage("character/mainCharacter.png");
+        mainCharacterImage = Utils.getImage("character/mainCharacter.png");
+        String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
+        String backgroudImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
 
         mainCharacter = Character.createInstance();						//we want to display the main character so we create it
-        entityView = new EntityView(mainCharacter, image);		//we now specify that we want to create a view of this character
+        entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
         mainCharacterController = new CharacterController(mainCharacter);
+
+        Tile emptyTile = new Tile(0, "empty", false);
+        Tile surfaceTile = new Tile(1, "grass", true);
+        Tile undergroundTile = new Tile(2, "dirt", true);
+        MapType testMapType = new MapType("testType", emptyTile, surfaceTile, undergroundTile);
+        Map testMap = new Map("testMap", testMapType, 300, 100, 15.0, 0.1);
+        Tile[][] array = testMap.getMapArray();
+        MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight());
+        Tileset set = new Tileset(tileSetPath);
+        System.out.println(surfaceTile.getTileName());
+
+        MapPanel mapPanel = new MapPanel(testMap, set, backgroudImagePath);
 
         ApplicationWindow.createInstance(menuPanel);
         gamePanel.addlayeredPanel(entityView, JLayeredPane.PALETTE_LAYER);
+        gamePanel.addlayeredPanel(mapPanel, JLayeredPane.DEFAULT_LAYER);
 
         entityView.setBounds(0,0, CHARACTER_LENGHT, CHARACTER_LENGHT); //
+        mapPanel.setBounds(0,0, ApplicationWindow.getFrame().getWidth(), ApplicationWindow.getFrame().getHeight());
+        //mapPanel.repaint();
 
         ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
     }

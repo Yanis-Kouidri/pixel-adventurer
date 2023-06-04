@@ -9,4 +9,7 @@ public class Constants {
 
     public static final int CHARACTER_LENGHT = 64;
 
+    // The sprite dimension constant
+    public static final int SPRITE_DIM = 32;
+
 }
