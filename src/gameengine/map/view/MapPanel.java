@@ -20,6 +20,14 @@ public class MapPanel extends JPanel {
 	// The map to draw
 	private Map level;
 
+	public Map getLevel() {
+		return level;
+	}
+
+	public Tileset getSprites() {
+		return sprites;
+	}
+
 	// The tileset containing the sprites
 	private Tileset sprites;
 
@@ -42,7 +50,7 @@ public class MapPanel extends JPanel {
 	/** Initializes a panel object with a map, a tileset and a background image
 	 * @param level The map to draw
 	 * @param sprites The tileset containing the tiles sprites
-	 * @param background The path to the desired background image
+	 * @param backgroundPath The path to the desired background image
 	 */
 	public MapPanel(Map level, Tileset sprites, String backgroundPath) {
 
@@ -69,7 +77,6 @@ public class MapPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
 		// Draws the background image
 		g.drawImage(this.background, FIRST_X_PIXEL, FIRST_Y_PIXEL, this.getWidth(), this.getHeight(), null);
 
