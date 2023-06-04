@@ -22,6 +22,7 @@ public class InventoryMenu extends InventoryPanel {
         super();
         this.setLayout(new GridLayout(NB_OF_ROWS,
                 NB_OF_COLS ));
+        this.setVisible(false); // By default, the inventory is hide.
 
     }
 
