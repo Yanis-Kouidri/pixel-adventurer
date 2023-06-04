@@ -2,7 +2,7 @@ package main;
 
 import java.awt.*;
 
-import gameengine.application.view;
+import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
 import gameengine.characters.model.Character;
 import gameengine.characters.view.EntityView;
