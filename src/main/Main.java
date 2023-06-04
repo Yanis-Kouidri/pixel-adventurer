@@ -1,3 +1,8 @@
+/**
+ * The "main" package contains the entry point for the application and other related classes.
+ * It provides the core functionality for running the program and initializing necessary components.
+ */
+
 package main;
 
 import java.awt.*;
