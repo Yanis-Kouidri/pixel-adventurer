@@ -1,4 +1,4 @@
-package gameengine.application;
+package gameengine.application.view;
 
 import javax.swing.*;
 import java.awt.*;

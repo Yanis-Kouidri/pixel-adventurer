@@ -1,4 +1,4 @@
-package gameengine.application;
+package gameengine.application.view;
 
 import java.awt.Color;
 import java.awt.Font;
