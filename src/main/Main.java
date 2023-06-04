@@ -12,8 +12,12 @@ import gameengine.characters.controller.CharacterController;
 import gameengine.characters.model.Character;
 import gameengine.characters.view.EntityView;
 import gameengine.gameloop.model.GameLoop;
+import gameengine.inventory.controller.InventoryKeyController;
+import gameengine.inventory.model.Inventory;
+import gameengine.inventory.view.InventoryBar;
+import gameengine.inventory.view.InventoryMenu;
 import gameengine.map.model.Map;
-import gameengine.map.model.MapArray;
+/*import gameengine.map.model.MapArray;*/
 import gameengine.map.model.MapType;
 import gameengine.map.model.Tile;
 import gameengine.map.view.MapPanel;
@@ -55,34 +59,83 @@ class PixelAdventure extends GameLoop {
         gamePanel = new GamePanel(panelMediator);
         menuPanel = new MenuPanel(panelMediator);
 
-        mainCharacterImage = Utils.getImage("character/mainCharacter.png");
-        String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
-        String backgroudImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
 
+        // -------------------- Main Character model --------------------
         mainCharacter = Character.createInstance();						//we want to display the main character so we create it
+
+        // -------------------- Main Character view --------------------
+        mainCharacterImage = Utils.getImage("character/mainCharacter.png");
         entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
+
+        // -------------------- Main Character Controller --------------------
         mainCharacterController = new CharacterController(mainCharacter);
 
+
+        // -------------------- Map model --------------------
         Tile emptyTile = new Tile(0, "empty", false);
         Tile surfaceTile = new Tile(1, "grass", true);
         Tile undergroundTile = new Tile(2, "dirt", true);
+
         MapType testMapType = new MapType("testType", emptyTile, surfaceTile, undergroundTile);
         Map testMap = new Map("testMap", testMapType, 300, 100, 15.0, 0.1);
-        Tile[][] array = testMap.getMapArray();
-        MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight());
+
+
+
+        // -------------------- Map View --------------------
+        String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
+        String backgroudImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
         Tileset set = new Tileset(tileSetPath);
-        System.out.println(surfaceTile.getTileName());
-
         MapPanel mapPanel = new MapPanel(testMap, set, backgroudImagePath);
+        // For testing map in terminal view
+        /*Tile[][] array = testMap.getMapArray();*/
+        /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
 
+
+        // -------------------- Inventory model --------------------
+        Inventory inventoryModel = new Inventory(40);
+        InventoryBar inventoryBar = new InventoryBar();
+        InventoryMenu iventoryMenu = new InventoryMenu();
+
+        // -------------------- Inventory view --------------------
+        inventoryBar.displayInventory(inventoryModel);
+        iventoryMenu.displayInventory(inventoryModel);
+
+        // -------------------- Inventory controller --------------------
+        InventoryKeyController inventoryController = new InventoryKeyController(iventoryMenu);
+
+        // Add menu panel to Application
         ApplicationWindow.createInstance(menuPanel);
+
+        // Add view element to game panel
         gamePanel.addlayeredPanel(entityView, JLayeredPane.PALETTE_LAYER);
         gamePanel.addlayeredPanel(mapPanel, JLayeredPane.DEFAULT_LAYER);
+        gamePanel.addlayeredPanel(inventoryBar, JLayeredPane.POPUP_LAYER);
+        gamePanel.addlayeredPanel(iventoryMenu, JLayeredPane.DRAG_LAYER);
 
-        entityView.setBounds(0,0, CHARACTER_LENGHT, CHARACTER_LENGHT); //
-        mapPanel.setBounds(0,0, ApplicationWindow.getFrame().getWidth(), ApplicationWindow.getFrame().getHeight());
-        //mapPanel.repaint();
+        // Set element in space of panel
+        // x, y coordinates useless because we based to coordinate character in the model
+        entityView.setBounds(0,0, CHARACTER_LENGHT, CHARACTER_LENGHT);
+        mapPanel.setBounds(0,0, ApplicationWindow.getFrame().getWidth(),
+                ApplicationWindow.getFrame().getHeight());
 
+        int widthInventoryBar = 400;
+        int heightInventoryBar = 75;
+        inventoryBar.setBounds(ApplicationWindow.getFrame().getWidth() - widthInventoryBar,
+                ApplicationWindow.getFrame().getHeight() - heightInventoryBar,
+                widthInventoryBar,
+                heightInventoryBar
+        );
+
+        int widthInventoryMenu = 50;
+        int heightInventoryMenu = 50;
+        iventoryMenu.setBounds(widthInventoryMenu,
+                heightInventoryMenu,
+                ApplicationWindow.getFrame().getWidth() - widthInventoryMenu * 2,
+                ApplicationWindow.getFrame().getHeight() - heightInventoryMenu * 2
+        );
+
+        // Add controller to frame
+        ApplicationWindow.getFrame().addKeyListener(inventoryController);
         ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
     }
 
