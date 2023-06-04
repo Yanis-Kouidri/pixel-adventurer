@@ -1,4 +1,4 @@
-package gameengine.application;
+package gameengine.application.view;
 
 public class PanelMediator {
     private GamePanel gamePanel;
