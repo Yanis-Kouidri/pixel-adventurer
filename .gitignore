@@ -24,5 +24,11 @@ hs_err_pid*
 
 # Intellij
 .idea
-pixel-adventurer.iml*
+*.iml
 out
+bin
+
+#Eclipse
+.classpath
+.project
+
