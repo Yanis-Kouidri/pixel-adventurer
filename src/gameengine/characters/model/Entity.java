@@ -5,6 +5,8 @@ import gameengine.utils.model.HitBox;
 import static gameengine.utils.model.Physics.GRAVITY;
 import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
 
+import gameengine.map.model.Map;
+
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.
  * @author n7student
@@ -14,9 +16,9 @@ public abstract class Entity{
 	private Coordinates coordinates;		//the coordinates of the entity
 	private float width, height = 1.0f;		//la taille de l'image par rapport à la taille d'un bloc
 	private HitBox hitBox;					//la hitBox de l'entité
-
-	private float gravitySpeed = 0;
-	// speed = number block per seconds
+	private float gravitySpeed = 0;			// speed = number block per seconds
+	
+	
 	/**
 	 * a constructor.
 	 */
@@ -62,6 +64,9 @@ public abstract class Entity{
 		return hitBox;
 	}
 	
+	/**
+	 * a method to update the hitBox coordinates
+	 */
 	protected void updateHitBox() {
 		hitBox.updateHitBox(coordinates.getX(), coordinates.getY(), width, height);
 	}

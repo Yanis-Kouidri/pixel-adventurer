@@ -13,10 +13,6 @@ public class Utils {
 	private final static String imagePath = "/src/gameassets/";
 	private static String sourcePath = null;
 	
-	private Utils() {
-		
-	}
-	
 	private static void getSourcePath() {
 		sourcePath = System.getProperty("user.dir");
 	}
