@@ -1,19 +1,21 @@
 package gameengine.inventory.model;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
-import javax.swing.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 /**
- * Test class based on Junit 5.8 to test Item class
+ * Test class based on JUnit 4 to test Item class
+ *
  * @author Yanis Kouidri
  * @version 0.1
  */
-class ItemTest {
+public class ItemTest {
 
     private Item lemon;
     private ImageIcon lemonIcon;
@@ -21,8 +23,8 @@ class ItemTest {
     private String lemonDesc;
     private String lemonName;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         lemonIcon = new ImageIcon("test/gameassets/item/lemon.png");
         lemonJlabel = new JLabel(lemonIcon);
         lemonDesc = "When life give you lemons...";
@@ -31,8 +33,8 @@ class ItemTest {
         lemon = new Item(lemonName, lemonJlabel, lemonDesc);
     }
 
-    @AfterEach
-    void tearDown() {
+    @After
+    public void tearDown() {
         lemonIcon = null;
         lemonJlabel = null;
         lemon = null;
@@ -41,17 +43,17 @@ class ItemTest {
     }
 
     @Test
-    void getName() {
+    public void getName() {
         assertEquals(lemonName, lemon.getName());
     }
 
     @Test
-    void getSprite() {
+    public void getSprite() {
         assertEquals(lemonJlabel.getIcon(), lemon.getSprite().getIcon());
     }
 
     @Test
-    void getDescription() {
+    public void getDescription() {
         assertEquals(lemonDesc, lemon.getDescription());
     }
 }
