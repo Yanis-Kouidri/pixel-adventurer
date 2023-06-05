@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.Random;
 
 /**
- * Test class to test inventory menu view and controler on a test frame.
+ * Test class to test inventory menu view and controller on a test frame.
  * @author Yanis Kouidri
  * @version 0.1
  */
@@ -56,7 +56,7 @@ public class InventoryMenuViewTest {
                     inventoryExample.add(i, offerItem[itemToAdd]);
                 }
             } catch (NotEmptyPlaceException e) { // If the same place is choose twice
-                System.out.println("That's ok, this exception may append in this test" + e.getMessage());
+                System.err.println("That not should append" + e.getMessage());
             }
         }
 
