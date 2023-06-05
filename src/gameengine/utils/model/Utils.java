@@ -36,4 +36,8 @@ public class Utils {
 	public static Image getImage(String fileName) {
 		return Toolkit.getDefaultToolkit().getImage(getImagePath(fileName));
 	}
+	
+	public static int convertToPixel(float tileRatio) {
+		return (int) tileRatio * Constants.BLOCK_LENGHT;
+	}
 }

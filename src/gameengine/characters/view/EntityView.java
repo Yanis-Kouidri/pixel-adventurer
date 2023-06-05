@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 import gameengine.characters.model.Entity;
+import gameengine.utils.model.Constants;
+import gameengine.utils.model.Utils;
 
 import static gameengine.utils.model.Constants.BLOCK_LENGHT;
 import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
@@ -43,7 +45,12 @@ public class EntityView extends JPanel{
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		g.drawImage(image, 0, 0, CHARACTER_LENGHT, CHARACTER_LENGHT,this);
+		//TODO : ENLEVER CES LIGNE DE CODE
+		g.setColor(Color.WHITE);
+		g.drawRect(Utils.convertToPixel(entity.getHitBox().getX()), Utils.convertToPixel(entity.getHitBox().getY()), Utils.convertToPixel(entity.getHitBox().getWidth()), Utils.convertToPixel(entity.getHitBox().getHeight()));
+		
+		g.drawImage(image, 0, 0, CHARACTER_LENGHT, CHARACTER_LENGHT, this);
+
 		logger.info("mainCharacter Paint");
 	}
 
