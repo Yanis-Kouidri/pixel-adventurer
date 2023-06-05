@@ -36,6 +36,8 @@ public class GameLayerPanel extends CustomPanel {
 
         entityView.setBounds(0,0, CHARACTER_LENGHT, CHARACTER_LENGHT);
         mapPanel.setBounds(0,0,Constants.MAP_LENGTH, Constants.MAP_HEIGHT);
+
+        mapPanel.setCamera(camera);
     }
 
     public MapPanel getMapPanel(){
@@ -53,7 +55,6 @@ public class GameLayerPanel extends CustomPanel {
         }
         System.out.println("Recreating panels");
         mapPanel.paintComponent(g.create(mapPanel.getMapX()-camera.getX(), mapPanel.getMapY()-camera.getY(), mapPanel.getWidth(), mapPanel.getHeight()));
-
 
     }
 }

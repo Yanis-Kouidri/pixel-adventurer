@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+
+import gameengine.application.model.Camera;
 import gameengine.map.model.Map;
 import gameengine.map.model.Tile;
 import gameengine.utils.model.Constants;
@@ -22,6 +24,7 @@ public class MapPanel extends JPanel {
 	// The map to draw
 	private Map level;
 
+	private Camera camera;
 	public Map getLevel() {
 		return level;
 	}
@@ -60,10 +63,10 @@ public class MapPanel extends JPanel {
 	/** Initializes a panel object with a map, a tileset and a background image
 	 * @param level The map to draw
 	 * @param sprites The tileset containing the tiles sprites
-	 * @param backgroundPath The path to the desired background image
-	 */
-	public MapPanel(Map level, Tileset sprites, String backgroundPath) {
+s	 */
+	public MapPanel(Map level, Tileset sprites, String backgroundPaths) {
 		setOpaque(false);
+
 		// Sets the attributes for the object
 		this.level = level;
 		this.sprites = sprites;
@@ -92,23 +95,31 @@ public class MapPanel extends JPanel {
 		if (newMapY >= 0 && newMapY <= Constants.MAP_HEIGHT) {
 			mapY = newMapY;
 		}
+	}
 
-		repaint();
+	public void setCamera(Camera c){
+		camera = c;
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		int startX = mapX * SPRITE_DIM;
-		int startY = mapY * SPRITE_DIM;
-
 		for (int y = mapY; y < mapY + getHeight() / SPRITE_DIM + 1 && y < height; y++) {
 			for (int x = mapX; x < mapX + getWidth() / SPRITE_DIM + 1 && x < width; x++) {
 				Tile currentTile = level.getTileAtPos(y, x);
 				int currentTileIdentifier = currentTile.getTileId();
 				Image currentSprite = sprites.getTileSprite(currentTileIdentifier);
-				g.drawImage(currentSprite, (x) * SPRITE_DIM, (y) * SPRITE_DIM , null);
+
+				// Si le bloc est positionné dans la camera
+				int pixelX = x*SPRITE_DIM;
+				int pixelY = y*SPRITE_DIM;
+				// x < camX+screenX && x+32 > camX && y < camY+screenY && y+32 > camY
+				if (pixelX < camera.getX()+Constants.SCREEN_WIDTH && pixelX+32 > camera.getX()
+					&& pixelY < camera.getY()+Constants.SCREEN_HEIGHT && pixelY+32 > camera.getY()){
+					g.drawImage(currentSprite, pixelX, pixelY , null);
+
+				}
 			}
 		}
 	}

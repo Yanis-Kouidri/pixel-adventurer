@@ -3,8 +3,7 @@ package gameengine.application.controller;
 import gameengine.application.model.Camera;
 import gameengine.application.view.GameLayerPanel;
 import gameengine.characters.controller.CharacterController;
-import gameengine.map.controller.MapController;
-import gameengine.map.model.Map;
+import gameengine.utils.model.Physics;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,7 +16,7 @@ public class CameraController implements KeyListener {
 
     public boolean rightPressed, leftPressed, upPressed;
 
-    public CameraController(Camera cam, CharacterController c, MapController m, GameLayerPanel glp){
+    public CameraController(Camera cam, CharacterController c, GameLayerPanel glp){
         camera = cam;
         CharacterController characterController = c;
         gameLayerPanel = glp;
@@ -75,18 +74,18 @@ public class CameraController implements KeyListener {
         if (upPressed) {
             camera.moveUp();
             System.out.println("Moving up !");
-            gameLayerPanel.getMapPanel().moveMap(0, (int) camera.getY());
+            gameLayerPanel.getMapPanel().moveMap(0, - (int) Physics.NB_DEPLACEMENT_BLOCK);
 //            logger.info(mainCharacter.toString());
         }
         if (leftPressed) {
             camera.moveLeft();
             System.out.println("Moving left !");
-            gameLayerPanel.getMapPanel().moveMap((int) camera.getX(), 0);
+            gameLayerPanel.getMapPanel().moveMap(-(int) Physics.NB_DEPLACEMENT_BLOCK, 0);
 //            logger.info(mainCharacter.toString());
         }
         if (rightPressed) {
             camera.moveRight();
-            gameLayerPanel.getMapPanel().moveMap((int) camera.getX(), 0);
+            gameLayerPanel.getMapPanel().moveMap((int) Physics.NB_DEPLACEMENT_BLOCK, 0);
 //            logger.info(mainCharacter.toString());
         }
     }

@@ -46,7 +46,7 @@ public class Camera {
     }
 
     public void moveUp() {
-        coordinates.setY(getY() + Physics.NB_DEPLACEMENT_BLOCK);
+        coordinates.setY(getY() - Physics.NB_DEPLACEMENT_BLOCK);
     }
 
     public void moveRight() {
@@ -54,8 +54,7 @@ public class Camera {
     }
 
     public void moveLeft() {
-        System.out.println("> Camera moved left !");
-        coordinates.setX(getX()- Physics.NB_DEPLACEMENT_BLOCK);
+        coordinates.setX(getX() - Physics.NB_DEPLACEMENT_BLOCK);
 
     }
 }

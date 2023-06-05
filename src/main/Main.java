@@ -3,13 +3,11 @@ package main;
 import java.awt.*;
 
 import gameengine.application.controller.CameraController;
-import gameengine.application.model.Camera;
 import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
 import gameengine.characters.model.Character;
 import gameengine.characters.view.EntityView;
 import gameengine.gameloop.model.GameLoop;
-import gameengine.map.controller.MapController;
 import gameengine.map.model.Map;
 import gameengine.map.model.MapArray;
 import gameengine.map.model.MapType;
@@ -18,10 +16,6 @@ import gameengine.map.view.MapPanel;
 import gameengine.map.view.Tileset;
 import gameengine.utils.model.Constants;
 import gameengine.utils.model.Utils;
-
-import javax.swing.*;
-
-import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
 
 public class Main {
     public static void main(String[] args) {
@@ -44,7 +38,6 @@ class PixelAdventure extends GameLoop {
 
     private CharacterController mainCharacterController;
     private MapPanel mapPanel;
-    private MapController mapController;
     private CameraController cameraController;
     private int updatePerSecond = 30;
 
@@ -61,10 +54,9 @@ class PixelAdventure extends GameLoop {
         entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
         mainCharacterController = new CharacterController(mainCharacter);
         mapPanel = initMapPanel();
-        mapController = new MapController(mapPanel);
         GameLayerPanel gameLayerPanel = new GameLayerPanel(panelMediator,entityView, mapPanel);
         gamePanel = new GamePanel(panelMediator, gameLayerPanel);
-        cameraController = new CameraController(gamePanel.getCamera(),mainCharacterController, mapController, gameLayerPanel);
+        cameraController = new CameraController(gamePanel.getCamera(),mainCharacterController, gameLayerPanel);
         ApplicationWindow.createInstance(menuPanel);
 //        ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
         ApplicationWindow.getFrame().addKeyListener(cameraController);
@@ -77,10 +69,10 @@ class PixelAdventure extends GameLoop {
             processInput(updatePerSecond);
             update(); // Model Update
             render(); // View update
-            try {
-                Thread.sleep(30);
-            } catch (InterruptedException ex) {
-            }
+//            try {
+//                Thread.sleep(30);
+//            } catch (InterruptedException ex) {
+//            }
         }
     }
 
