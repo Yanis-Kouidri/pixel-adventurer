@@ -15,9 +15,7 @@ public class Constants {
 
     public static final int CHARACTER_LENGHT = 64;
 
-    /**
-     *  MenuPanel.java
-     */
+    // MenuPanel.java
 
     // The game version
  	public static final String GAME_VERSION = "Alpha 0.1";
@@ -37,3 +35,4 @@ public class Constants {
 	// A constant for the menu panel empty borders
 	public static final int BORDER_CONST = 50;
 }
+
