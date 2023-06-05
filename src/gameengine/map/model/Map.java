@@ -1,5 +1,7 @@
 package gameengine.map.model;
 
+import gameengine.utils.model.Constants;
+
 /** This class allows to instantiate map type objects
  * @author Cédric ABDELBAKI
  * @version 0.1
@@ -105,5 +107,14 @@ public class Map {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Specified parameters provoke an array index out of bounds error");
 		}
+	}
+	public int getGroundLevel(int atX){
+		int groundY = 0;
+		for(int y = 0; y< Constants.MAP_ROWS; y++){
+			if (array[y][atX].getCollisionBehaviour() == true){
+				groundY = y*Constants.BLOCK_LENGHT;
+			}
+		}
+		return groundY;
 	}
 }

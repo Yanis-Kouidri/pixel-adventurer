@@ -8,6 +8,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import gameengine.map.model.Map;
 import gameengine.map.model.Tile;
+import gameengine.utils.model.Constants;
+
 import static gameengine.utils.model.Constants.SPRITE_DIM;
 
 /** This class defines the MapPanel object
@@ -31,9 +33,6 @@ public class MapPanel extends JPanel {
 	// The tileset containing the sprites
 	private Tileset sprites;
 
-	// The panel background image
-	private Image background;
-
 	// The map width
 	private int width;
 
@@ -47,23 +46,27 @@ public class MapPanel extends JPanel {
 	// The first y coordinate in pixels
 	private final static int FIRST_Y_PIXEL = 0;
 
+	public int getMapX() {
+		return mapX;
+	}
+
+	public int getMapY() {
+		return mapY;
+	}
+
+	private int mapX = 0;
+	private int mapY = 0;
+
 	/** Initializes a panel object with a map, a tileset and a background image
 	 * @param level The map to draw
 	 * @param sprites The tileset containing the tiles sprites
 	 * @param backgroundPath The path to the desired background image
 	 */
 	public MapPanel(Map level, Tileset sprites, String backgroundPath) {
-
+		setOpaque(false);
 		// Sets the attributes for the object
 		this.level = level;
 		this.sprites = sprites;
-
-		// Tries to open and store the background image file
-		try {
-			this.background = ImageIO.read(new File(backgroundPath));
-		} catch (IOException e) {
-			System.out.println("Error trying to read the background image file");
-		}
 
 		// Stores the map width and height
 		this.width = this.level.getMapWidth();
@@ -73,21 +76,59 @@ public class MapPanel extends JPanel {
 		this.setPreferredSize(new Dimension(this.width * SPRITE_DIM, this.height * SPRITE_DIM));
 	}
 
-	// Draws the background and the tiles
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		// Draws the background image
-		g.drawImage(this.background, FIRST_X_PIXEL, FIRST_Y_PIXEL, this.getWidth(), this.getHeight(), null);
+	/**
+	 * Déplacement de la caméra selon un offset
+	 * @param dx
+	 * @param dy
+	 */
+	public void moveMap(int dx, int dy) {
+		int newMapX = mapX + dx;
+		int newMapY = mapY + dy;
 
-		// Draws the map tiles
-		for (int y = 0; y < this.height; y ++) {
-			for (int x = 0; x < this.width; x ++) {
-				Tile currentTile = this.level.getTileAtPos(y, x);
+		if (newMapX >= 0 && newMapX <= Constants.MAP_LENGTH) {
+			mapX = newMapX;
+		}
+
+		if (newMapY >= 0 && newMapY <= Constants.MAP_HEIGHT) {
+			mapY = newMapY;
+		}
+
+		repaint();
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
+		int startX = mapX * SPRITE_DIM;
+		int startY = mapY * SPRITE_DIM;
+
+		for (int y = mapY; y < mapY + getHeight() / SPRITE_DIM + 1 && y < height; y++) {
+			for (int x = mapX; x < mapX + getWidth() / SPRITE_DIM + 1 && x < width; x++) {
+				Tile currentTile = level.getTileAtPos(y, x);
 				int currentTileIdentifier = currentTile.getTileId();
-				Image currentSprite = this.sprites.getTileSprite(currentTileIdentifier);
-				g.drawImage(currentSprite, x * SPRITE_DIM, y * SPRITE_DIM, null);
+				Image currentSprite = sprites.getTileSprite(currentTileIdentifier);
+				g.drawImage(currentSprite, (x) * SPRITE_DIM, (y) * SPRITE_DIM , null);
 			}
 		}
 	}
 }
+
+	// Draws the background and the tiles
+//	@Override
+//	protected void paintComponent(Graphics g) {
+//		super.paintComponent(g);
+//		// Draws the background image
+//		g.drawImage(this.background, FIRST_X_PIXEL, FIRST_Y_PIXEL, this.getWidth(), this.getHeight(), null);
+//
+//		// Draws the map tiles
+//		for (int y = 0; y < this.height; y ++) {
+//			for (int x = 0; x < this.width; x ++) {
+//				Tile currentTile = this.level.getTileAtPos(y, x);
+//				int currentTileIdentifier = currentTile.getTileId();
+//				Image currentSprite = this.sprites.getTileSprite(currentTileIdentifier);
+//				g.drawImage(currentSprite, x * SPRITE_DIM, y * SPRITE_DIM, null);
+//			}
+//		}
+//	}
+

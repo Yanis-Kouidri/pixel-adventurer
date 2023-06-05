@@ -27,6 +27,7 @@ public class EntityView extends JPanel{
 	 * @param image
 	 */
 	public EntityView(Entity entity, Image image) {
+		setOpaque(false);
 		this.entity = entity;
 		this.image = image;
 
@@ -42,9 +43,8 @@ public class EntityView extends JPanel{
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-
 		g.drawImage(image, 0, 0, CHARACTER_LENGHT, CHARACTER_LENGHT,this);
-		logger.info("mainCharacter Paint");
+//		logger.info("mainCharacter Paint");
 	}
 
 	/**

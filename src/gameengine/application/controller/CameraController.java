@@ -1,22 +1,26 @@
-package gameengine.characters.controller;
+package gameengine.application.controller;
 
-import gameengine.characters.model.Character;
-import gameengine.characters.model.Entity;
+import gameengine.application.model.Camera;
+import gameengine.application.view.GameLayerPanel;
+import gameengine.characters.controller.CharacterController;
+import gameengine.map.controller.MapController;
+import gameengine.map.model.Map;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.logging.Logger;
 
-public class CharacterController implements KeyListener {
+public class CameraController implements KeyListener {
+    Camera camera;
+    CharacterController characterController;
 
-    // Change type to Character (modifiy instance methode in CHaracter)
-
-    private final Logger logger = Logger.getLogger(String.valueOf(this.getClass()));
-    private Character mainCharacter;
+    GameLayerPanel gameLayerPanel;
 
     public boolean rightPressed, leftPressed, upPressed;
-    public CharacterController(Character mainCharacter) {
-        this.mainCharacter = mainCharacter;
+
+    public CameraController(Camera cam, CharacterController c, MapController m, GameLayerPanel glp){
+        camera = cam;
+        CharacterController characterController = c;
+        gameLayerPanel = glp;
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -66,22 +70,24 @@ public class CharacterController implements KeyListener {
         }
     }
 
-    /**
-     * update model depending to the controller
-     */
+
     public void update() {
         if (upPressed) {
-            mainCharacter.moveUp();
+            camera.moveUp();
+            System.out.println("Moving up !");
+            gameLayerPanel.getMapPanel().moveMap(0, (int) camera.getY());
 //            logger.info(mainCharacter.toString());
         }
         if (leftPressed) {
-            mainCharacter.moveLeft();
+            camera.moveLeft();
+            System.out.println("Moving left !");
+            gameLayerPanel.getMapPanel().moveMap((int) camera.getX(), 0);
 //            logger.info(mainCharacter.toString());
         }
         if (rightPressed) {
-            mainCharacter.moveRight();
+            camera.moveRight();
+            gameLayerPanel.getMapPanel().moveMap((int) camera.getX(), 0);
 //            logger.info(mainCharacter.toString());
         }
-
     }
 }
