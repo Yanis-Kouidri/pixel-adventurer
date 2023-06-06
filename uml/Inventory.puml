@@ -3,7 +3,7 @@
 
 title "Class diagram for Inventory"
 
-class Player {
+class Character {
 - name: String
 - inventory: Inventory
 ----
@@ -48,7 +48,7 @@ note right : Any object that a player can hold in its inventory
 
 
 Inventory *-- Item
-Player *-- Inventory
+Character *-- Inventory
 
 
 @enduml
