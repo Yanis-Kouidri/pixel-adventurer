@@ -117,20 +117,26 @@ class PixelAdventure extends GameLoop {
         mapPanel.setBounds(0,0, ApplicationWindow.getFrame().getWidth(),
                 ApplicationWindow.getFrame().getHeight());
 
-        int widthInventoryBar = 400;
-        int heightInventoryBar = 75;
-        inventoryBar.setBounds(ApplicationWindow.getFrame().getWidth() - widthInventoryBar,
-                ApplicationWindow.getFrame().getHeight() - heightInventoryBar,
+
+        int cellInveyory = 50;
+
+
+        int widthInventoryBar = cellInveyory * InventoryBar.NB_OF_ITEMS_DISPLAY_IN_BAR;
+        int heightInventoryBar = cellInveyory;
+        inventoryBar.setBounds(
+                ApplicationWindow.getFrame().getWidth() - widthInventoryBar,
+                ApplicationWindow.getFrame().getHeight() - 75, // Review the origin of screen and modify
                 widthInventoryBar,
                 heightInventoryBar
         );
 
-        int widthInventoryMenu = 50;
-        int heightInventoryMenu = 50;
-        iventoryMenu.setBounds(widthInventoryMenu,
-                heightInventoryMenu,
-                ApplicationWindow.getFrame().getWidth() - widthInventoryMenu * 2,
-                ApplicationWindow.getFrame().getHeight() - heightInventoryMenu * 2
+        int widthInventoryMenu = ApplicationWindow.getFrame().getWidth() -
+                (InventoryMenu.NB_OF_COLS * cellInveyory);
+        int heightInventoryMenu = InventoryMenu.NB_OF_ROWS * cellInveyory;
+        iventoryMenu.setBounds(Math.round((widthInventoryMenu) / 2),
+                0,
+                 widthInventoryMenu,
+                heightInventoryMenu
         );
 
         // Add controller to frame
