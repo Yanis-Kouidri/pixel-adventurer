@@ -14,17 +14,17 @@ public class InventoryMenu extends InventoryPanel {
     /**
      * This constant defines the number of squares in the inventory menu
      */
-    private final static int NB_OF_ITEMS_DISPLAY_IN_MENU = 40;
+    public final static int NB_OF_ITEMS_DISPLAY_IN_MENU = 40;
 
     /**
      * The number of rows for the inventory bar (One because it's a bar)
      */
-    private final static int NB_OF_ROWS = 4;
+    public final static int NB_OF_ROWS = 4;
 
     /**
      * The number of columns defines by the number of rows and the nb of items to display
      */
-    private final static int NB_OF_COLS = NB_OF_ITEMS_DISPLAY_IN_MENU / NB_OF_ROWS;
+    public final static int NB_OF_COLS = NB_OF_ITEMS_DISPLAY_IN_MENU / NB_OF_ROWS;
 
 
     /**
@@ -45,4 +45,6 @@ public class InventoryMenu extends InventoryPanel {
     public void displayInventory(Inventory inventoryToDisplay) {
         super.displayInventory(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_MENU);
     }
+
+
 }
