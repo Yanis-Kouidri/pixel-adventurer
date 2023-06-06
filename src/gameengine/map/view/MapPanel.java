@@ -79,28 +79,14 @@ s	 */
 		this.setPreferredSize(new Dimension(this.width * SPRITE_DIM, this.height * SPRITE_DIM));
 	}
 
-	/**
-	 * Déplacement de la caméra selon un offset
-	 * @param dx
-	 * @param dy
-	 */
-	public void moveMap(int dx, int dy) {
-		int newMapX = mapX + dx;
-		int newMapY = mapY + dy;
-
-		if (newMapX >= 0 && newMapX <= Constants.MAP_LENGTH) {
-			mapX = newMapX;
-		}
-
-		if (newMapY >= 0 && newMapY <= Constants.MAP_HEIGHT) {
-			mapY = newMapY;
-		}
-	}
-
 	public void setCamera(Camera c){
 		camera = c;
 	}
 
+	/**
+	 * Renders the map
+	 * @param g the <code>Graphics</code> object to protect
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -111,35 +97,17 @@ s	 */
 				int currentTileIdentifier = currentTile.getTileId();
 				Image currentSprite = sprites.getTileSprite(currentTileIdentifier);
 
-				// Si le bloc est positionné dans la camera
+				// Gets the position in pixel unit.
 				int pixelX = x*SPRITE_DIM;
 				int pixelY = y*SPRITE_DIM;
-				// x < camX+screenX && x+32 > camX && y < camY+screenY && y+32 > camY
-				if (pixelX < camera.getX()+Constants.SCREEN_WIDTH && pixelX+32 > camera.getX()
-					&& pixelY < camera.getY()+Constants.SCREEN_HEIGHT && pixelY+32 > camera.getY()){
-					g.drawImage(currentSprite, pixelX, pixelY , null);
 
-				}
+				// Draws image only if it will appear on the screen.
+				if (pixelX < camera.getX()+Constants.SCREEN_WIDTH && pixelX+32 > camera.getX()
+					&& pixelY < camera.getY()+Constants.SCREEN_HEIGHT && pixelY+32 > camera.getY())
+				g.drawImage(currentSprite, pixelX, pixelY , null);
+
 			}
 		}
 	}
 }
-
-	// Draws the background and the tiles
-//	@Override
-//	protected void paintComponent(Graphics g) {
-//		super.paintComponent(g);
-//		// Draws the background image
-//		g.drawImage(this.background, FIRST_X_PIXEL, FIRST_Y_PIXEL, this.getWidth(), this.getHeight(), null);
-//
-//		// Draws the map tiles
-//		for (int y = 0; y < this.height; y ++) {
-//			for (int x = 0; x < this.width; x ++) {
-//				Tile currentTile = this.level.getTileAtPos(y, x);
-//				int currentTileIdentifier = currentTile.getTileId();
-//				Image currentSprite = this.sprites.getTileSprite(currentTileIdentifier);
-//				g.drawImage(currentSprite, x * SPRITE_DIM, y * SPRITE_DIM, null);
-//			}
-//		}
-//	}
 

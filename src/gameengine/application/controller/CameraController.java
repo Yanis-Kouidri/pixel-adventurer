@@ -8,6 +8,10 @@ import gameengine.utils.model.Physics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Defines how the camera will be modified based on the user's input
+ * @author Eric YU
+ */
 public class CameraController implements KeyListener {
     Camera camera;
     CharacterController characterController;
@@ -21,6 +25,11 @@ public class CameraController implements KeyListener {
         CharacterController characterController = c;
         gameLayerPanel = glp;
     }
+
+    /**
+     * NOT IMPLEMENTED
+     * @param e the event to be processed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -51,42 +60,32 @@ public class CameraController implements KeyListener {
      * Trigger the key released key and assign one action for that
      * @param e the key released
      */
-
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_SPACE) {
             upPressed = false;
-//            logger.info("Release " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_Q) {
             leftPressed = false;
-//            logger.info("Release " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
-//            logger.info("Release " + e.getKeyChar());
         }
     }
 
-
+    /**
+     * Updates the camera model based on which key was pressed by the user
+     */
     public void update() {
         if (upPressed) {
             camera.moveUp();
-            System.out.println("Moving up !");
-            gameLayerPanel.getMapPanel().moveMap(0, - (int) Physics.NB_DEPLACEMENT_BLOCK);
-//            logger.info(mainCharacter.toString());
         }
         if (leftPressed) {
             camera.moveLeft();
-            System.out.println("Moving left !");
-            gameLayerPanel.getMapPanel().moveMap(-(int) Physics.NB_DEPLACEMENT_BLOCK, 0);
-//            logger.info(mainCharacter.toString());
         }
         if (rightPressed) {
             camera.moveRight();
-            gameLayerPanel.getMapPanel().moveMap((int) Physics.NB_DEPLACEMENT_BLOCK, 0);
-//            logger.info(mainCharacter.toString());
         }
     }
 }
