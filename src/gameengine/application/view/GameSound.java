@@ -10,6 +10,7 @@ import javax.sound.sampled.LineUnavailableException;
 /** Defines a class that allows to create a GameSound object.
  * This sound clip can either be played or stopped
  * @author Cédric Abdelbaki
+ * @version v0.1
  */
 public class GameSound {
 
