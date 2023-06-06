@@ -1,6 +1,8 @@
 package gameengine.application.view;
 
 import gameengine.application.model.Camera;
+import gameengine.inventory.view.InventoryMenu;
+import gameengine.inventory.view.InventoryPanel;
 import gameengine.utils.model.Constants;
 
 import javax.swing.*;
@@ -61,5 +63,9 @@ public class GamePanel extends CustomPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         gameLayerPanel.paintComponent(g);
+    }
+
+    public void addlayeredPanel(InventoryPanel panel, Integer popupLayer) {
+        layeredPane.add(panel, popupLayer);
     }
 }

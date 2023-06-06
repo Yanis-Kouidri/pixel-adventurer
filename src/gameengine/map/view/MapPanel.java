@@ -64,7 +64,7 @@ public class MapPanel extends JPanel {
 	 * @param level The map to draw
 	 * @param sprites The tileset containing the tiles sprites
 s	 */
-	public MapPanel(Map level, Tileset sprites, String backgroundPaths) {
+	public MapPanel(Map level, Tileset sprites) {
 		setOpaque(false);
 
 		// Sets the attributes for the object

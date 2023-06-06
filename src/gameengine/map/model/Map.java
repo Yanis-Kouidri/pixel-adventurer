@@ -117,7 +117,7 @@ public class Map {
 	 */
 	public int getGroundLevel(int atX){
 		int groundY = 0;
-		for(int y = 0; y< Constants.MAP_ROWS; y++){
+		for(int y = 0; y< Constants.MAP_ROWS-1; y++){
 			if (array[y][atX].getCollisionBehaviour() == true){
 				groundY = y;
 				break;

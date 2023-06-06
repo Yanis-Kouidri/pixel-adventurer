@@ -19,12 +19,15 @@ import gameengine.inventory.view.InventoryBar;
 import gameengine.inventory.view.InventoryMenu;
 import gameengine.map.model.Map;
 /*import gameengine.map.model.MapArray;*/
+import gameengine.map.model.MapArray;
 import gameengine.map.model.MapType;
 import gameengine.map.model.Tile;
 import gameengine.map.view.MapPanel;
 import gameengine.map.view.Tileset;
 import gameengine.utils.model.Constants;
 import gameengine.utils.model.Utils;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -93,7 +96,7 @@ class PixelAdventure extends GameLoop {
 
         // Set element in space of panel
         // x, y coordinates useless because we based to coordinate character in the model
-        entityView.setBounds(0,0, CHARACTER_LENGHT, CHARACTER_LENGHT);
+        entityView.setBounds(0,0, Constants.CHARACTER_LENGHT, Constants.CHARACTER_LENGHT);
         mapPanel.setBounds(0,0, ApplicationWindow.getFrame().getWidth(),
                 ApplicationWindow.getFrame().getHeight());
 
@@ -157,16 +160,17 @@ class PixelAdventure extends GameLoop {
 
 
     private MapPanel initMapPanel(){
+        String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
+        String backgroundImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
         Tile emptyTile = new Tile(0, "empty", false);
         Tile surfaceTile = new Tile(1, "grass", true);
         Tile undergroundTile = new Tile(2, "dirt", true);
-
         MapType testMapType = new MapType("testType", emptyTile, surfaceTile, undergroundTile);
-        Map testMap = new Map("testMap", testMapType, 300, 100, 15.0, 0.1);
-
-        // -------------------- Map view --------------------
-        String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
-        String backgroudImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
+        Map testMap = new Map("testMap", testMapType, Constants.MAP_COLUMNS, Constants.MAP_ROWS, 15.0, 0.1);
+        Tile[][] array = testMap.getMapArray();
+        MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight());
         Tileset set = new Tileset(tileSetPath);
+        System.out.println(surfaceTile.getTileName());
+        return new MapPanel(testMap, set);
     }
 }

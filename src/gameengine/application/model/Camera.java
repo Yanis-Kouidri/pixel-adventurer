@@ -55,6 +55,21 @@ public class Camera {
      * Retrieves the y of the camera's location
      * @return y
      */
+    public void setY(int y){
+        coordinates.setY(y);
+    }
+    /**
+     * Retrieves the x of the camera's location
+     * @return x
+     */
+    public void setX(int x){
+        coordinates.setX(x);
+    }
+
+    /**
+     * Retrieves the y of the camera's location
+     * @return y
+     */
     public int getY(){
         return (int) coordinates.getY();
     }

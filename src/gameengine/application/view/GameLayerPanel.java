@@ -95,10 +95,21 @@ public class GameLayerPanel extends CustomPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+        Graphics2D g2d = (Graphics2D) g.create();
+        // Adjust camera position to stay within map bounds
 
         // Rendering the map and offsetting with the camera's coordinates
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.translate(-camera.getX(), -camera.getY());
+        // Renders the map until we get to the start or the end.
+
+        int cameraX = camera.getX();
+        int cameraY = camera.getY();
+
+        // TODO: Adjust camera position to stay within map bounds
+//        int maxCameraX = mapPanel.getMapX()*SPRITE_DIM - Constants.SCREEN_WIDTH;
+//        int maxCameraY = mapPanel.getMapY()*SPRITE_DIM - Constants.SCREEN_HEIGHT;
+
+        g2d.translate(-cameraX, -cameraY);
+
         mapPanel.paintComponent(g2d);
         g2d.dispose();
 
