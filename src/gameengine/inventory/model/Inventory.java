@@ -104,6 +104,7 @@ public class Inventory {
         int emptyPlaceNumber = 0;
         int counter = 0;
 
+        // Look for the first null value
         for (Item oneItem: this.content) {
             if (oneItem == null){
                 emptyPlaceNumber = counter;
@@ -119,16 +120,18 @@ public class Inventory {
      * @param indexPlace The number of the place to insert the new item
      * @param newItem The item to add to the inventory
      * @throws ArrayIndexOutOfBoundsException Throws if the indexPlace is irrelevant
-     * @throws NotEmptyPlaceException Throws if the indexPlace specify is not empty (there is already an item at this
-     * place).
+     * @throws NotEmptyPlaceException Throws if the indexPlace specify is not empty
+     * (there is already an item at this place).
      */
-    public void add(int indexPlace, Item newItem) throws ArrayIndexOutOfBoundsException, NotEmptyPlaceException {
+    public void add(int indexPlace, Item newItem) throws ArrayIndexOutOfBoundsException,
+            NotEmptyPlaceException {
         //Checking if indexPlace get in parameter is relevant
         relevantIndex(indexPlace, this.numberOfPlace);
 
         // Checking if this indexPlace is empty
         if (this.content[indexPlace] != null) {
-            throw new NotEmptyPlaceException("The inventory space number " + indexPlace + " is already taken by an item");
+            throw new NotEmptyPlaceException("The inventory space number " + indexPlace
+                    + " is already taken by an item");
         }
 
         content[indexPlace] = new Item(newItem.getName(), newItem.getDescription());
@@ -162,7 +165,5 @@ public class Inventory {
         if (indexToCheck > numberOfPlace - 1 || indexToCheck < 0) {
             throw new ArrayIndexOutOfBoundsException("The index place " + indexToCheck + " is out of inventory bound");
         }
-
     }
-
 }

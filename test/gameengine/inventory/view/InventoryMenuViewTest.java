@@ -44,7 +44,7 @@ public class InventoryMenuViewTest {
 
         //
 
-        // Creation of items with icons
+        // Creation of items and adding of texture
         Item potionItem = new Item("Potions");
         texturePack.addItem("Potions", potionsIcon);
 
