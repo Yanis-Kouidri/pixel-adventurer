@@ -36,15 +36,15 @@ public class Collisions {
 	/**
 	 * a method to detect a collision on the left side of the hitBox
 	 * @param hitBox
-	 * @return boolean
+	 * @return CollisionType
 	 */
-	public static boolean leftSide(HitBox hitBox) {
-		boolean collision = false;
+	public static CollisionType leftSide(HitBox hitBox) {
+		CollisionType collision = CollisionType.AIR;
 		int xPositionToCheck = Utils.convertToPixel(hitBox.getX() - MINIMUM_COLLISION_DETECTION_LENGTH);
 		int yPositionToCheck = Utils.convertToPixel(hitBox.getX());
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = true;
+			collision = CollisionType.SOLID;
 		}
 		
 		return collision;
