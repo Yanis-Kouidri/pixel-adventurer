@@ -29,11 +29,19 @@ public class Utils {
 		return path;
 	}
 	
-	public static Image getImage(String fileName) {
+	public static final Image getImage(String fileName) {
 		return Toolkit.getDefaultToolkit().getImage(getImagePath(fileName));
 	}
 	
 	public static int convertToPixel(float tileRatio) {
 		return (int) tileRatio * Constants.BLOCK_LENGHT;
+	}
+	
+	public static final int truncateFloatToInt(float f) {
+		return (int) f;
+	}
+	
+	public static final int ceilFloatToInt(float f) {
+		return (int) Math.ceil(f);
 	}
 }
