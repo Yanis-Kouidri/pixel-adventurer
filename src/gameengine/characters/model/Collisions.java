@@ -43,6 +43,7 @@ public class Collisions {
 		int xPositionToCheck = Utils.convertToPixel(hitBox.getX() - MINIMUM_COLLISION_DETECTION_LENGTH);
 		int yPositionToCheck = Utils.convertToPixel(hitBox.getX());
 		
+		// TODO : Discuter avec Cedric sur comment reconnaître les différents blocs, et ajouter un collisionTypeManager qui retournera le bon type en fonction du bloc.
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;
 		}
