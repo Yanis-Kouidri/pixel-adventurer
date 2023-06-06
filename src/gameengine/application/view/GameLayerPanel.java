@@ -1,6 +1,5 @@
 package gameengine.application.view;
 
-import gameengine.application.controller.CameraController;
 import gameengine.application.model.Camera;
 import gameengine.characters.view.EntityView;
 import gameengine.map.view.MapPanel;
@@ -18,6 +17,7 @@ import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
  * Displays both the map and the character on the same panel.
  * It calculates how the view should be displayed based on the camera's coordinates
  * and sets the correct offset.
+ * @author Eric YU
  */
 public class GameLayerPanel extends CustomPanel {
     private MapPanel mapPanel; // View of the map

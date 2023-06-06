@@ -57,6 +57,10 @@ public class EntityView extends JPanel{
 		this.setLocation(Math.round(x), Math.round(y));
 	}
 
+	/**
+	 * Gets the entity linked to the view
+	 * @return the player's character
+	 */
 	public Entity getEntity(){
 		return entity;
 	}

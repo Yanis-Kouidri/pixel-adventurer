@@ -13,8 +13,8 @@ import java.awt.event.KeyListener;
  * @author Eric YU
  */
 public class CameraController implements KeyListener {
-    Camera camera;
-    CharacterController characterController;
+    Camera camera; // The camera model which will be modified
+    CharacterController characterController; //
 
     GameLayerPanel gameLayerPanel;
 

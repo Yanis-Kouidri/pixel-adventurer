@@ -69,10 +69,6 @@ class PixelAdventure extends GameLoop {
             processInput(updatePerSecond);
             update(); // Model Update
             render(); // View update
-//            try {
-//                Thread.sleep(30);
-//            } catch (InterruptedException ex) {
-//            }
         }
     }
 
