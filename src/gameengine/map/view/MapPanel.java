@@ -79,6 +79,10 @@ s	 */
 		this.setPreferredSize(new Dimension(this.width * SPRITE_DIM, this.height * SPRITE_DIM));
 	}
 
+	/**
+	 * Sets the camera of the MapPanel
+	 * @param c the camera
+	 */
 	public void setCamera(Camera c){
 		camera = c;
 	}

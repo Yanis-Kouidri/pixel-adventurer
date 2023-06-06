@@ -56,7 +56,7 @@ class PixelAdventure extends GameLoop {
         mapPanel = initMapPanel();
         GameLayerPanel gameLayerPanel = new GameLayerPanel(panelMediator,entityView, mapPanel);
         gamePanel = new GamePanel(panelMediator, gameLayerPanel);
-        cameraController = new CameraController(gamePanel.getCamera(),mainCharacterController, gameLayerPanel);
+        cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
         ApplicationWindow.createInstance(menuPanel);
 
         // Adding the KeyListeners
