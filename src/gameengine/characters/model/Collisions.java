@@ -40,8 +40,26 @@ public class Collisions {
 	 */
 	public static CollisionType leftSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.AIR;
-		int xPositionToCheck = Utils.convertToPixel(hitBox.getX() - MINIMUM_COLLISION_DETECTION_LENGTH);
-		int yPositionToCheck = Utils.convertToPixel(hitBox.getX());
+		int xPositionToCheck = Utils.convertToPixel(hitBox.getX() - MINIMUM_COLLISION_DETECTION_LENGTH);		//the left side of the entity
+		int yPositionToCheck = Utils.convertToPixel(hitBox.getY() - hitBox.getHeight());						//the bottom side of the entity
+		
+		// TODO : Discuter avec Cedric sur comment reconnaître les différents blocs, et ajouter un collisionTypeManager qui retournera le bon type en fonction du bloc.
+		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
+			collision = CollisionType.SOLID;
+		}
+		
+		return collision;
+	}
+	
+	/**
+	 * a method to detect a collision on the right side of the hitBox
+	 * @param hitBox
+	 * @return CollisionType
+	 */
+	public static CollisionType rightSide(HitBox hitBox) {
+		CollisionType collision = CollisionType.AIR;
+		int xPositionToCheck = Utils.convertToPixel(hitBox.getX() + hitBox.getWidth() + MINIMUM_COLLISION_DETECTION_LENGTH);	//the right side of the entity
+		int yPositionToCheck = Utils.convertToPixel(hitBox.getY() - hitBox.getHeight());										//the bottom side of the entity
 		
 		// TODO : Discuter avec Cedric sur comment reconnaître les différents blocs, et ajouter un collisionTypeManager qui retournera le bon type en fonction du bloc.
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
