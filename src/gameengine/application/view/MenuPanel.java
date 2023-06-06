@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  * Displays the Main menu panel
- * 
+ *
  * @author Eric YU
  *
  */
@@ -23,7 +23,7 @@ public class MenuPanel extends CustomPanel {
 
 	/**
 	 * Creates a new menu panel with a small vertical menu and a title
-	 * 
+	 *
 	 * @param pm the related app window
 	 */
 	public MenuPanel(PanelMediator pm) {
@@ -58,7 +58,7 @@ public class MenuPanel extends CustomPanel {
 		gbc.weighty = 1;
 		add(buttons, gbc);
 	}
-	
+
 	public class BtnListener implements ActionListener {
 
 		public BtnListener() {

@@ -39,10 +39,10 @@ note left : The player inventory
 
 class Item {
 - name: String
-- sprite: JLabel
+- desc: String
 ----
 + getName(): String
-+ getSprite(): JLabel
++ getDesc(): String
 }
 note right : Any object that a player can hold in its inventory
 

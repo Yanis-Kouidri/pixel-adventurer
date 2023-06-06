@@ -131,7 +131,7 @@ public class Inventory {
             throw new NotEmptyPlaceException("The inventory space number " + indexPlace + " is already taken by an item");
         }
 
-        content[indexPlace] = new Item(newItem.getName(), newItem.getSprite());
+        content[indexPlace] = new Item(newItem.getName(), newItem.getDescription());
 
     }
 
@@ -148,7 +148,7 @@ public class Inventory {
         if (this.content[indexPlace] == null) {
             return null;
         } else {
-            return new Item(this.content[indexPlace].getName(), this.content[indexPlace].getSprite());
+            return new Item(this.content[indexPlace].getName(), this.content[indexPlace].getDescription());
         }
     }
 

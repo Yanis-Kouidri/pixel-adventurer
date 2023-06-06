@@ -27,6 +27,8 @@ public class InventoryMenuViewTest {
         frame.setSize(1000, 1000);
         frame.setLayout(new FlowLayout());
 
+        // Create the ItemsView
+        ItemsView texturePack = new ItemsView();
 
         // Create the inventory menu panel
         InventoryMenu inventoryMenu = new InventoryMenu();
@@ -40,11 +42,20 @@ public class InventoryMenuViewTest {
         ImageIcon fishingRodIcon = new ImageIcon("test/gameassets/item/fishing-rod.png");
         ImageIcon troutIcon = new ImageIcon("test/gameassets/item/trout.png");
 
+        //
+
         // Creation of items with icons
-        Item potionItem = new Item("Potions", new JLabel(potionsIcon));
-        Item crabItem = new Item("Crab", new JLabel(crabIcon));
-        Item fishRodItem = new Item("Fishing", new JLabel(fishingRodIcon));
-        Item troutItem = new Item("Trout", new JLabel(troutIcon));
+        Item potionItem = new Item("Potions");
+        texturePack.addItem("Potions", potionsIcon);
+
+        Item crabItem = new Item("Crab");
+        texturePack.addItem("Crab", crabIcon);
+
+        Item fishRodItem = new Item("Fishing");
+        texturePack.addItem("Fishing", fishingRodIcon);
+
+        Item troutItem = new Item("Trout");
+        texturePack.addItem("Trout", troutIcon);
 
         Item[] offerItem = {potionItem, crabItem, fishRodItem, troutItem};
 
@@ -61,7 +72,7 @@ public class InventoryMenuViewTest {
         }
 
         // Draw the inventory in the JPanel :
-        inventoryMenu.displayInventory(inventoryExample);
+        inventoryMenu.displayInventory(inventoryExample, texturePack);
 
         // Add the inventory to the frame
         frame.add(inventoryMenu);

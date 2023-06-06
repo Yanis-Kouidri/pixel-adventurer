@@ -5,8 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import javax.swing.*;
-
 import java.util.Random;
 
 
@@ -30,17 +28,16 @@ public class InventoryTest {
     private final int NUMBER_OF_PLACE = randomGenerator.nextInt(50, 100);
 
     private Item item1, item2, item3;
-    private final JLabel dummySprite = new JLabel();
 
     @Before
     public void setUp() {
         testInventory = new Inventory(NUMBER_OF_PLACE);
         String item1name = "Sword";
-        item1 = new Item(item1name, dummySprite);
+        item1 = new Item(item1name);
         String item2name = "Bow";
-        item2 = new Item(item2name, dummySprite);
+        item2 = new Item(item2name);
         String item3name = "Potion";
-        item3 = new Item(item3name, dummySprite);
+        item3 = new Item(item3name);
     }
 
     @After
@@ -193,8 +190,8 @@ public class InventoryTest {
         assertEquals("The item1 should be at place " + placeToAdd,
                 item1.getName(), testInventory.getItemByIndex(placeToAdd).getName());
         assertEquals("The item1 should be at place " + placeToAdd,
-                item1.getSprite().getIcon(),
-                testInventory.getItemByIndex(placeToAdd).getSprite().getIcon());
+                item1.getDescription(),
+                testInventory.getItemByIndex(placeToAdd).getDescription());
 
     }
 
