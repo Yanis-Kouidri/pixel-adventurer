@@ -4,6 +4,7 @@ import gameengine.application.model.Camera;
 import gameengine.characters.view.EntityView;
 import gameengine.map.view.MapPanel;
 import gameengine.utils.model.Constants;
+import gameengine.utils.model.Coordinates;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,7 +12,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
+import static gameengine.utils.model.Constants.*;
 
 /**
  * Displays both the map and the character on the same panel.
@@ -53,7 +54,11 @@ public class GameLayerPanel extends CustomPanel {
         entityView.setBounds(0,0, CHARACTER_LENGHT, CHARACTER_LENGHT);
         mapPanel.setBounds(0,0,Constants.MAP_LENGTH, Constants.MAP_HEIGHT);
 
+        Coordinates spawnPoint = mapPanel.getLevel().getSpawnPoint();
         mapPanel.setCamera(camera); // Adding the camera to the MapPanel
+
+        // Setting the character spawnPoint
+
     }
 
     /**
@@ -89,6 +94,6 @@ public class GameLayerPanel extends CustomPanel {
 
         // First renders the map offsetted by the camera
         mapPanel.paintComponent(g.create(mapPanel.getMapX()-camera.getX(), mapPanel.getMapY()-camera.getY(), mapPanel.getWidth(), mapPanel.getHeight()));
-
+        entityView.paintComponent(g.create(SCREEN_WIDTH/2 - CHARACTER_LENGHT,SCREEN_HEIGHT/2-CHARACTER_LENGHT, CHARACTER_LENGHT, CHARACTER_LENGHT));
     }
 }

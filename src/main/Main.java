@@ -58,7 +58,9 @@ class PixelAdventure extends GameLoop {
         gamePanel = new GamePanel(panelMediator, gameLayerPanel);
         cameraController = new CameraController(gamePanel.getCamera(),mainCharacterController, gameLayerPanel);
         ApplicationWindow.createInstance(menuPanel);
-//        ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
+
+        // Adding the KeyListeners
+        ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
         ApplicationWindow.getFrame().addKeyListener(cameraController);
     }
 
@@ -79,7 +81,7 @@ class PixelAdventure extends GameLoop {
     }
 
     protected void update() {
-//        mainCharacterController.update();
+        mainCharacterController.update();
         cameraController.update();
     }
 

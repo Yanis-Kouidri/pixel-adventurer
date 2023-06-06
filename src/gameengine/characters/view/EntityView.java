@@ -47,6 +47,12 @@ public class EntityView extends JPanel{
 //		logger.info("mainCharacter Paint");
 	}
 
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image, 0, 0, CHARACTER_LENGHT, CHARACTER_LENGHT,this);
+	}
+
 	/**
 	 * update the location in the screen with the character coordinates
 	 * (temporally method)

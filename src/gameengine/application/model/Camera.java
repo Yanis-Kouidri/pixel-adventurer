@@ -29,10 +29,10 @@ public class Camera {
      */
     public Camera(Map m){
         map = m;
-
+        Coordinates spawnPoint = m.getSpawnPoint();
         // Gets the middle point of the map at ground-level.
-        int x = Constants.MAP_LENGTH/2;
-        int y = m.getGroundLevel(x/Constants.BLOCK_LENGHT - 1);
+        int x = (int) (spawnPoint.getX()*Constants.BLOCK_LENGHT);
+        int y = (int) (spawnPoint.getY()*Constants.BLOCK_LENGHT);
 
         // Offsets the coordinates so that the middle point of the map is the middle point
         // of the camera
