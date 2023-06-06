@@ -116,7 +116,7 @@ public class Inventory {
     }
 
     /**
-     * Add an item to the inventory
+     * Add an item to the inventory by specifying an index
      * @param indexPlace The number of the place to insert the new item
      * @param newItem The item to add to the inventory
      * @throws ArrayIndexOutOfBoundsException Throws if the indexPlace is irrelevant
@@ -133,9 +133,22 @@ public class Inventory {
             throw new NotEmptyPlaceException("The inventory space number " + indexPlace
                     + " is already taken by an item");
         }
-
         content[indexPlace] = new Item(newItem.getName(), newItem.getDescription());
+    }
 
+    /**
+     * Add an item at the first empty place
+     * @param newItem The item to add to the inventory
+     * @throws ArrayIndexOutOfBoundsException Throws if the indexPlace is irrelevant
+     * @throws InventoryFullException The inventory is full
+     */
+    public void add(Item newItem) throws ArrayIndexOutOfBoundsException,
+            InventoryFullException {
+        try {
+            add(this.getFirstEmptyPlace(), newItem);
+        } catch (NotEmptyPlaceException e) {
+            System.err.println("That should not happened");
+        }
     }
 
     /**
