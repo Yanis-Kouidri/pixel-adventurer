@@ -105,18 +105,26 @@ s	 */
 		int startTileY = Math.max(mapY, cameraY / SPRITE_DIM);
 		int endTileY = Math.min(mapY + getHeight() / SPRITE_DIM + 1, (cameraY + screenHeight) / SPRITE_DIM + 1);
 
+		int counter = 0;
 		for (int y = startTileY; y < endTileY && y < height; y++) {
 			for (int x = startTileX; x < endTileX && x < width; x++) {
 				Tile currentTile = level.getTileAtPos(y, x);
 				int currentTileIdentifier = currentTile.getTileId();
-				Image currentSprite = sprites.getTileSprite(currentTileIdentifier);
+				// If the bloc is air don't load the sprite for better performance.
+				if (currentTileIdentifier != 0){
+					Image currentSprite = sprites.getTileSprite(currentTileIdentifier);
 
-				int pixelX = x * SPRITE_DIM;
-				int pixelY = y * SPRITE_DIM;
+					int pixelX = x * SPRITE_DIM;
+					int pixelY = y * SPRITE_DIM;
 
-				g.drawImage(currentSprite, pixelX, pixelY, null);
+					g.drawImage(currentSprite, pixelX, pixelY, null);
+					counter++;
+
+				}
 			}
 		}
+		System.out.println(">> counter = " + counter);
+
 	}
 }
 

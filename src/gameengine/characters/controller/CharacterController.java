@@ -54,7 +54,6 @@ public class CharacterController implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_SPACE) {
             upPressed = false;
-//            logger.info("Release " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_Q) {
             leftPressed = false;
