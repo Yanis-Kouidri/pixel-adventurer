@@ -57,7 +57,9 @@ public class InventoryMenuViewTest {
         Item troutItem = new Item("Trout");
         texturePack.addItem("Trout", troutIcon);
 
-        Item[] offerItem = {potionItem, crabItem, fishRodItem, troutItem};
+        Item magicWand = new Item("Magic Wand");
+
+        Item[] offerItem = {potionItem, crabItem, fishRodItem, troutItem, magicWand};
 
         // Filling the inventory randomly
         for (int i = 0; i < NB_OF_ITEM_TO_ADD ; i ++) {

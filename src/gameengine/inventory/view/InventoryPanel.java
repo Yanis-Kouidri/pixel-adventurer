@@ -24,6 +24,9 @@ public class InventoryPanel extends JPanel {
      */
     private final static int SQUARE_BORDER_THICKNESS = 2;
 
+    private final static ImageIcon ITEM_TEXTURE_NOT_FOUND = new ImageIcon(
+            "src/gameassets/item/unknown_item.png");
+
 
     public InventoryPanel() {
         super();
@@ -53,8 +56,9 @@ public class InventoryPanel extends JPanel {
                     itemSpaceSprite =  itemsSprite.getSprite(currentItem.getName());
                 } catch (NoSpriteFoundException e) {
                     // If there is no sprite :
-                    itemSpaceSprite = new JLabel();
-                    //TODO Add something
+
+                    itemSpaceSprite = new JLabel(ITEM_TEXTURE_NOT_FOUND);
+
                 }
 
             } else { // Adding an empty case.
