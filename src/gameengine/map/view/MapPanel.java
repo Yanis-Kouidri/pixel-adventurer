@@ -91,21 +91,26 @@ s	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		for (int y = mapY; y < mapY + getHeight() / SPRITE_DIM + 1 && y < height; y++) {
-			for (int x = mapX; x < mapX + getWidth() / SPRITE_DIM + 1 && x < width; x++) {
+		int cameraX = camera.getX();
+		int cameraY = camera.getY();
+		int screenWidth = Constants.SCREEN_WIDTH;
+		int screenHeight = Constants.SCREEN_HEIGHT;
+
+		int startTileX = Math.max(mapX, cameraX / SPRITE_DIM);
+		int endTileX = Math.min(mapX + getWidth() / SPRITE_DIM + 1, (cameraX + screenWidth) / SPRITE_DIM + 1);
+		int startTileY = Math.max(mapY, cameraY / SPRITE_DIM);
+		int endTileY = Math.min(mapY + getHeight() / SPRITE_DIM + 1, (cameraY + screenHeight) / SPRITE_DIM + 1);
+
+		for (int y = startTileY; y < endTileY && y < height; y++) {
+			for (int x = startTileX; x < endTileX && x < width; x++) {
 				Tile currentTile = level.getTileAtPos(y, x);
 				int currentTileIdentifier = currentTile.getTileId();
 				Image currentSprite = sprites.getTileSprite(currentTileIdentifier);
 
-				// Gets the position in pixel unit.
-				int pixelX = x*SPRITE_DIM;
-				int pixelY = y*SPRITE_DIM;
+				int pixelX = x * SPRITE_DIM;
+				int pixelY = y * SPRITE_DIM;
 
-				// Draws image only if it will appear on the screen.
-				if (pixelX < camera.getX()+Constants.SCREEN_WIDTH && pixelX+32 > camera.getX()
-					&& pixelY < camera.getY()+Constants.SCREEN_HEIGHT && pixelY+32 > camera.getY())
-				g.drawImage(currentSprite, pixelX, pixelY , null);
-
+				g.drawImage(currentSprite, pixelX, pixelY, null);
 			}
 		}
 	}

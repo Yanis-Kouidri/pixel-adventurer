@@ -9,6 +9,7 @@ import gameengine.utils.model.Coordinates;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,6 +25,8 @@ public class GameLayerPanel extends CustomPanel {
     private MapPanel mapPanel; // View of the map
     private EntityView entityView; // View of Character
     private Camera camera; // Camera of the view
+
+    private BufferedImage backgroundImage; // Attribut pour stocker l'image de fond
 
     /**
      * Constructs the GamePanel and adds it to PanelMediator's list of custom panels.
@@ -54,10 +57,17 @@ public class GameLayerPanel extends CustomPanel {
         entityView.setBounds(0,0, CHARACTER_LENGHT, CHARACTER_LENGHT);
         mapPanel.setBounds(0,0,Constants.MAP_LENGTH, Constants.MAP_HEIGHT);
 
+        // Setting the character spawnPoint
         Coordinates spawnPoint = mapPanel.getLevel().getSpawnPoint();
         mapPanel.setCamera(camera); // Adding the camera to the MapPanel
 
-        // Setting the character spawnPoint
+
+        // Loading the background image
+        try {
+            backgroundImage = ImageIO.read(new File("src/gameassets/map/images/testBackground.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -84,16 +94,15 @@ public class GameLayerPanel extends CustomPanel {
      */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 
-        // Loading the background image
-        try {
-            g.drawImage(ImageIO.read(new File("src/gameassets/map/images/testBackground.png")), 0, 0, getWidth(), getHeight(), null);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        // Rendering the map and offsetting with the camera's coordinates
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.translate(-camera.getX(), -camera.getY());
+        mapPanel.paintComponent(g2d);
+        g2d.dispose();
 
-        // First renders the map offsetted by the camera
-        mapPanel.paintComponent(g.create(mapPanel.getMapX()-camera.getX(), mapPanel.getMapY()-camera.getY(), mapPanel.getWidth(), mapPanel.getHeight()));
+        // Rendering the entityView at the center of the map
         entityView.paintComponent(g.create(SCREEN_WIDTH/2 - CHARACTER_LENGHT,SCREEN_HEIGHT/2-CHARACTER_LENGHT, CHARACTER_LENGHT, CHARACTER_LENGHT));
     }
 }
