@@ -54,11 +54,10 @@ public class GameLayerPanel extends CustomPanel {
         layeredPane.add(mapPanel, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(entityView, JLayeredPane.PALETTE_LAYER);
 
-        entityView.setBounds(0,0, CHARACTER_LENGHT, CHARACTER_LENGHT);
+        entityView.setBounds((int) entityView.getEntity().getCoordinates().getX(),(int) entityView.getEntity().getCoordinates().getX(), CHARACTER_LENGHT, CHARACTER_LENGHT);
+        System.out.println("> Where is entityView ? ("+entityView.getX()+";"+entityView.getY()+")");
         mapPanel.setBounds(0,0,Constants.MAP_LENGTH, Constants.MAP_HEIGHT);
 
-        // Setting the character spawnPoint
-        Coordinates spawnPoint = mapPanel.getLevel().getSpawnPoint();
         mapPanel.setCamera(camera); // Adding the camera to the MapPanel
 
 
@@ -96,11 +95,9 @@ public class GameLayerPanel extends CustomPanel {
         super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
         Graphics2D g2d = (Graphics2D) g.create();
-        // Adjust camera position to stay within map bounds
 
         // Rendering the map and offsetting with the camera's coordinates
         // Renders the map until we get to the start or the end.
-
         int cameraX = camera.getX();
         int cameraY = camera.getY();
 
@@ -111,9 +108,16 @@ public class GameLayerPanel extends CustomPanel {
         g2d.translate(-cameraX, -cameraY);
 
         mapPanel.paintComponent(g2d);
-        g2d.dispose();
 
         // Rendering the entityView at the center of the map
-        entityView.paintComponent(g.create(SCREEN_WIDTH/2 - CHARACTER_LENGHT,SCREEN_HEIGHT/2-CHARACTER_LENGHT, CHARACTER_LENGHT, CHARACTER_LENGHT));
+        // Récupérez les coordonnées de l'entité depuis le modèle
+        int entityX = (int) entityView.getEntity().getCoordinates().getX();
+        int entityY = (int) entityView.getEntity().getCoordinates().getY();
+        System.out.println("> Position of  Camera : ("+camera.getX()+","+camera.getY()+")");
+
+        // Dessinez `entityView` en utilisant les coordonnées centrées
+        entityView.paintComponent(g2d);
+        g2d.dispose();
+
     }
 }

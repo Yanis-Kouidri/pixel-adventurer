@@ -2,8 +2,6 @@ package gameengine.application.controller;
 
 import gameengine.application.model.Camera;
 import gameengine.application.view.GameLayerPanel;
-import gameengine.characters.controller.CharacterController;
-import gameengine.utils.model.Physics;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,7 +15,7 @@ public class CameraController implements KeyListener {
 
     GameLayerPanel gameLayerPanel;
 
-    public boolean rightPressed, leftPressed, upPressed;
+    public boolean rightPressed, leftPressed, upPressed, downPressed;
 
     public CameraController(Camera cam, GameLayerPanel glp){
         camera = cam;
@@ -52,6 +50,10 @@ public class CameraController implements KeyListener {
             rightPressed = true;
 //            logger.info("Press " + e.getKeyChar());
         }
+        if (code == KeyEvent.VK_S) {
+            downPressed = true;
+//            logger.info("Press " + e.getKeyChar());
+        }
     }
 
     /**
@@ -70,6 +72,9 @@ public class CameraController implements KeyListener {
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
         }
+        if (code == KeyEvent.VK_S) {
+            downPressed = false;
+        }
     }
 
     /**
@@ -84,6 +89,9 @@ public class CameraController implements KeyListener {
         }
         if (rightPressed) {
             camera.moveRight();
+        }
+        if (downPressed) {
+            camera.moveDown();
         }
     }
 }

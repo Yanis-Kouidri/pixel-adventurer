@@ -49,14 +49,6 @@ public class MapPanel extends JPanel {
 	// The first y coordinate in pixels
 	private final static int FIRST_Y_PIXEL = 0;
 
-	public int getMapX() {
-		return mapX;
-	}
-
-	public int getMapY() {
-		return mapY;
-	}
-
 	private int mapX = 0;
 	private int mapY = 0;
 

@@ -61,24 +61,23 @@ class PixelAdventure extends GameLoop {
         panelMediator = new PanelMediator();
         menuPanel = new MenuPanel(panelMediator);
         ApplicationWindow.createInstance(menuPanel);
-        
-
-
-        // -------------------- Main Character model --------------------
-        mainCharacter = Character.createInstance();						//we want to display the main character so we create it
-
-        // -------------------- Main Character view --------------------
-        mainCharacterImage = Utils.getImage("character/mainCharacter.png");
-        entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
-
-        // -------------------- Main Character controller --------------------
-        mainCharacterController = new CharacterController(mainCharacter);
 
         // -------------------- Map model --------------------
         MapPanel mapPanel = initMapPanel();
         // For testing map in terminal view
         /*Tile[][] array = testMap.getMapArray();*/
         /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
+
+
+        // -------------------- Main Character model --------------------
+        mainCharacter = Character.createInstance();						//we want to display the main character so we create it
+        mainCharacter.setSpawn(mapPanel.getLevel());
+        // -------------------- Main Character view --------------------
+        mainCharacterImage = Utils.getImage("character/mainCharacter.png");
+        entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
+
+        // -------------------- Main Character controller --------------------
+        mainCharacterController = new CharacterController(mainCharacter);
 
 
         // -------------------- Inventory model --------------------

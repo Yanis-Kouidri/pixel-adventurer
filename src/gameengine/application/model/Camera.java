@@ -5,6 +5,9 @@ import gameengine.utils.model.Constants;
 import gameengine.utils.model.Coordinates;
 import gameengine.utils.model.Physics;
 
+import static gameengine.utils.model.Physics.GRAVITY;
+import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
+
 /**
  * Implements the logic on how the view of the player will be placed at.
  */
@@ -33,6 +36,7 @@ public class Camera {
         // Gets the middle point of the map at ground-level.
         int x = (int) (spawnPoint.getX()*Constants.BLOCK_LENGHT);
         int y = (int) (spawnPoint.getY()*Constants.BLOCK_LENGHT);
+        System.out.println("Le milieu de la map = " + x + "," + y);
 
         // Offsets the coordinates so that the middle point of the map is the middle point
         // of the camera
@@ -40,7 +44,8 @@ public class Camera {
         y = y - Constants.SCREEN_HEIGHT/2;
 
         coordinates = new Coordinates(x,y);
-        System.out.println("Le milieu de la map = " + x + "," + y);
+        System.out.println("La camera se trouve = " + x + "," + y);
+
     }
 
     /**
@@ -79,7 +84,8 @@ public class Camera {
      * and can be found in utils.model.Physics
      */
     public void moveUp() {
-        coordinates.setY(getY() - Physics.NB_DEPLACEMENT_BLOCK);
+        float newPosition = coordinates.getY() - NB_DEPLACEMENT_BLOCK + GRAVITY;
+        coordinates.setY(newPosition);
     }
 
     /**
@@ -96,6 +102,14 @@ public class Camera {
      */
     public void moveLeft() {
         coordinates.setX(getX() - Physics.NB_DEPLACEMENT_BLOCK);
+
+    }
+    /**
+     * Moves the camera's coordinates downwards.The number of pixels is a constant
+     * and can be found in utils.model.Physics
+     */
+    public void moveDown() {
+        coordinates.setY(getY() - Physics.NB_DEPLACEMENT_BLOCK);
 
     }
 }

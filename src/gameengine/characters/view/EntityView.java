@@ -34,23 +34,11 @@ public class EntityView extends JPanel{
 		// Transparency Image character
 		setBackground( new Color(0, 0, 0, 0) );
 	}
-	
-
-	/**
-	 * paint add what need to be displayed.
-	 * @param g
-	 */
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		g.drawImage(image, 0, 0, CHARACTER_LENGHT, CHARACTER_LENGHT,this);
-//		logger.info("mainCharacter Paint");
-	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, 0, CHARACTER_LENGHT, CHARACTER_LENGHT,this);
+		g.drawImage(image, (int) entity.getCoordinates().getX(), (int) entity.getCoordinates().getY(), CHARACTER_LENGHT, CHARACTER_LENGHT,this);
 	}
 
 	/**
