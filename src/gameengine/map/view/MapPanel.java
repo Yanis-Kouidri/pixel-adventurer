@@ -115,7 +115,7 @@ s	 */
 				}
 			}
 		}
-		System.out.println(">> counter = " + counter);
+//		System.out.println(">> counter = " + counter);
 
 	}
 }

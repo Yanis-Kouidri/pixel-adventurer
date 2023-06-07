@@ -36,7 +36,7 @@ public abstract class Entity{
 	}
 	
 	/**
-	 * a method to get the entity coordinates.
+	 * a method to get the entity coordinates in pixels.
 	 * @return Coordinates
 	 */
 	public final Coordinates getCoordinates() {
