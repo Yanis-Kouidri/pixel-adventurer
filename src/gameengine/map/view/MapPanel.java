@@ -97,7 +97,6 @@ s	 */
 		int startTileY = Math.max(mapY, cameraY / SPRITE_DIM);
 		int endTileY = Math.min(mapY + getHeight() / SPRITE_DIM + 1, (cameraY + screenHeight) / SPRITE_DIM + 1);
 
-		int counter = 0;
 		for (int y = startTileY; y < endTileY && y < height; y++) {
 			for (int x = startTileX; x < endTileX && x < width; x++) {
 				Tile currentTile = level.getTileAtPos(y, x);
@@ -110,13 +109,9 @@ s	 */
 					int pixelY = y * SPRITE_DIM;
 
 					g.drawImage(currentSprite, pixelX, pixelY, null);
-					counter++;
-
 				}
 			}
 		}
-//		System.out.println(">> counter = " + counter);
-
 	}
 }
 
