@@ -44,7 +44,7 @@ public class GameLayerPanel extends CustomPanel {
 
         // Adding everything as the attributes
         this.entityView = entityView;
-        this.camera = new Camera(mapPanel.getLevel());
+        this.camera = new Camera(entityView.getEntity());
         this.mapPanel = mapPanel;
 
         // Layering the different panels
