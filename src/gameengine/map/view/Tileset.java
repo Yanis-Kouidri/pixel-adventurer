@@ -19,8 +19,8 @@ public class Tileset {
 
 	// The tileset
 	private BufferedImage set;
-	private int nbTiles;
-	private Map<Integer, Image> cachedImages = new HashMap<>(); // The different tiles cached as images
+	private final int nbTiles; // The number of tiles that can be extracted from the tileset
+	private final Map<Integer, Image> cachedImages = new HashMap<>(); // The different tiles cached as images
 
 	/** Instantiates a Tileset object
 	 * @param tilesetPath The path to the tileset image
@@ -44,13 +44,19 @@ public class Tileset {
 	}
 
 	/**
-	 * Creates the cache images for less RAM usage.
+	 * Creates a map of cached images to reuse for drawing.
+	 * It uses the number of tiles computed by computeNumberTiles
+	 * and iterates through the tileset to create the map.
+	 *
+	 * The key is the tile ID
+	 * The value is the cached image
 	 */
 	public void createCache() {
 		int numberOfColumns = set.getWidth() / SPRITE_DIM;
 		for (int tileIdentifier = 0; tileIdentifier < nbTiles; tileIdentifier++) {
 			int x = tileIdentifier / numberOfColumns;
 			int y = tileIdentifier % numberOfColumns;
+
 			Image sprite = set.getSubimage(y * SPRITE_DIM
 					, x * SPRITE_DIM, SPRITE_DIM, SPRITE_DIM);
 
