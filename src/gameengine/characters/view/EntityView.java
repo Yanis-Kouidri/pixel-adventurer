@@ -27,24 +27,18 @@ public class EntityView extends JPanel{
 	 * @param image
 	 */
 	public EntityView(Entity entity, Image image) {
+		setOpaque(false);
 		this.entity = entity;
 		this.image = image;
 
 		// Transparency Image character
 		setBackground( new Color(0, 0, 0, 0) );
 	}
-	
 
-	/**
-	 * paint add what need to be displayed.
-	 * @param g
-	 */
 	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-
-		g.drawImage(image, 0, 0, CHARACTER_LENGHT, CHARACTER_LENGHT,this);
-		logger.info("mainCharacter Paint");
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image, (int) entity.getCoordinates().getX(), (int) entity.getCoordinates().getY(), CHARACTER_LENGHT, CHARACTER_LENGHT,this);
 	}
 
 	/**
@@ -55,5 +49,13 @@ public class EntityView extends JPanel{
 		float x = entity.getCoordinates().getX() * BLOCK_LENGHT;
 		float y = entity.getCoordinates().getY() * BLOCK_LENGHT;
 		this.setLocation(Math.round(x), Math.round(y));
+	}
+
+	/**
+	 * Gets the entity linked to the view
+	 * @return the player's character
+	 */
+	public Entity getEntity(){
+		return entity;
 	}
 }

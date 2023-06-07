@@ -1,50 +1,71 @@
 package gameengine.application.view;
 
+import gameengine.application.model.Camera;
+import gameengine.inventory.view.InventoryMenu;
+import gameengine.inventory.view.InventoryPanel;
+import gameengine.utils.model.Constants;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 
+/**
+ * The game view composed of the GameLayerPanel (both the map and the entities) and HUD Panel.
+ * @author Eric YU
+ */
 public class GamePanel extends CustomPanel {
-    private GameLayerPanel gameLayerPanel;
-    private HUDPanel hudPanel;
 
-    private JLayeredPane layeredPane;
+    private JLayeredPane layeredPane; // Layer Pane to superpose both panels
+    private GameLayerPanel gameLayerPanel; // The GameLayer on which entities and map will interact
 
-    public GamePanel(PanelMediator pm) {
+    /**
+     * Constructs a new Game Panel and adds it to the PanelMediator's list.
+     * Layers its different panels with the gameLayer in the background and HUD on top of it.
+     * @param pm the panelMediator
+     * @param glp the gameLayerPanel
+     */
+    public GamePanel(PanelMediator pm, GameLayerPanel glp) {
         super(pm);
+        setBounds(0,0, Constants.MAP_LENGTH, Constants.MAP_HEIGHT);
         pm.setGamePanel(this);
-        setBackground(Color.BLUE);
         setLayout(new BorderLayout());
 
         // Create a JLayeredPane as the main container
         layeredPane = new JLayeredPane();
         add(layeredPane, BorderLayout.CENTER);
+        gameLayerPanel = glp;
 
-/*        // Create the game layer panel
-        gameLayerPanel = new GameLayerPanel();
-        layeredPane.add(gameLayerPanel, JLayeredPane.DEFAULT_LAYER); // Set lower layer index
+        // Adds the different layers to the JLayeredPane.
+        layeredPane.add(this.gameLayerPanel, JLayeredPane.DEFAULT_LAYER);
 
-        // Create the GUI panel
-        hudPanel = new HUDPanel();
-        layeredPane.add(hudPanel, JLayeredPane.DEFAULT_LAYER); // Set higher layer index*/
     }
 
-    public void addlayeredPanel(JPanel comp, Integer constraints) {
-        layeredPane.add(comp, constraints);
+    /**
+     * Calls the repaint method to manually re-render the view.
+     * It is used in the gameloop.
+     */
+    public void render(){
+        repaint();
     }
 
-    public JLayeredPane getLayeredPane() {
-        return layeredPane;
+    /**
+     * Gets the camera object of the gameLayerPanel.
+     * @return the camera bounded to the gameLayerPanel
+     */
+    public Camera getCamera(){
+        return gameLayerPanel.getCamera();
     }
 
-    private class HUDPanel extends JPanel {
-        // Implement the HUD panel appearance and behavior (inventory, buttons, etc.)
-        // ...
+    /**
+     * Rendering logic. It first paints the gameLayerPanel then the HUDPanel.
+     * @param g the <code>Graphics</code> object to protect
+     */
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        gameLayerPanel.paintComponent(g);
     }
 
-    private class GameLayerPanel extends JPanel {
-        // Implement the Game panel appearance
-        // ...
+    public void addlayeredPanel(InventoryPanel panel, Integer popupLayer) {
+        layeredPane.add(panel, popupLayer);
     }
-
 }

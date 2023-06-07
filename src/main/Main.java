@@ -7,6 +7,7 @@ package main;
 
 import java.awt.*;
 
+import gameengine.application.controller.CameraController;
 import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
 import gameengine.characters.model.Character;
@@ -18,15 +19,15 @@ import gameengine.inventory.view.InventoryBar;
 import gameengine.inventory.view.InventoryMenu;
 import gameengine.map.model.Map;
 /*import gameengine.map.model.MapArray;*/
+import gameengine.map.model.MapArray;
 import gameengine.map.model.MapType;
 import gameengine.map.model.Tile;
 import gameengine.map.view.MapPanel;
 import gameengine.map.view.Tileset;
+import gameengine.utils.model.Constants;
 import gameengine.utils.model.Utils;
 
 import javax.swing.*;
-
-import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
 
 public class Main {
     public static void main(String[] args) {
@@ -48,7 +49,8 @@ class PixelAdventure extends GameLoop {
     private Image mainCharacterImage, backgroundImage;
 
     private CharacterController mainCharacterController;
-
+    private MapPanel mapPanel;
+    private CameraController cameraController;
     private int updatePerSecond = 30;
 
     /**
@@ -57,40 +59,25 @@ class PixelAdventure extends GameLoop {
     public PixelAdventure() {
         // Init the firsts elements to Application
         panelMediator = new PanelMediator();
-        gamePanel = new GamePanel(panelMediator);
         menuPanel = new MenuPanel(panelMediator);
         ApplicationWindow.createInstance(menuPanel);
-        
+
+        // -------------------- Map model --------------------
+        MapPanel mapPanel = initMapPanel();
+        // For testing map in terminal view
+        /*Tile[][] array = testMap.getMapArray();*/
+        /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
+
 
         // -------------------- Main Character model --------------------
         mainCharacter = Character.createInstance();						//we want to display the main character so we create it
-
+        mainCharacter.setSpawn(mapPanel.getLevel());
         // -------------------- Main Character view --------------------
         mainCharacterImage = Utils.getImage("character/mainCharacter.png");
         entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
 
         // -------------------- Main Character controller --------------------
         mainCharacterController = new CharacterController(mainCharacter);
-
-
-        // -------------------- Map model --------------------
-        Tile emptyTile = new Tile(0, "empty", false);
-        Tile surfaceTile = new Tile(1, "grass", true);
-        Tile undergroundTile = new Tile(2, "dirt", true);
-
-        MapType testMapType = new MapType("testType", emptyTile, surfaceTile, undergroundTile);
-        Map testMap = new Map("testMap", testMapType, 300, 100, 15.0, 0.1);
-
-
-
-        // -------------------- Map view --------------------
-        String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
-        String backgroudImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
-        Tileset set = new Tileset(tileSetPath);
-        MapPanel mapPanel = new MapPanel(testMap, set, backgroudImagePath);
-        // For testing map in terminal view
-        /*Tile[][] array = testMap.getMapArray();*/
-        /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
 
 
         // -------------------- Inventory model --------------------
@@ -105,15 +92,10 @@ class PixelAdventure extends GameLoop {
         // -------------------- Inventory controller --------------------
         InventoryKeyController inventoryController = new InventoryKeyController(iventoryMenu);
 
-        // Add view element to game panel
-        gamePanel.addlayeredPanel(entityView, JLayeredPane.PALETTE_LAYER);
-        gamePanel.addlayeredPanel(mapPanel, JLayeredPane.DEFAULT_LAYER);
-        gamePanel.addlayeredPanel(inventoryBar, JLayeredPane.POPUP_LAYER);
-        gamePanel.addlayeredPanel(iventoryMenu, JLayeredPane.DRAG_LAYER);
 
         // Set element in space of panel
         // x, y coordinates useless because we based to coordinate character in the model
-        entityView.setBounds(0,0, CHARACTER_LENGHT, CHARACTER_LENGHT);
+        entityView.setBounds(0,0, Constants.CHARACTER_LENGHT, Constants.CHARACTER_LENGHT);
         mapPanel.setBounds(0,0, ApplicationWindow.getFrame().getWidth(),
                 ApplicationWindow.getFrame().getHeight());
 
@@ -138,10 +120,20 @@ class PixelAdventure extends GameLoop {
                  widthInventoryMenu,
                 heightInventoryMenu
         );
+        
+        GameLayerPanel gameLayerPanel = new GameLayerPanel(panelMediator,entityView, mapPanel);
+        gamePanel = new GamePanel(panelMediator, gameLayerPanel);
+        gamePanel.addlayeredPanel(inventoryBar, JLayeredPane.POPUP_LAYER);
+        gamePanel.addlayeredPanel(iventoryMenu, JLayeredPane.DRAG_LAYER);
+
+        ApplicationWindow.createInstance(menuPanel);
+
+        cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
 
         // Add controller to frame
         ApplicationWindow.getFrame().addKeyListener(inventoryController);
         ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
+        ApplicationWindow.getFrame().addKeyListener(cameraController);
     }
 
     @Override
@@ -157,10 +149,27 @@ class PixelAdventure extends GameLoop {
     @Override
     protected void render() {
         entityView.updateLocation();
+        gamePanel.render();
     }
 
     protected void update() {
         mainCharacterController.update();
+        cameraController.update();
     }
 
+
+    private MapPanel initMapPanel(){
+        String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
+        String backgroundImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
+        Tile emptyTile = new Tile(0, "empty", false);
+        Tile surfaceTile = new Tile(1, "grass", true);
+        Tile undergroundTile = new Tile(2, "dirt", true);
+        MapType testMapType = new MapType("testType", emptyTile, surfaceTile, undergroundTile);
+        Map testMap = new Map("testMap", testMapType, Constants.MAP_COLUMNS, Constants.MAP_ROWS, 15.0, 0.1);
+        Tile[][] array = testMap.getMapArray();
+        MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight());
+        Tileset set = new Tileset(tileSetPath);
+        System.out.println(surfaceTile.getTileName());
+        return new MapPanel(testMap, set);
+    }
 }

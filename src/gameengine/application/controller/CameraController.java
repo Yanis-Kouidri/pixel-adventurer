@@ -1,23 +1,31 @@
-package gameengine.characters.controller;
+package gameengine.application.controller;
 
-import gameengine.characters.model.Character;
-import gameengine.characters.model.Entity;
+import gameengine.application.model.Camera;
+import gameengine.application.view.GameLayerPanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.logging.Logger;
 
-public class CharacterController implements KeyListener {
+/**
+ * Defines how the camera will be modified based on the user's input
+ * @author Eric YU
+ */
+public class CameraController implements KeyListener {
+    Camera camera; // The camera model which will be modified
 
-    // Change type to Character (modifiy instance methode in CHaracter)
+    GameLayerPanel gameLayerPanel;
 
-    private final Logger logger = Logger.getLogger(String.valueOf(this.getClass()));
-    private Character mainCharacter;
+    public boolean rightPressed, leftPressed, upPressed, downPressed;
 
-    public boolean rightPressed, leftPressed, upPressed;
-    public CharacterController(Character mainCharacter) {
-        this.mainCharacter = mainCharacter;
+    public CameraController(Camera cam, GameLayerPanel glp){
+        camera = cam;
+        gameLayerPanel = glp;
     }
+
+    /**
+     * NOT IMPLEMENTED
+     * @param e the event to be processed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -42,13 +50,16 @@ public class CharacterController implements KeyListener {
             rightPressed = true;
 //            logger.info("Press " + e.getKeyChar());
         }
+        if (code == KeyEvent.VK_S) {
+            downPressed = true;
+//            logger.info("Press " + e.getKeyChar());
+        }
     }
 
     /**
      * Trigger the key released key and assign one action for that
      * @param e the key released
      */
-
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
@@ -57,30 +68,30 @@ public class CharacterController implements KeyListener {
         }
         if (code == KeyEvent.VK_Q) {
             leftPressed = false;
-//            logger.info("Release " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
-//            logger.info("Release " + e.getKeyChar());
+        }
+        if (code == KeyEvent.VK_S) {
+            downPressed = false;
         }
     }
 
     /**
-     * update model depending to the controller
+     * Updates the camera model based on which key was pressed by the user
      */
     public void update() {
         if (upPressed) {
-            mainCharacter.moveUp();
-//            logger.info(mainCharacter.toString());
+            camera.moveUp();
         }
         if (leftPressed) {
-            mainCharacter.moveLeft();
-//            logger.info(mainCharacter.toString());
+            camera.moveLeft();
         }
         if (rightPressed) {
-            mainCharacter.moveRight();
-//            logger.info(mainCharacter.toString());
+            camera.moveRight();
         }
-
+        if (downPressed) {
+            camera.moveDown();
+        }
     }
 }

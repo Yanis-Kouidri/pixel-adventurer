@@ -6,8 +6,12 @@ import java.io.IOException;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+
+import gameengine.application.model.Camera;
 import gameengine.map.model.Map;
 import gameengine.map.model.Tile;
+import gameengine.utils.model.Constants;
+
 import static gameengine.utils.model.Constants.SPRITE_DIM;
 
 /** This class defines the MapPanel object
@@ -20,11 +24,17 @@ public class MapPanel extends JPanel {
 	// The map to draw
 	private Map level;
 
+	private Camera camera;
+	public Map getLevel() {
+		return level;
+	}
+
+	public Tileset getSprites() {
+		return sprites;
+	}
+
 	// The tileset containing the sprites
 	private Tileset sprites;
-
-	// The panel background image
-	private Image background;
 
 	// The map width
 	private int width;
@@ -39,23 +49,19 @@ public class MapPanel extends JPanel {
 	// The first y coordinate in pixels
 	private final static int FIRST_Y_PIXEL = 0;
 
+	private int mapX = 0;
+	private int mapY = 0;
+
 	/** Initializes a panel object with a map, a tileset and a background image
 	 * @param level The map to draw
 	 * @param sprites The tileset containing the tiles sprites
-	 * @param background The path to the desired background image
-	 */
-	public MapPanel(Map level, Tileset sprites, String backgroundPath) {
+s	 */
+	public MapPanel(Map level, Tileset sprites) {
+		setOpaque(false);
 
 		// Sets the attributes for the object
 		this.level = level;
 		this.sprites = sprites;
-
-		// Tries to open and store the background image file
-		try {
-			this.background = ImageIO.read(new File(backgroundPath));
-		} catch (IOException e) {
-			System.out.println("Error trying to read the background image file");
-		}
 
 		// Stores the map width and height
 		this.width = this.level.getMapWidth();
@@ -65,22 +71,52 @@ public class MapPanel extends JPanel {
 		this.setPreferredSize(new Dimension(this.width * SPRITE_DIM, this.height * SPRITE_DIM));
 	}
 
-	// Draws the background and the tiles
+	/**
+	 * Sets the camera of the MapPanel
+	 * @param c the camera
+	 */
+	public void setCamera(Camera c){
+		camera = c;
+	}
+
+	/**
+	 * Renders the map
+	 * @param g the <code>Graphics</code> object to protect
+	 */
 	@Override
-	protected void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		// Draws the background image
-		g.drawImage(this.background, FIRST_X_PIXEL, FIRST_Y_PIXEL, this.getWidth(), this.getHeight(), null);
+		int cameraX = camera.getX();
+		int cameraY = camera.getY();
+		int screenWidth = Constants.SCREEN_WIDTH;
+		int screenHeight = Constants.SCREEN_HEIGHT;
 
-		// Draws the map tiles
-		for (int y = 0; y < this.height; y ++) {
-			for (int x = 0; x < this.width; x ++) {
-				Tile currentTile = this.level.getTileAtPos(y, x);
+		int startTileX = Math.max(mapX, cameraX / SPRITE_DIM);
+		int endTileX = Math.min(mapX + getWidth() / SPRITE_DIM + 1, (cameraX + screenWidth) / SPRITE_DIM + 1);
+		int startTileY = Math.max(mapY, cameraY / SPRITE_DIM);
+		int endTileY = Math.min(mapY + getHeight() / SPRITE_DIM + 1, (cameraY + screenHeight) / SPRITE_DIM + 1);
+
+		int counter = 0;
+		for (int y = startTileY; y < endTileY && y < height; y++) {
+			for (int x = startTileX; x < endTileX && x < width; x++) {
+				Tile currentTile = level.getTileAtPos(y, x);
 				int currentTileIdentifier = currentTile.getTileId();
-				Image currentSprite = this.sprites.getTileSprite(currentTileIdentifier);
-				g.drawImage(currentSprite, x * SPRITE_DIM, y * SPRITE_DIM, null);
+				// If the bloc is air don't load the sprite for better performance.
+				if (currentTileIdentifier != 0){
+					Image currentSprite = sprites.getTileSprite(currentTileIdentifier);
+
+					int pixelX = x * SPRITE_DIM;
+					int pixelY = y * SPRITE_DIM;
+
+					g.drawImage(currentSprite, pixelX, pixelY, null);
+					counter++;
+
+				}
 			}
 		}
+		System.out.println(">> counter = " + counter);
+
 	}
 }
+

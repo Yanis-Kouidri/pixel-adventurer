@@ -1,6 +1,10 @@
 package gameengine.characters.model;
 
+import gameengine.map.model.Map;
+import gameengine.map.view.MapPanel;
+import gameengine.utils.model.Constants;
 import gameengine.utils.model.Coordinates;
+
 
 import static gameengine.utils.model.Physics.GRAVITY;
 import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
@@ -68,5 +72,11 @@ public abstract class Entity{
 	@Override
 	public String toString() {
 		return coordinates.toString();
+	}
+
+	public void setSpawn(Map m){
+		coordinates.setX((int)m.getSpawnPoint().getX()*Constants.BLOCK_LENGHT - Constants.SPRITE_DIM/2);
+		coordinates.setY(((int)m.getSpawnPoint().getY()-1)*Constants.BLOCK_LENGHT - Constants.SPRITE_DIM/2);
+		System.out.println("> Position of Player : ("+coordinates.getX()+","+coordinates.getY()+")");
 	}
 }
