@@ -18,32 +18,27 @@ public class Camera {
     Coordinates coordinates; // The top-left point of the camera
     Map map; // The map on which the camera will be placed.
     Entity character; // Follows this character
-
-    public Boolean getFollowPlayer() {
-        return followPlayer;
-    }
-
-    public void setFollowPlayer(Boolean followPlayer) {
-        this.followPlayer = followPlayer;
-    }
-
-    Boolean followPlayer; // The camera will follow the player or not.
-
+    Boolean followPlayer; // Tells if the camera will lock on the player or not.
 
     /**
-     * Constructs a camera on a map at its middle.
+     * Will construct a camera using the map and the character.
+     * If the lockOnPlayer boolean value is true, it will follow by default the player
+     * and will lock on him. Else the camera will be placed in the middle of the map and
+     * will have to be controlled manually.
+     * @param c the player
      * @param m the map
+     * @param lockOnPlayer lock-on
      */
-    public Camera(Map m){
-        followPlayer=false;
-        map = m;
-        centerMap();
-    }
-
-    public Camera(Entity c){
-        followPlayer = true;
+    public Camera(Entity c, Map m, Boolean lockOnPlayer){
+        followPlayer = lockOnPlayer;
         character = c;
-        setToPlayer();
+        map = m;
+        if(followPlayer){
+            setToPlayer();
+        }
+        else{
+            centerMap();
+        }
     }
 
     /**
@@ -75,6 +70,22 @@ public class Camera {
      */
     public int getY(){
         return (int) coordinates.getY();
+    }
+
+    /**
+     * Returns if the lock-on is activated
+     * @return the lock-on status
+     */
+    public Boolean getFollowPlayer() {
+        return followPlayer;
+    }
+
+    /**
+     * Modify the lock-on
+     * @param followPlayer new status
+     */
+    public void setFollowPlayer(Boolean followPlayer) {
+        this.followPlayer = followPlayer;
     }
 
     /**
@@ -113,6 +124,7 @@ public class Camera {
 
     /**
      * Updates the new camera's coordinates to put the character in the middle of the screen.
+     * Used by default when constructing the camera with the player.
      */
     public void setToPlayer(){
             Coordinates playerCoordinates = character.getCoordinates();
@@ -128,6 +140,11 @@ public class Camera {
 
             coordinates = new Coordinates(x,y);
     }
+
+    /**
+     * Centers the camera in the center of the map.
+     * Used by default when constructing the camera with a map.
+     */
     public void centerMap(){
         Coordinates spawnPoint = map.getSpawnPoint();
         // Gets the middle point of the map at ground-level.
