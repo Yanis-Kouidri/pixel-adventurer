@@ -16,6 +16,7 @@ public class CameraController implements KeyListener {
     GameLayerPanel gameLayerPanel;
 
     public boolean rightPressed, leftPressed, upPressed, downPressed;
+    public boolean lockUnlock;
 
     public CameraController(Camera cam, GameLayerPanel glp){
         camera = cam;
@@ -54,6 +55,7 @@ public class CameraController implements KeyListener {
             downPressed = true;
 //            logger.info("Press " + e.getKeyChar());
         }
+
     }
 
     /**
@@ -74,6 +76,16 @@ public class CameraController implements KeyListener {
         }
         if (code == KeyEvent.VK_DOWN) {
             downPressed = false;
+        }
+        if (code == KeyEvent.VK_K){
+            camera.setFollowPlayer(!camera.getFollowPlayer());
+            if (camera.getFollowPlayer()){
+                System.out.println("Locking camera");
+            }
+            else{
+                System.out.println("Unlocking camera");
+
+            }
         }
     }
 

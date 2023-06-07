@@ -44,7 +44,7 @@ public class GameLayerPanel extends CustomPanel {
 
         // Adding everything as the attributes
         this.entityView = entityView;
-        this.camera = new Camera(entityView.getEntity());
+        this.camera = new Camera(entityView.getEntity()); // Will place the camera on the Entity by default
         this.mapPanel = mapPanel;
 
         // Layering the different panels
@@ -113,7 +113,6 @@ public class GameLayerPanel extends CustomPanel {
         // Récupérez les coordonnées de l'entité depuis le modèle
         int entityX = (int) entityView.getEntity().getCoordinates().getX();
         int entityY = (int) entityView.getEntity().getCoordinates().getY();
-        System.out.println("> Position of  Camera : ("+camera.getX()+","+camera.getY()+")");
 
         // Dessinez `entityView` en utilisant les coordonnées centrées
         entityView.paintComponent(g2d);
