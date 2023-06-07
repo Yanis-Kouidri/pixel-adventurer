@@ -20,6 +20,10 @@ public class InventoryMenuViewTest {
 
     private static final Random randomGenerator = new Random();
     private static final int NB_OF_ITEM_TO_ADD = randomGenerator.nextInt(INVENTORY_SIZE);
+
+    /**
+     * A test to display the inventory in a frame
+     */
     public static void createAndShowGUI() {
         // Creation on the frame :
         JFrame frame = new JFrame("Inventory frame testing");
