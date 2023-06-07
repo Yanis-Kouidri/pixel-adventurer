@@ -10,6 +10,7 @@ import java.awt.*;
 import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
 import gameengine.characters.model.Character;
+import gameengine.characters.model.Collisions;
 import gameengine.characters.view.EntityView;
 import gameengine.gameloop.model.GameLoop;
 import gameengine.map.model.Map;
@@ -84,6 +85,9 @@ class PixelAdventure extends GameLoop {
         //mapPanel.repaint();
 
         ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
+        
+        //setting up the map into the Collisions class as attribute
+        Collisions.setMap(testMap);
     }
 
     @Override

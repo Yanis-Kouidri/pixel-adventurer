@@ -5,8 +5,6 @@ import gameengine.utils.model.HitBox;
 import static gameengine.utils.model.Physics.GRAVITY;
 import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
 
-import gameengine.map.model.Map;
-
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.
  * @author n7student

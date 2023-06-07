@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 import gameengine.characters.model.Entity;
-import gameengine.utils.model.Constants;
 import gameengine.utils.model.Utils;
 
 import static gameengine.utils.model.Constants.BLOCK_LENGHT;
@@ -19,6 +18,7 @@ import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
  *
  */
 public class EntityView extends JPanel{
+	private static final long serialVersionUID = 1L;
 	private final Logger logger = Logger.getLogger(String.valueOf(this.getClass()));
 	private Entity entity;		//the entity object to display
 	private Image image;		//the sprite to be displayed
