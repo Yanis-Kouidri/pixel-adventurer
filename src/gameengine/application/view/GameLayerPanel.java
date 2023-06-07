@@ -93,7 +93,7 @@ public class GameLayerPanel extends CustomPanel {
      */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(backgroundImage, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
         Graphics2D g2d = (Graphics2D) g.create();
 
         // Rendering the map and offsetting with the camera's coordinates
