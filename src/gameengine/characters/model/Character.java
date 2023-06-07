@@ -58,4 +58,25 @@ public class Character extends Entity {
 	public static Character getInstance() {
 		return instance;
 	}
+	
+	@Override
+	public void moveLeft() {
+		if(Collisions.left(getHitBox()) == CollisionType.NONE) {
+			super.moveLeft();			
+		}
+	}
+	
+	@Override
+	public void moveRight() {
+		if(Collisions.right(getHitBox()) == CollisionType.NONE) {
+			super.moveRight();			
+		}
+	}
+	
+	@Override
+	public void moveUp() {
+		if(Collisions.top(getHitBox()) == CollisionType.NONE) {
+			super.moveUp();			
+		}
+	}
 }
