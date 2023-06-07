@@ -13,10 +13,9 @@ import java.awt.event.KeyListener;
 public class CameraController implements KeyListener {
     Camera camera; // The camera model which will be modified
 
-    GameLayerPanel gameLayerPanel;
+    GameLayerPanel gameLayerPanel; // The panel which will be reflected by the changes.
 
-    public boolean rightPressed, leftPressed, upPressed, downPressed;
-    public boolean lockUnlock;
+    public boolean rightPressed, leftPressed, upPressed, downPressed; //
 
     public CameraController(Camera cam, GameLayerPanel glp){
         camera = cam;
@@ -90,7 +89,9 @@ public class CameraController implements KeyListener {
     }
 
     /**
-     * Updates the camera model based on which key was pressed by the user
+     * Updates the camera's position.
+     * If the camera follows the player the update will change the camera's coordinates according to the player position.
+     * If the camera is unlocked, it will be moved depending on which key was pressed by the user
      */
     public void update() {
         if (camera.getFollowPlayer()){
