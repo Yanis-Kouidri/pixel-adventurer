@@ -68,7 +68,6 @@ public class Character extends Entity {
 	
 	@Override
 	public void moveRight() {
-		System.out.println("++++++++++++++++++ ICI");
 		if(Collisions.right(getHitBox()) == CollisionType.NONE) {
 			super.moveRight();			
 		}
