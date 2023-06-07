@@ -30,7 +30,7 @@ public class InventoryBar extends InventoryPanel {
     /**
      * @param inventoryToDisplay The inventory that you want to display
      */
-    public void displayInventory(Inventory inventoryToDisplay) {
-        super.displayInventory(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_BAR);
+    public void displayInventory(Inventory inventoryToDisplay, ItemsView itemsIcons) {
+        super.displayInventory(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_BAR, itemsIcons);
     }
 }

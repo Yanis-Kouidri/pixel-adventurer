@@ -19,6 +19,9 @@ public class InventoryBarViewTest {
         frame.setSize(500, 500);
         frame.setLayout(new FlowLayout());
 
+        // Create the ItemsView
+        ItemsView texturePack = new ItemsView();
+
         // Create the inventory panel
         InventoryBar inventoryBar = new InventoryBar();
 
@@ -30,10 +33,17 @@ public class InventoryBarViewTest {
         ImageIcon troutIcon = new ImageIcon("test/gameassets/item/trout.png");
 
 
-        Item potionItem = new Item("Potions", new JLabel(potionsIcon));
-        Item crabItem = new Item("Crab", new JLabel(crabIcon));
-        Item fishRodItem = new Item("Fishing", new JLabel(fishingRodIcon));
-        Item troutItem = new Item("Trout", new JLabel(troutIcon));
+        Item potionItem = new Item("Potions");
+        texturePack.addItem("Potions", potionsIcon);
+
+        Item crabItem = new Item("Crab");
+        texturePack.addItem("Crab", crabIcon);
+
+        Item fishRodItem = new Item("Fishing");
+        texturePack.addItem("Fishing", fishingRodIcon);
+
+        Item troutItem = new Item("Trout");
+        texturePack.addItem("Trout", troutIcon);
 
         try {
             inventoryExample.add(0, potionItem);
@@ -46,7 +56,7 @@ public class InventoryBarViewTest {
             throw new RuntimeException(e);
         }
 
-        inventoryBar.displayInventory(inventoryExample);
+        inventoryBar.displayInventory(inventoryExample, texturePack);
 
         frame.add(inventoryBar);
 

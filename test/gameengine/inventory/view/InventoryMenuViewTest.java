@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.Random;
 
 /**
- * Test class to test inventory menu view and controler on a test frame.
+ * Test class to test inventory menu view and controller on a test frame.
  * @author Yanis Kouidri
  * @version 0.1
  */
@@ -20,6 +20,10 @@ public class InventoryMenuViewTest {
 
     private static final Random randomGenerator = new Random();
     private static final int NB_OF_ITEM_TO_ADD = randomGenerator.nextInt(INVENTORY_SIZE);
+
+    /**
+     * A test to display the inventory in a frame
+     */
     public static void createAndShowGUI() {
         // Creation on the frame :
         JFrame frame = new JFrame("Inventory frame testing");
@@ -27,6 +31,8 @@ public class InventoryMenuViewTest {
         frame.setSize(1000, 1000);
         frame.setLayout(new FlowLayout());
 
+        // Create the ItemsView
+        ItemsView texturePack = new ItemsView();
 
         // Create the inventory menu panel
         InventoryMenu inventoryMenu = new InventoryMenu();
@@ -40,13 +46,24 @@ public class InventoryMenuViewTest {
         ImageIcon fishingRodIcon = new ImageIcon("test/gameassets/item/fishing-rod.png");
         ImageIcon troutIcon = new ImageIcon("test/gameassets/item/trout.png");
 
-        // Creation of items with icons
-        Item potionItem = new Item("Potions", new JLabel(potionsIcon));
-        Item crabItem = new Item("Crab", new JLabel(crabIcon));
-        Item fishRodItem = new Item("Fishing", new JLabel(fishingRodIcon));
-        Item troutItem = new Item("Trout", new JLabel(troutIcon));
+        //
 
-        Item[] offerItem = {potionItem, crabItem, fishRodItem, troutItem};
+        // Creation of items and adding of texture
+        Item potionItem = new Item("Potions");
+        texturePack.addItem("Potions", potionsIcon);
+
+        Item crabItem = new Item("Crab");
+        texturePack.addItem("Crab", crabIcon);
+
+        Item fishRodItem = new Item("Fishing");
+        texturePack.addItem("Fishing", fishingRodIcon);
+
+        Item troutItem = new Item("Trout");
+        texturePack.addItem("Trout", troutIcon);
+
+        Item magicWand = new Item("Magic Wand");
+
+        Item[] offerItem = {potionItem, crabItem, fishRodItem, troutItem, magicWand};
 
         // Filling the inventory randomly
         for (int i = 0; i < NB_OF_ITEM_TO_ADD ; i ++) {
@@ -56,12 +73,12 @@ public class InventoryMenuViewTest {
                     inventoryExample.add(i, offerItem[itemToAdd]);
                 }
             } catch (NotEmptyPlaceException e) { // If the same place is choose twice
-                System.out.println("That's ok, this exception may append in this test" + e.getMessage());
+                System.err.println("That not should append" + e.getMessage());
             }
         }
 
         // Draw the inventory in the JPanel :
-        inventoryMenu.displayInventory(inventoryExample);
+        inventoryMenu.displayInventory(inventoryExample, texturePack);
 
         // Add the inventory to the frame
         frame.add(inventoryMenu);

@@ -3,7 +3,7 @@
 
 title "Class diagram for Inventory"
 
-class Player {
+class Character {
 - name: String
 - inventory: Inventory
 ----
@@ -39,16 +39,16 @@ note left : The player inventory
 
 class Item {
 - name: String
-- sprite: JLabel
+- desc: String
 ----
 + getName(): String
-+ getSprite(): JLabel
++ getDesc(): String
 }
 note right : Any object that a player can hold in its inventory
 
 
 Inventory *-- Item
-Player *-- Inventory
+Character *-- Inventory
 
 
 @enduml

@@ -17,7 +17,7 @@ public class InventoryMenu extends InventoryPanel {
     public final static int NB_OF_ITEMS_DISPLAY_IN_MENU = 40;
 
     /**
-     * The number of rows for the inventory bar (One because it's a bar)
+     * The number of rows for the inventory bar
      */
     public final static int NB_OF_ROWS = 4;
 
@@ -42,8 +42,8 @@ public class InventoryMenu extends InventoryPanel {
      * A method to draw the inventory into the panel
      * @param inventoryToDisplay The inventory to draw in the menu
      */
-    public void displayInventory(Inventory inventoryToDisplay) {
-        super.displayInventory(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_MENU);
+    public void displayInventory(Inventory inventoryToDisplay, ItemsView itemsIcons) {
+        super.displayInventory(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_MENU, itemsIcons);
     }
 
 
