@@ -109,7 +109,7 @@ public class Camera {
      * and can be found in utils.model.Physics
      */
     public void moveDown() {
-        coordinates.setY(getY() - Physics.NB_DEPLACEMENT_BLOCK);
+        coordinates.setY(getY() + Physics.NB_DEPLACEMENT_BLOCK);
 
     }
 }
