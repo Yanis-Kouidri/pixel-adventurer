@@ -38,19 +38,19 @@ public class CameraController implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_SPACE) {
+        if (code == KeyEvent.VK_UP) {
             upPressed = true;
 //            logger.info("Press " + e.getKeyChar());
         }
-        if (code == KeyEvent.VK_Q) {
+        if (code == KeyEvent.VK_LEFT) {
             leftPressed = true;
 //            logger.info("Press " + e.getKeyChar());
         }
-        if (code == KeyEvent.VK_D) {
+        if (code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
 //            logger.info("Press " + e.getKeyChar());
         }
-        if (code == KeyEvent.VK_S) {
+        if (code == KeyEvent.VK_DOWN) {
             downPressed = true;
 //            logger.info("Press " + e.getKeyChar());
         }
@@ -63,16 +63,16 @@ public class CameraController implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_SPACE) {
+        if (code == KeyEvent.VK_UP) {
             upPressed = false;
         }
-        if (code == KeyEvent.VK_Q) {
+        if (code == KeyEvent.VK_LEFT) {
             leftPressed = false;
         }
-        if (code == KeyEvent.VK_D) {
+        if (code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
-        if (code == KeyEvent.VK_S) {
+        if (code == KeyEvent.VK_DOWN) {
             downPressed = false;
         }
     }
@@ -81,17 +81,23 @@ public class CameraController implements KeyListener {
      * Updates the camera model based on which key was pressed by the user
      */
     public void update() {
-        if (upPressed) {
-            camera.moveUp();
+        if (camera.getFollowPlayer()){
+            camera.setToPlayer();
         }
-        if (leftPressed) {
-            camera.moveLeft();
+        else{
+            if (upPressed) {
+                camera.moveUp();
+            }
+            if (leftPressed) {
+                camera.moveLeft();
+            }
+            if (rightPressed) {
+                camera.moveRight();
+            }
+            if (downPressed) {
+                camera.moveDown();
+            }
         }
-        if (rightPressed) {
-            camera.moveRight();
-        }
-        if (downPressed) {
-            camera.moveDown();
-        }
+
     }
 }
