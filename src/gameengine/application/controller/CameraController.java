@@ -17,7 +17,7 @@ public class CameraController implements KeyListener {
 
     public boolean rightPressed, leftPressed, upPressed, downPressed; //
 
-    public CameraController(Camera cam, GameLayerPanel glp){
+    public CameraController(Camera cam, GameLayerPanel glp) {
         camera = cam;
         gameLayerPanel = glp;
     }
