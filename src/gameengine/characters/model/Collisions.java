@@ -2,6 +2,7 @@ package gameengine.characters.model;
 
 import gameengine.map.model.Map;
 import gameengine.utils.model.HitBox;
+import gameengine.utils.model.Physics;
 import gameengine.utils.model.Utils;
 
 /**
@@ -11,7 +12,6 @@ import gameengine.utils.model.Utils;
  */
 public class Collisions {
 	
-	private static final float MINIMUM_COLLISION_DETECTION_LENGTH = 0.1f;		//the minimum lenght that can be detected on both side
 	private static Map map;														//the current map
 	
 	/**
@@ -99,7 +99,7 @@ public class Collisions {
 	
 	private static CollisionType topLeftSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.ceilFloatToInt(hitBox.getX() - MINIMUM_COLLISION_DETECTION_LENGTH);
+		int xPositionToCheck = Utils.ceilFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK);
 		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY());
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
@@ -111,8 +111,8 @@ public class Collisions {
 	
 	private static CollisionType middleLeftSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.ceilFloatToInt(hitBox.getX() - MINIMUM_COLLISION_DETECTION_LENGTH);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - (hitBox.getHeight() / 2));
+		int xPositionToCheck = Utils.ceilFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK);
+		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + (hitBox.getHeight() / 2));
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;
@@ -123,8 +123,8 @@ public class Collisions {
 	
 	private static CollisionType bottomLeftSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.ceilFloatToInt(hitBox.getX() - MINIMUM_COLLISION_DETECTION_LENGTH);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - hitBox.getHeight());
+		int xPositionToCheck = Utils.ceilFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK);
+		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight());
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;
@@ -135,7 +135,7 @@ public class Collisions {
 	
 	private static CollisionType topRightSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + MINIMUM_COLLISION_DETECTION_LENGTH);
+		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + Physics.NB_DEPLACEMENT_BLOCK);
 		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY());
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
@@ -147,8 +147,8 @@ public class Collisions {
 	
 	private static CollisionType middleRightSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + MINIMUM_COLLISION_DETECTION_LENGTH);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - (hitBox.getHeight() / 2));
+		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + Physics.NB_DEPLACEMENT_BLOCK);
+		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + (hitBox.getHeight() / 2));
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;
@@ -159,8 +159,8 @@ public class Collisions {
 	
 	private static CollisionType bottomRightSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + MINIMUM_COLLISION_DETECTION_LENGTH);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - hitBox.getHeight());
+		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + Physics.NB_DEPLACEMENT_BLOCK);
+		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight());
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;
@@ -172,7 +172,7 @@ public class Collisions {
 	private static CollisionType floorLeftSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
 		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX());
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + MINIMUM_COLLISION_DETECTION_LENGTH);
+		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + Physics.NB_DEPLACEMENT_BLOCK);
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;
@@ -183,8 +183,8 @@ public class Collisions {
 	
 	private static CollisionType floorMiddleSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() - (hitBox.getWidth() / 2));
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + MINIMUM_COLLISION_DETECTION_LENGTH);
+		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + (hitBox.getWidth() / 2));
+		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + Physics.NB_DEPLACEMENT_BLOCK);
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;
@@ -195,8 +195,8 @@ public class Collisions {
 	
 	private static CollisionType floorRightSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() - hitBox.getWidth());
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + MINIMUM_COLLISION_DETECTION_LENGTH);
+		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth());
+		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + Physics.NB_DEPLACEMENT_BLOCK);
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;
@@ -208,7 +208,7 @@ public class Collisions {
 	private static CollisionType headLeftSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
 		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX());
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - MINIMUM_COLLISION_DETECTION_LENGTH);
+		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK);
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;
@@ -219,8 +219,8 @@ public class Collisions {
 	
 	private static CollisionType headMiddleSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() - (hitBox.getWidth() / 2));
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - MINIMUM_COLLISION_DETECTION_LENGTH);
+		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + (hitBox.getWidth() / 2));
+		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK);
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;
@@ -231,8 +231,8 @@ public class Collisions {
 	
 	private static CollisionType headRightSide(HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() - hitBox.getWidth());
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - MINIMUM_COLLISION_DETECTION_LENGTH);
+		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth());
+		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK);
 		
 		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
 			collision = CollisionType.SOLID;

@@ -12,7 +12,7 @@ import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
  */
 public abstract class Entity{
 	private Coordinates coordinates;		//the coordinates of the entity
-	private float width, height = 1.0f;		//la taille de l'image par rapport à la taille d'un bloc
+	private float width, height;		//la taille de l'entité par rapport à la taille d'un bloc
 	private HitBox hitBox;					//la hitBox de l'entité
 	private float gravitySpeed = 0;			// speed = number block per seconds
 	
@@ -21,6 +21,8 @@ public abstract class Entity{
 	 * a constructor.
 	 */
 	public Entity() {
+		width = 1;
+		height = 1;
 		coordinates = new Coordinates();
 		initHitBox();
 	}
@@ -31,6 +33,8 @@ public abstract class Entity{
 	 * @param coordY
 	 */
 	public Entity(float coordX, float coordY) {
+		width = 1;
+		height = 1;
 		coordinates = new Coordinates(coordX, coordY);
 		initHitBox();
 	}
@@ -43,8 +47,22 @@ public abstract class Entity{
 	 * @param height
 	 */
 	public Entity(float coordX, float coordY, float width, float height) {
+		this.width = width;
+		this.height = height;
 		coordinates = new Coordinates(coordX, coordY);
 		initHitBox();
+	}
+	
+	/**
+	 * permit to set a new location for the entity
+	 * @param coordX
+	 * @param coordY
+	 */
+	public void setLocation(float coordX, float coordY) {
+		coordinates.setX(coordX);
+		coordinates.setY(coordY);
+		
+		updateHitBox();
 	}
 	
 	/**

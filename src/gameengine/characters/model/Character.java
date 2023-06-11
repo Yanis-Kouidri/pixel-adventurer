@@ -26,6 +26,17 @@ public class Character extends Entity {
 	}
 	
 	/**
+	 * a constructor taking spawn coordinates and a size.
+	 * @param coordX
+	 * @param coordY
+	 * @param width
+	 * @param height
+	 */
+	private Character(float coordX, float coordY, float width, float height) {
+		super(coordX, coordY, width, height);
+	}
+	
+	/**
 	 * a method to create the instance.
 	 * @return Character
 	 */
@@ -46,6 +57,22 @@ public class Character extends Entity {
 	public static Character createInstance(float coordX, float coordY) {
 		if(instance == null) {
 			instance = new Character(coordX, coordY);
+		}
+		
+		return instance;
+	}
+	
+	/**
+	 * a method to create the instance if doesn't exist with spawn coordinates and a size.
+	 * @param coordX
+	 * @param coordY
+	 * @param width
+	 * @param height
+	 * @return Character
+	 */
+	public static Character createInstance(float coordX, float coordY, float width, float height) {
+		if(instance == null) {
+			instance = new Character(coordX, coordY, width, height);
 		}
 		
 		return instance;
