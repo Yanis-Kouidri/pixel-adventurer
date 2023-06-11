@@ -45,6 +45,23 @@ public class Map {
 			System.out.println("Error while generating the map");
 		}
 	}
+	
+	/** Initializes a map object with a name, a type, a width, a height and a tile matrice
+	 * @param name The desired map name
+	 * @param type The desired map type
+	 * @param width The desired map width
+	 * @param height The desired map height
+	 * @param amplitude The desired amplitude value for procedural generation
+	 * @param scale The desired scale value for procedural generation
+	 * @param tileMatrice the matrix of tiles
+	 */
+	public Map (String name, MapType type, int width, int height, double amplitude, double scale, Tile[][] tileMatrix) {
+		this.name = name;
+		this.type = type;
+		this.width = width;
+		this.height = height;
+		array = tileMatrix;
+	}
 
 	/** Gets the map name
 	 * @return this.name The map name

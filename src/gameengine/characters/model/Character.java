@@ -21,7 +21,7 @@ public class Character extends Entity {
 	 * @param coordX
 	 * @param coordY
 	 */
-	private Character(int coordX, int coordY) {
+	private Character(float coordX, float coordY) {
 		super(coordX, coordY);
 	}
 	
@@ -43,7 +43,7 @@ public class Character extends Entity {
 	 * @param coordY
 	 * @return Character
 	 */
-	public static Character createInstance(int coordX, int coordY) {
+	public static Character createInstance(float coordX, float coordY) {
 		if(instance == null) {
 			instance = new Character(coordX, coordY);
 		}
