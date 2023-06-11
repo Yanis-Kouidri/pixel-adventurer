@@ -53,6 +53,7 @@ public class InventoryPanel extends JPanel {
             // Get the i th item
             Item currentItem = inventoryToDisplay.getItemByIndex(i);
             JLabel itemSpaceSprite;
+            JLabel itemSpaceName;
 
             if (currentItem != null) { // If there is an item at i th position, display it :
 
@@ -78,10 +79,9 @@ public class InventoryPanel extends JPanel {
 
             // Adding newly creating item or empty
             this.add(itemSpaceSprite);
-
-            revalidate();
-            repaint();
         }
+        revalidate();
+        repaint();
     }
 
     /**
