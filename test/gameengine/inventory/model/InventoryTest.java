@@ -22,11 +22,15 @@ public class InventoryTest {
     private final Random randomGenerator = new Random();
 
     private Inventory testInventory;
+
     /**
      * If this value is too low, some tests could fail
      */
     private final int NUMBER_OF_PLACE = randomGenerator.nextInt(50, 100);
 
+    /**
+     * Some items to test some Inventory methods
+     */
     private Item item1, item2, item3;
 
     @Before

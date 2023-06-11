@@ -92,6 +92,4 @@ public class InventoryPanel extends JPanel {
         this.setVisible(!isVisible);
     }
 
-
-
 }

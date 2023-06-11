@@ -88,7 +88,6 @@ public class Inventory {
         this.content[indexPlace] = null;
     }
 
-
     /**
      * To get the first empty place of the inventory
      * Useful if you don't know how to place an item

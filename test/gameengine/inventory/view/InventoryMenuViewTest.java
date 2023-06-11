@@ -83,7 +83,7 @@ public class InventoryMenuViewTest {
         // Add the inventory to the frame
         frame.add(inventoryMenu);
 
-
+        // Make the JFrame appears
         frame.setVisible(true);
 
         // Adding a controller to the frame to record keyTyping for open/close the inventory
