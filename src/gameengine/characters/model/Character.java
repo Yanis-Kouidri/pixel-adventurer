@@ -91,6 +91,9 @@ public class Character extends Entity {
 		if(Collisions.left(getHitBox()) == CollisionType.NONE) {
 			super.moveLeft();			
 		}
+		else {
+			super.moveLeftOnCollision();
+		}
 	}
 	
 	@Override
@@ -98,12 +101,18 @@ public class Character extends Entity {
 		if(Collisions.right(getHitBox()) == CollisionType.NONE) {
 			super.moveRight();			
 		}
+		else {
+			super.moveRightOnCollision();
+		}
 	}
 	
 	@Override
 	public void moveUp() {
 		if(Collisions.top(getHitBox()) == CollisionType.NONE) {
 			super.moveUp();			
+		}
+		else {
+			super.moveUpOnCollision();
 		}
 	}
 }

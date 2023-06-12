@@ -2,6 +2,8 @@ package gameengine.characters.model;
 
 import gameengine.utils.model.Coordinates;
 import gameengine.utils.model.HitBox;
+import gameengine.utils.model.Utils;
+
 import static gameengine.utils.model.Physics.GRAVITY;
 import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
 
@@ -103,6 +105,16 @@ public abstract class Entity{
 		coordinates.setX(newPosition);
 		updateHitBox();
 	}
+	
+	/**
+	 * a method to move the entity to the right when a collision is detected to the maximum it can
+	 */
+	public void moveRightOnCollision() {
+		float newPosition = (float) Utils.ceilFloatToInt(coordinates.getX());
+		// TODO : Check si la différence entre newPosition et les coordonnées actuelles est <= à NB_DEPLACEMENT_BLOCK
+		coordinates.setX(newPosition);
+		updateHitBox();
+	}
 
 	/**
 	 * a method to move the entity to the left of NB_DEPLACEMENT_BLOCK
@@ -112,13 +124,34 @@ public abstract class Entity{
 		coordinates.setX(newPosition);
 		updateHitBox();
 	}
+	
+	/**
+	 * a method to move the entity to the left when a collision is detected to the maximum it can
+	 */
+	public void moveLeftOnCollision() {
+		float newPosition = (float) Utils.truncateFloatToInt(coordinates.getX());
+		// TODO : Check si la différence entre newPosition et les coordonnées actuelles est <= à NB_DEPLACEMENT_BLOCK
+		coordinates.setX(newPosition);
+		updateHitBox();
+	}
 
 	/**
-	 * a method to jump the entity from NB_DEPLACEMENT_BLOCK
+	 * a method to make the entity jump from NB_DEPLACEMENT_BLOCK
 	 */
 	public void moveUp() {
 		gravitySpeed += GRAVITY;
 		float newPosition = coordinates.getY() - NB_DEPLACEMENT_BLOCK + gravitySpeed;
+		coordinates.setY(newPosition);
+		updateHitBox();
+	}
+	
+	/**
+	 * a method to make the entity jump when a collision is detected to the maximum it can
+	 */
+	public void moveUpOnCollision() {
+		gravitySpeed += GRAVITY;
+		float newPosition = (float) Utils.truncateFloatToInt(coordinates.getY());
+		// TODO : Check si la différence entre newPosition et les coordonnées actuelles est <= à NB_DEPLACEMENT_BLOCK
 		coordinates.setY(newPosition);
 		updateHitBox();
 	}

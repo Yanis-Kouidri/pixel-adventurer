@@ -87,12 +87,9 @@ public class Collisions {
 		
 		if(a == CollisionType.SOLID | b == CollisionType.SOLID || c == CollisionType.SOLID) {
 			collision = CollisionType.SOLID;
-			
-			//TODO : ENLEVER
-			System.out.println("++++++++++++++++++ Collision");
 		}
 		else {
-			//mettre ici le code relatif à la gestion d'une collision de type lyquide
+			//TODO : mettre ici le code relatif à la gestion d'une collision de type liquide ou autre
 		}
 		
 		return collision;

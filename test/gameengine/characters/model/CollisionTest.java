@@ -1,6 +1,7 @@
 package gameengine.characters.model;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -117,6 +118,14 @@ public class CollisionTest {
 		
 		//a collision is detected
 		assertEquals(Collisions.left(mainCharacter.getHitBox()), CollisionType.SOLID);
+		
+		//the character move to the maximum he can
+		mainCharacter.moveLeft();
+		assertEquals(mainCharacter.getHitBox().getX(), 1.0f);
+		
+		//move left an other time to be sure that he is no going further
+		mainCharacter.moveLeft();
+		assertEquals(mainCharacter.getHitBox().getX(), 1.0f);
 	}
 	
 	/**
@@ -135,6 +144,14 @@ public class CollisionTest {
 		
 		//a collision is detected
 		assertEquals(Collisions.right(mainCharacter.getHitBox()), CollisionType.SOLID);
+		
+		//the character move to the maximum he can
+		mainCharacter.moveRight();
+		assertEquals(mainCharacter.getHitBox().getX(), 3.0f);
+		
+		//move right an other time to be sure that he is no going further
+		mainCharacter.moveRight();
+		assertEquals(mainCharacter.getHitBox().getX(), 3.0f);
 	}
 	
 	/**
@@ -149,6 +166,10 @@ public class CollisionTest {
 		
 		//collisions with the new location
 		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.SOLID);
+
+		//move left an other time to be sure that he is no going further
+		mainCharacter.moveUp();
+		assertEquals(mainCharacter.getHitBox().getY(), 2.0f);
 	}
 	
 	
