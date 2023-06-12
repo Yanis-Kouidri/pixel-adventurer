@@ -34,210 +34,136 @@ public class Collisions {
 		return map.getTileAtPos(xPositionToCheck, yPositionToCheck).getCollisionBehaviour();
 	}
 	
+	/**
+	 * detect a collision on the left side of an entity
+	 * @param hitBox
+	 * @return CollisionType
+	 */
 	public static CollisionType left(HitBox hitBox) {
-		CollisionType collisionTopLeft, collisionMiddleLeft, collisionBottomLeft, collision = CollisionType.NONE;
+		CollisionType collision = CollisionType.NONE;
 		
-		collisionTopLeft = topLeftSide(hitBox);
-		collisionMiddleLeft = middleLeftSide(hitBox);
-		collisionBottomLeft = bottomLeftSide(hitBox);
-		
-		collision = collisionManager(collisionTopLeft, collisionMiddleLeft, collisionBottomLeft);
+		collision = lateral(true, hitBox);
 		
 		return collision;
 	}
 	
+	/**
+	 * detect a collision on the right side of an entity
+	 * @param hitBox
+	 * @return CollisionType
+	 */
 	public static CollisionType right(HitBox hitBox) {
-		CollisionType collisionTopRight, collisionMiddleRight, collisionBottomRight, collision = CollisionType.NONE;
+		CollisionType  collision = CollisionType.NONE;
 		
-		collisionTopRight = topRightSide(hitBox);
-		collisionMiddleRight = middleRightSide(hitBox);
-		collisionBottomRight = bottomRightSide(hitBox);
-		
-		collision = collisionManager(collisionTopRight, collisionMiddleRight, collisionBottomRight);
+		collision = lateral(false, hitBox);
 		
 		return collision;
 	}
 	
+	/**
+	 * detect a collision on the bottom side of an entity
+	 * @param hitBox
+	 * @return CollisionType
+	 */
 	public static CollisionType bottom(HitBox hitBox) {
-		CollisionType collisionBottomLeft, collisionBottomMiddle, collisionBottomRight, collision = CollisionType.NONE;
+		CollisionType collision = CollisionType.NONE;
 		
-		collisionBottomLeft = floorLeftSide(hitBox);
-		collisionBottomMiddle = floorMiddleSide(hitBox);
-		collisionBottomRight = floorRightSide(hitBox);
-		
-		collision = collisionManager(collisionBottomLeft, collisionBottomMiddle, collisionBottomRight);
+		collision = vertical(false, hitBox);
 		
 		return collision;
 	}
 	
+	/**
+	 * detect a collision on the top side of an entity
+	 * @param hitBox
+	 * @return CollisionType
+	 */
 	public static CollisionType top(HitBox hitBox) {
-		CollisionType collisionTopLeft, collisionTopMiddle, collisionTopRight, collision = CollisionType.NONE;
-		
-		collisionTopLeft = headLeftSide(hitBox);
-		collisionTopMiddle = headMiddleSide(hitBox);
-		collisionTopRight = headRightSide(hitBox);
-		
-		collision = collisionManager(collisionTopLeft, collisionTopMiddle, collisionTopRight);
+		CollisionType  collision = CollisionType.NONE;
+
+		collision = vertical(true, hitBox);
 		
 		return collision;
 	}
 	
-	private static CollisionType collisionManager(CollisionType a, CollisionType b, CollisionType c) {
-		CollisionType collision = CollisionType.NONE;
-		
-		if(a == CollisionType.SOLID | b == CollisionType.SOLID || c == CollisionType.SOLID) {
-			collision = CollisionType.SOLID;
-		}
-		else {
-			//TODO : mettre ici le code relatif à la gestion d'une collision de type liquide ou autre
-		}
-		
-		return collision;
+	/**
+	 * get the tile position on the x axis
+	 * @param leftSide if the tile position is for the left side check set this parameter to true
+	 * @param hitBox
+	 * @return int the x position of the tile
+	 */
+	private static int getXTilePosition (boolean leftSide, HitBox hitBox) {
+		return leftSide ? 
+				Utils.truncateFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK) : 
+					Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOC_DEPLACEMENT);
 	}
 	
-	private static CollisionType topLeftSide(HitBox hitBox) {
+	/**
+	 * get the tile position on the y axis
+	 * @param topSide if the tile position is for the top side check set this parameter to true
+	 * @param hitBox
+	 * @return int the y position of the tile
+	 */
+	private static int getYTilePosition (boolean topSide, HitBox hitBox) {
+		return topSide ? 
+				Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK) : 
+					Utils.truncateFloatToInt(hitBox.getY() + Physics.NB_DEPLACEMENT_BLOCK);
+	}
+	
+	/**
+	 * this method regroup the collision management for the left and right side by checking if a collision will appear on the next movement
+	 * @param leftSide if the collision detection is for the left side set this parameter to true
+	 * @param hitBox
+	 * @return CollisionType
+	 */
+	private static CollisionType lateral(boolean leftSide, HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK);
+		int xPositionToCheck = getXTilePosition(leftSide, hitBox);
 		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY());
 		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
+		for(int i = 0; i < 3; i++) {
+			switch(i) {
+			case 1 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + (hitBox.getHeight() / 2));
+			break;
+			
+			case 2 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() - Physics.MINIMUM_BLOC_DEPLACEMENT);
+			break;
+			}
+			
+			if(collision == CollisionType.NONE && collisionDetected(xPositionToCheck, yPositionToCheck)) {
+				collision = CollisionType.SOLID;
+			}
 		}
 		
 		return collision;
 	}
 	
-	private static CollisionType middleLeftSide(HitBox hitBox) {
-		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + (hitBox.getHeight() / 2));
-		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
-		}
-		
-		return collision;
-	}
-	
-	private static CollisionType bottomLeftSide(HitBox hitBox) {
-		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() - Physics.MINIMUM_BLOC_DEPLACEMENT);		//we need to use the minimum bloc deplacement because if your coord is 2 in y and you add an height of 2, the result is 4. But you want to check the 3rd bloc in the matrix not the 4th one.
-		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
-		}
-		
-		return collision;
-	}
-	
-	private static CollisionType topRightSide(HitBox hitBox) {
-		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOC_DEPLACEMENT);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY());
-		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
-		}
-		
-		return collision;
-	}
-	
-	private static CollisionType middleRightSide(HitBox hitBox) {
-		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOC_DEPLACEMENT);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + (hitBox.getHeight() / 2));
-		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
-		}
-		
-		return collision;
-	}
-	
-	private static CollisionType bottomRightSide(HitBox hitBox) {
-		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOC_DEPLACEMENT);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() - Physics.MINIMUM_BLOC_DEPLACEMENT);
-		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
-		}
-		
-		return collision;
-	}
-	
-	private static CollisionType floorLeftSide(HitBox hitBox) {
+	/**
+	 * this method regroup the collision management for the top and bottom side by checking if a collision will appear on the next movement
+	 * @param leftSide if the collision detection is for the top side set this parameter to true
+	 * @param hitBox
+	 * @return CollisionType
+	 */
+	private static CollisionType vertical(boolean topSide, HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
 		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX());
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + Physics.NB_DEPLACEMENT_BLOCK);
+		int yPositionToCheck = getYTilePosition(topSide, hitBox);
 		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
+		for(int i = 0; i < 3; i++) {
+			switch(i) {
+			case 1 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + (hitBox.getWidth() / 2));
+			break;
+			
+			case 2 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() - Physics.MINIMUM_BLOC_DEPLACEMENT);
+			break;
+			}
+			
+			if(collision == CollisionType.NONE && collisionDetected(xPositionToCheck, yPositionToCheck)) {
+				collision = CollisionType.SOLID;
+			}
 		}
 		
 		return collision;
 	}
-	
-	private static CollisionType floorMiddleSide(HitBox hitBox) {
-		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + (hitBox.getWidth() / 2));
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + Physics.NB_DEPLACEMENT_BLOCK);
-		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
-		}
-		
-		return collision;
-	}
-	
-	private static CollisionType floorRightSide(HitBox hitBox) {
-		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() - Physics.MINIMUM_BLOC_DEPLACEMENT);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + Physics.NB_DEPLACEMENT_BLOCK);
-		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
-		}
-		
-		return collision;
-	}
-	
-	private static CollisionType headLeftSide(HitBox hitBox) {
-		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX());
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK);
-		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
-		}
-		
-		return collision;
-	}
-	
-	private static CollisionType headMiddleSide(HitBox hitBox) {
-		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + (hitBox.getWidth() / 2));
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK);
-		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
-		}
-		
-		return collision;
-	}
-	
-	private static CollisionType headRightSide(HitBox hitBox) {
-		CollisionType collision = CollisionType.NONE;
-		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() - Physics.MINIMUM_BLOC_DEPLACEMENT);
-		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK);
-		
-		if(collisionDetected(xPositionToCheck, yPositionToCheck)) {
-			collision = CollisionType.SOLID;
-		}
-		
-		return collision;
-	}
-	
 	
 }
