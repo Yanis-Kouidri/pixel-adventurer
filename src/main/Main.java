@@ -41,7 +41,7 @@ public class Main {
 class PixelAdventure extends GameLoop {
     Inventory inventoryModel;
     InventoryBar inventoryBar ;
-    InventoryMenu iventoryMenu
+    InventoryMenu iventoryMenu;
     private MenuPanel menuPanel;
     private PanelMediator panelMediator;
 
