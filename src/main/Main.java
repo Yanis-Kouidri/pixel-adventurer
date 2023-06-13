@@ -17,6 +17,7 @@ import gameengine.inventory.controller.InventoryKeyController;
 import gameengine.inventory.model.Inventory;
 import gameengine.inventory.view.InventoryBar;
 import gameengine.inventory.view.InventoryMenu;
+import gameengine.inventory.view.ItemsView;
 import gameengine.map.model.Map;
 /*import gameengine.map.model.MapArray;*/
 import gameengine.map.model.MapArray;
@@ -86,8 +87,10 @@ class PixelAdventure extends GameLoop {
         InventoryMenu iventoryMenu = new InventoryMenu();
 
         // -------------------- Inventory view --------------------
-//        inventoryBar.displayInventory(inventoryModel);
-//        iventoryMenu.displayInventory(inventoryModel);
+        ItemsView texturePack = new ItemsView();
+
+        inventoryBar.displayInventory(inventoryModel, texturePack);
+        iventoryMenu.displayInventory(inventoryModel, texturePack);
 
         // -------------------- Inventory controller --------------------
         InventoryKeyController inventoryController = new InventoryKeyController(iventoryMenu);
