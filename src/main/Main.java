@@ -50,6 +50,7 @@ class PixelAdventure extends GameLoop {
     private Image mainCharacterImage, backgroundImage;
 
     private CharacterController mainCharacterController;
+    private InventoryKeyController inventoryController;
     private MapPanel mapPanel;
     private CameraController cameraController;
     private int updatePerSecond = 30;
@@ -64,7 +65,7 @@ class PixelAdventure extends GameLoop {
         ApplicationWindow.createInstance(menuPanel);
 
         // -------------------- Map model --------------------
-        MapPanel mapPanel = initMapPanel();
+        MapPanel mapPanel = createMapPanel();
         // For testing map in terminal view
         /*Tile[][] array = testMap.getMapArray();*/
         /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
@@ -93,14 +94,7 @@ class PixelAdventure extends GameLoop {
         iventoryMenu.displayInventory(inventoryModel, texturePack);
 
         // -------------------- Inventory controller --------------------
-        InventoryKeyController inventoryController = new InventoryKeyController(iventoryMenu);
-
-
-        // Set element in space of panel
-        // x, y coordinates useless because we based to coordinate character in the model
-        entityView.setBounds(0,0, Constants.CHARACTER_LENGHT, Constants.CHARACTER_LENGHT);
-        mapPanel.setBounds(0,0, ApplicationWindow.getFrame().getWidth(),
-                ApplicationWindow.getFrame().getHeight());
+        inventoryController = new InventoryKeyController(iventoryMenu);
 
 
         int cellInveyory = 50;
@@ -134,9 +128,7 @@ class PixelAdventure extends GameLoop {
         cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
 
         // Add controller to frame
-        ApplicationWindow.getFrame().addKeyListener(inventoryController);
-        ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
-        ApplicationWindow.getFrame().addKeyListener(cameraController);
+        addKeyListeners();
     }
 
     @Override
@@ -161,7 +153,7 @@ class PixelAdventure extends GameLoop {
     }
 
 
-    private MapPanel initMapPanel(){
+    private MapPanel createMapPanel(){
         String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
         String backgroundImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
         Tile emptyTile = new Tile(0, "empty", false);
@@ -174,5 +166,14 @@ class PixelAdventure extends GameLoop {
         Tileset set = new Tileset(tileSetPath);
         System.out.println(surfaceTile.getTileName());
         return new MapPanel(testMap, set);
+    }
+
+    /**
+     * Adding the keyListeners to the ApplicationWindowFrame
+     */
+    private void addKeyListeners(){
+        ApplicationWindow.getFrame().addKeyListener(inventoryController);
+        ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
+        ApplicationWindow.getFrame().addKeyListener(cameraController);
     }
 }
