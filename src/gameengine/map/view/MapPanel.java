@@ -16,6 +16,13 @@ import static gameengine.utils.model.Constants.SPRITE_DIM;
 
 /** This class defines the MapPanel object
  * @author Cédric Abdelbaki
+ * @contributor Eric Yu
+ * 			- Added:
+ * 				- getLevel
+ * 				- setCamera
+ * 				- getSprites
+ * 			- Modified
+ * 				- paintComponent
  * @version 0.1
  */
 
@@ -27,10 +34,6 @@ public class MapPanel extends JPanel {
 	private Camera camera;
 	public Map getLevel() {
 		return level;
-	}
-
-	public Tileset getSprites() {
-		return sprites;
 	}
 
 	// The tileset containing the sprites

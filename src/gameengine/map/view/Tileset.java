@@ -12,6 +12,13 @@ import static gameengine.utils.model.Constants.SPRITE_DIM;
 
 /** This class defines the Tileset object
  * @author Cédric Abdelbaki
+ * @contributor Eric YU
+ * 			- Added:
+ * 				- computeNumberTiles
+ * 				- getTileSprite
+ * 			- Modified:
+ * 				- createCache
+ * 				- Tileset constructor
  * @version 0.1
  */
 
@@ -47,7 +54,6 @@ public class Tileset {
 	 * Creates a map of cached images to reuse for drawing.
 	 * It uses the number of tiles computed by computeNumberTiles
 	 * and iterates through the tileset to create the map.
-	 *
 	 * The key is the tile ID
 	 * The value is the cached image
 	 */
