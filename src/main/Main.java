@@ -62,18 +62,6 @@ class PixelAdventure extends GameLoop {
      */
     public PixelAdventure() {
         initApp();
-
-
-        
-        GameLayerPanel gameLayerPanel = new GameLayerPanel(panelMediator,entityView, mapPanel);
-        gamePanel = new GamePanel(panelMediator, gameLayerPanel);
-        gamePanel.addlayeredPanel(inventoryBar, JLayeredPane.POPUP_LAYER);
-        gamePanel.addlayeredPanel(iventoryMenu, JLayeredPane.DRAG_LAYER);
-
-        ApplicationWindow.createInstance(menuPanel);
-
-        cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
-
         // Add controller to frame
         addKeyListeners();
     }
@@ -138,6 +126,7 @@ class PixelAdventure extends GameLoop {
         ApplicationWindow.createInstance(menuPanel);
         initPlayer();
         initInventory(40);
+        initGamePanels();
 
     }
 
@@ -155,6 +144,18 @@ class PixelAdventure extends GameLoop {
         // -------------------- Main Character controller --------------------
         mainCharacterController = new CharacterController(mainCharacter);
 
+    }
+
+    /**
+     * Initializes the view of the game adding the different layers:
+     * the inventory bar and menu, the game but also the camera
+     */
+    private void initGamePanels(){
+        GameLayerPanel gameLayerPanel = new GameLayerPanel(panelMediator,entityView, mapPanel);
+        gamePanel = new GamePanel(panelMediator, gameLayerPanel);
+        gamePanel.addlayeredPanel(inventoryBar, JLayeredPane.POPUP_LAYER);
+        gamePanel.addlayeredPanel(iventoryMenu, JLayeredPane.DRAG_LAYER);
+        cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
     }
 
     /**
