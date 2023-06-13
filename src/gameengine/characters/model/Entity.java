@@ -2,10 +2,13 @@ package gameengine.characters.model;
 
 import gameengine.utils.model.Coordinates;
 import gameengine.utils.model.HitBox;
+import gameengine.utils.model.Physics;
 import gameengine.utils.model.Utils;
 
 import static gameengine.utils.model.Physics.GRAVITY;
 import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
+
+import gameengine.Exceptions.UnvalidMovementDistanceException;
 
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.
@@ -101,19 +104,28 @@ public abstract class Entity{
 	 * a method to move the entity to the right of NB_DEPLACEMENT_BLOCK
 	 */
 	public void moveRight() {
-		float newPosition = coordinates.getX() + NB_DEPLACEMENT_BLOCK;
+		float newPosition = hitBox.getX() + NB_DEPLACEMENT_BLOCK;
 		coordinates.setX(newPosition);
 		updateHitBox();
 	}
 	
 	/**
 	 * a method to move the entity to the right when a collision is detected to the maximum it can
+	 * @throws UnvalidMovementDistanceException 
 	 */
-	public void moveRightOnCollision() {
-		float newPosition = (float) Utils.ceilFloatToInt(coordinates.getX());
-		// TODO : Check si la différence entre newPosition et les coordonnées actuelles est <= à NB_DEPLACEMENT_BLOCK
-		coordinates.setX(newPosition);
-		updateHitBox();
+	public void moveRightOnCollision() throws UnvalidMovementDistanceException {
+		float xPos = hitBox.getX();
+		float newPosition = (float) Utils.ceilFloatToInt(xPos);
+		float distance = newPosition - xPos;
+		
+		if(distance > Physics.NB_DEPLACEMENT_BLOCK) {
+			throw new UnvalidMovementDistanceException(distance, xPos, hitBox.getY());
+		}
+		else {
+			coordinates.setX(newPosition);
+			updateHitBox();			
+		}
+		
 	}
 
 	/**
@@ -127,12 +139,20 @@ public abstract class Entity{
 	
 	/**
 	 * a method to move the entity to the left when a collision is detected to the maximum it can
+	 * @throws UnvalidMovementDistanceException 
 	 */
-	public void moveLeftOnCollision() {
-		float newPosition = (float) Utils.truncateFloatToInt(coordinates.getX());
-		// TODO : Check si la différence entre newPosition et les coordonnées actuelles est <= à NB_DEPLACEMENT_BLOCK
-		coordinates.setX(newPosition);
-		updateHitBox();
+	public void moveLeftOnCollision() throws UnvalidMovementDistanceException {
+		float xPos = hitBox.getX();
+		float newPosition = (float) Utils.truncateFloatToInt(xPos);
+		float distance = xPos - newPosition;
+		
+		if(distance > Physics.NB_DEPLACEMENT_BLOCK) {
+			throw new UnvalidMovementDistanceException(distance, xPos, hitBox.getY());
+		}
+		else {
+			coordinates.setX(newPosition);
+			updateHitBox();			
+		}
 	}
 
 	/**
@@ -147,13 +167,20 @@ public abstract class Entity{
 	
 	/**
 	 * a method to make the entity jump when a collision is detected to the maximum it can
+	 * @throws UnvalidMovementDistanceException 
 	 */
-	public void moveUpOnCollision() {
-		gravitySpeed += GRAVITY;
-		float newPosition = (float) Utils.truncateFloatToInt(coordinates.getY());
-		// TODO : Check si la différence entre newPosition et les coordonnées actuelles est <= à NB_DEPLACEMENT_BLOCK
-		coordinates.setY(newPosition);
-		updateHitBox();
+	public void moveUpOnCollision() throws UnvalidMovementDistanceException {
+		float yPos = hitBox.getY();
+		float newPosition = (float) Utils.truncateFloatToInt(yPos);
+		float distance = yPos - newPosition;
+		
+		if(distance > Physics.NB_DEPLACEMENT_BLOCK) {
+			throw new UnvalidMovementDistanceException(distance, yPos, hitBox.getY());
+		}
+		else {
+			coordinates.setY(newPosition);
+			updateHitBox();		
+		}
 	}
 
 	@Override

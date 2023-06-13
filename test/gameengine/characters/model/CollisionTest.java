@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import gameengine.Exceptions.NullMapException;
 import gameengine.map.model.Map;
 import gameengine.map.model.MapType;
 import gameengine.map.model.Tile;
@@ -72,9 +73,6 @@ public class CollisionTest {
 		System.out.println();
 		System.out.println();
 		
-		//set up Collisions with the map1
-		Collisions.setMap(map1);
-		
 	}
 	
 	@After
@@ -109,6 +107,9 @@ public class CollisionTest {
 	@Test
 	public void collisionLeftBottom() {
 		
+		//set up Collisions with the map1
+		Collisions.setMap(map1);
+		
 		for(int i = 0; i < 3; i++) {
 			//no collision detected during the first block travel
 			assertEquals(Collisions.left(mainCharacter.getHitBox()), CollisionType.NONE);
@@ -135,6 +136,9 @@ public class CollisionTest {
 	@Test
 	public void collisionRightBottom() {
 		
+		//set up Collisions with the map1
+		Collisions.setMap(map1);
+		
 		for(int i = 0; i < 3; i++) {
 			//no collision detected during the first block travel
 			assertEquals(Collisions.right(mainCharacter.getHitBox()), CollisionType.NONE);
@@ -159,6 +163,10 @@ public class CollisionTest {
 	 */
 	@Test
 	public void collisionTopLeft() {
+		
+		//set up Collisions with the map1
+		Collisions.setMap(map1);
+		
 		//no collisions in the actual position
 		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.NONE);
 
@@ -183,6 +191,8 @@ public class CollisionTest {
 	 */
 	@Test
 	public void collisionLeftTop() {
+		
+		//set up Collisions with the map2
 		Collisions.setMap(map2);
 		
 		for(int i = 0; i < 3; i++) {
@@ -203,6 +213,10 @@ public class CollisionTest {
 	@Test
 	public void collisionRightTop() {
 		
+		//set up Collisions with the map2
+		Collisions.setMap(map2);
+		
+		
 		for(int i = 0; i < 3; i++) {
 			//no collision detected during the first block travel
 			assertEquals(Collisions.right(mainCharacter.getHitBox()), CollisionType.NONE);
@@ -219,6 +233,10 @@ public class CollisionTest {
 	 */
 	@Test
 	public void collisionTopRight() {
+		
+		//set up Collisions with the map2
+		Collisions.setMap(map2);
+		
 		//no collisions in the actual position
 		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.NONE);
 
@@ -234,6 +252,10 @@ public class CollisionTest {
 	 */
 	@Test
 	public void collisionLeftMiddle() {
+		
+		//set up Collisions with the map2
+		Collisions.setMap(map2);
+		
 		mainCharacter.setLocation(2.0f, 2.0f);
 		
 		for(int i = 0; i < 3; i++) {
@@ -253,6 +275,10 @@ public class CollisionTest {
 	 */
 	@Test
 	public void collisionRightMiddle() {
+		
+		//set up Collisions with the map2
+		Collisions.setMap(map2);
+		
 		mainCharacter.setLocation(2.0f, 2.0f);
 		
 		for(int i = 0; i < 3; i++) {
@@ -271,8 +297,44 @@ public class CollisionTest {
 	 */
 	@Test
 	public void collisionTopMiddle() {
+		
+		//set up Collisions with the map2
+		Collisions.setMap(map2);
+		
 		mainCharacter.setLocation(1.5f, 2.0f);
 		
 		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.SOLID);
+	}
+	
+	@Test(expected = NullMapException.class)
+	public void nullMapExceptionTestTopSide() {
+		//set up collision with a map of null
+		Collisions.setMap(null);
+		
+		Collisions.top(mainCharacter.getHitBox());
+	}
+	
+	@Test(expected = NullMapException.class)
+	public void nullMapExceptionTestBottomSide() {
+		//set up collision with a map of null
+		Collisions.setMap(null);
+		
+		Collisions.bottom(mainCharacter.getHitBox());
+	}
+	
+	@Test(expected = NullMapException.class)
+	public void nullMapExceptionTestLeftSide() {
+		//set up collision with a map of null
+		Collisions.setMap(null);
+		
+		Collisions.left(mainCharacter.getHitBox());
+	}
+	
+	@Test(expected = NullMapException.class)
+	public void nullMapExceptionTestRightSide() {
+		//set up collision with a map of null
+		Collisions.setMap(null);
+		
+		Collisions.right(mainCharacter.getHitBox());
 	}
 }

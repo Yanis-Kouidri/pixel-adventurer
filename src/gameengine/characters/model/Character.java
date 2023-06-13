@@ -1,5 +1,7 @@
 package gameengine.characters.model;
 
+import gameengine.Exceptions.UnvalidMovementDistanceException;
+
 /**
  * The Character class is the class for the main character. It's a singleton because only one main character can be create in a game.
  * @author thomas
@@ -92,7 +94,11 @@ public class Character extends Entity {
 			super.moveLeft();			
 		}
 		else {
-			super.moveLeftOnCollision();
+			try {
+				super.moveLeftOnCollision();
+			} catch (UnvalidMovementDistanceException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -102,7 +108,11 @@ public class Character extends Entity {
 			super.moveRight();			
 		}
 		else {
-			super.moveRightOnCollision();
+			try {
+				super.moveRightOnCollision();
+			} catch (UnvalidMovementDistanceException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -112,7 +122,11 @@ public class Character extends Entity {
 			super.moveUp();			
 		}
 		else {
-			super.moveUpOnCollision();
+			try {
+				super.moveUpOnCollision();
+			} catch (UnvalidMovementDistanceException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

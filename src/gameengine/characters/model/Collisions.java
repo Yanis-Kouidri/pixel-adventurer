@@ -1,5 +1,6 @@
 package gameengine.characters.model;
 
+import gameengine.Exceptions.NullMapException;
 import gameengine.map.model.Map;
 import gameengine.utils.model.HitBox;
 import gameengine.utils.model.Physics;
@@ -12,7 +13,7 @@ import gameengine.utils.model.Utils;
  */
 public class Collisions {
 	
-	private static Map map;														//the current map
+	private static Map map;		//the current map
 	
 	
 	/**
@@ -31,7 +32,12 @@ public class Collisions {
 	 * @return boolean
 	 */
 	private static boolean collisionDetected(int xPositionToCheck, int yPositionToCheck) {
-		return map.getTileAtPos(xPositionToCheck, yPositionToCheck).getCollisionBehaviour();
+		if(map == null) {
+			throw new NullMapException("ERROR : The map is not set for the Collision class");
+		}
+		else {
+			return map.getTileAtPos(xPositionToCheck, yPositionToCheck).getCollisionBehaviour();			
+		}
 	}
 	
 	/**
@@ -94,8 +100,10 @@ public class Collisions {
 	 */
 	private static int getXTilePosition (boolean leftSide, HitBox hitBox) {
 		return leftSide ? 
+				//left side : the tile to check is at the hitBox X position minus the number of deplacement for a block
 				Utils.truncateFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK) : 
-					Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOC_DEPLACEMENT);
+					//right side : the tile to check is at the hitBox X position, plus the width of the hitBox, plus the number of deplacement for a block, minus the minimum block deplacement (ex : 2.0 {<-- hitBox X pos} + 2.0 {<-- hitBox width} = 4.0, which is not the position of the block we want to check)
+					Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOCK_DEPLACEMENT);
 	}
 	
 	/**
@@ -106,8 +114,10 @@ public class Collisions {
 	 */
 	private static int getYTilePosition (boolean topSide, HitBox hitBox) {
 		return topSide ? 
+				//top side : the tile to check is at the hitBox Y position minus the number of deplacement for a block
 				Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK) : 
-					Utils.truncateFloatToInt(hitBox.getY() + Physics.NB_DEPLACEMENT_BLOCK);
+					//bottom side : the tile to check is at the hitBox Y position, plus the height of the hitBox, plus the number of deplacement for a block, minus the minimum block deplacement (ex : 2.0 {<-- hitBox Y pos} + 2.0 {<-- hitBox height} = 4.0, which is not the position of the block we want to check)
+					Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOCK_DEPLACEMENT);
 	}
 	
 	/**
@@ -119,17 +129,20 @@ public class Collisions {
 	private static CollisionType lateral(boolean leftSide, HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
 		int xPositionToCheck = getXTilePosition(leftSide, hitBox);
+		//for the right/left top side
 		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY());
 		
 		for(int i = 0; i < 3; i++) {
 			switch(i) {
-			case 1 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + (hitBox.getHeight() / 2));
+			
+			case 1 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + (hitBox.getHeight() / 2));									//for the right/left middle side
 			break;
 			
-			case 2 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() - Physics.MINIMUM_BLOC_DEPLACEMENT);
+			case 2 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() - Physics.MINIMUM_BLOCK_DEPLACEMENT);	//for the right/left bottom side
 			break;
 			}
 			
+			//if a collision has already been detected, it is useless to check for collisions again
 			if(collision == CollisionType.NONE && collisionDetected(xPositionToCheck, yPositionToCheck)) {
 				collision = CollisionType.SOLID;
 			}
@@ -146,18 +159,20 @@ public class Collisions {
 	 */
 	private static CollisionType vertical(boolean topSide, HitBox hitBox) {
 		CollisionType collision = CollisionType.NONE;
+		//for the top/bottom left side
 		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX());
 		int yPositionToCheck = getYTilePosition(topSide, hitBox);
 		
 		for(int i = 0; i < 3; i++) {
 			switch(i) {
-			case 1 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + (hitBox.getWidth() / 2));
+			case 1 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + (hitBox.getWidth() / 2));									//for the top/bottom middle side
 			break;
 			
-			case 2 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() - Physics.MINIMUM_BLOC_DEPLACEMENT);
+			case 2 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() - Physics.MINIMUM_BLOCK_DEPLACEMENT);	//for the top/bottom right side
 			break;
 			}
 			
+			//if a collision has already been detected, it is useless to check for collisions again
 			if(collision == CollisionType.NONE && collisionDetected(xPositionToCheck, yPositionToCheck)) {
 				collision = CollisionType.SOLID;
 			}
