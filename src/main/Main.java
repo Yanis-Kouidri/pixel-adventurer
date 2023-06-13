@@ -39,7 +39,9 @@ public class Main {
 }
 
 class PixelAdventure extends GameLoop {
-
+    Inventory inventoryModel;
+    InventoryBar inventoryBar ;
+    InventoryMenu iventoryMenu
     private MenuPanel menuPanel;
     private PanelMediator panelMediator;
 
@@ -62,42 +64,6 @@ class PixelAdventure extends GameLoop {
         initApp();
 
 
-
-        // -------------------- Inventory model --------------------
-        Inventory inventoryModel = new Inventory(40);
-        InventoryBar inventoryBar = new InventoryBar();
-        InventoryMenu iventoryMenu = new InventoryMenu();
-
-        // -------------------- Inventory view --------------------
-        ItemsView texturePack = new ItemsView();
-
-        inventoryBar.displayInventory(inventoryModel, texturePack);
-        iventoryMenu.displayInventory(inventoryModel, texturePack);
-
-        // -------------------- Inventory controller --------------------
-        inventoryController = new InventoryKeyController(iventoryMenu);
-
-
-        int cellInveyory = 50;
-
-
-        int widthInventoryBar = cellInveyory * InventoryBar.NB_OF_ITEMS_DISPLAY_IN_BAR;
-        int heightInventoryBar = cellInveyory;
-        inventoryBar.setBounds(
-                ApplicationWindow.getFrame().getWidth() - widthInventoryBar,
-                ApplicationWindow.getFrame().getHeight() - 75, // Review the origin of screen and modify
-                widthInventoryBar,
-                heightInventoryBar
-        );
-
-        int widthInventoryMenu = ApplicationWindow.getFrame().getWidth() -
-                (InventoryMenu.NB_OF_COLS * cellInveyory);
-        int heightInventoryMenu = InventoryMenu.NB_OF_ROWS * cellInveyory;
-        iventoryMenu.setBounds(Math.round((widthInventoryMenu) / 2),
-                0,
-                 widthInventoryMenu,
-                heightInventoryMenu
-        );
         
         GameLayerPanel gameLayerPanel = new GameLayerPanel(panelMediator,entityView, mapPanel);
         gamePanel = new GamePanel(panelMediator, gameLayerPanel);
@@ -169,8 +135,10 @@ class PixelAdventure extends GameLoop {
         panelMediator = new PanelMediator();
         menuPanel = new MenuPanel(panelMediator);
         mapPanel = createMapPanel();
-        initPlayer();
         ApplicationWindow.createInstance(menuPanel);
+        initPlayer();
+        initInventory(40);
+
     }
 
     /**
@@ -187,5 +155,46 @@ class PixelAdventure extends GameLoop {
         // -------------------- Main Character controller --------------------
         mainCharacterController = new CharacterController(mainCharacter);
 
+    }
+
+    /**
+     * Initializes the player's inventory with number of slots.
+     */
+    private void initInventory(int slots){
+        // -------------------- Inventory model --------------------
+        inventoryModel = new Inventory(slots);
+        inventoryBar = new InventoryBar();
+        iventoryMenu = new InventoryMenu();
+
+        // -------------------- Inventory view --------------------
+        ItemsView texturePack = new ItemsView();
+
+        inventoryBar.displayInventory(inventoryModel, texturePack);
+        iventoryMenu.displayInventory(inventoryModel, texturePack);
+
+        // -------------------- Inventory controller --------------------
+        inventoryController = new InventoryKeyController(iventoryMenu);
+
+
+        int cellInveyory = 50;
+
+
+        int widthInventoryBar = cellInveyory * InventoryBar.NB_OF_ITEMS_DISPLAY_IN_BAR;
+        int heightInventoryBar = cellInveyory;
+        inventoryBar.setBounds(
+                ApplicationWindow.getFrame().getWidth() - widthInventoryBar,
+                ApplicationWindow.getFrame().getHeight() - 75, // Review the origin of screen and modify
+                widthInventoryBar,
+                heightInventoryBar
+        );
+
+        int widthInventoryMenu = ApplicationWindow.getFrame().getWidth() -
+                (InventoryMenu.NB_OF_COLS * cellInveyory);
+        int heightInventoryMenu = InventoryMenu.NB_OF_ROWS * cellInveyory;
+        iventoryMenu.setBounds(Math.round((widthInventoryMenu) / 2),
+                0,
+                widthInventoryMenu,
+                heightInventoryMenu
+        );
     }
 }
