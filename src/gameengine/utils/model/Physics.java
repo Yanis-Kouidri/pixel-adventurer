@@ -6,6 +6,6 @@ public class Physics {
 
     public static final float GRAVITY = 0.08f;
 
-    public static final float NB_DEPLACEMENT_BLOCK = 10;
+    public static final float NB_DEPLACEMENT_BLOCK = 0.5f;
 
 }
