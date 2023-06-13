@@ -7,6 +7,7 @@ import gameengine.map.model.Map;
 import gameengine.utils.model.Constants;
 import gameengine.utils.model.Coordinates;
 import gameengine.utils.model.Physics;
+import gameengine.utils.model.Utils;
 
 import static gameengine.utils.model.Physics.GRAVITY;
 import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
@@ -19,6 +20,8 @@ public class Camera {
     Map map; // The map on which the camera will be placed.
     Entity character; // Follows this character
     Boolean followPlayer; // Tells if the camera will lock on the player or not.
+
+    public final float cameraSpeed = 10;
 
     /**
      * Will construct a camera using the map and the character.
@@ -93,7 +96,7 @@ public class Camera {
      * and can be found in utils.model.Physics
      */
     public void moveUp() {
-        float newPosition = coordinates.getY() - NB_DEPLACEMENT_BLOCK + GRAVITY;
+        float newPosition = coordinates.getY() - cameraSpeed;
         coordinates.setY(newPosition);
     }
 
@@ -102,7 +105,7 @@ public class Camera {
      * and can be found in utils.model.Physics
      */
     public void moveRight() {
-        coordinates.setX(getX() + Physics.NB_DEPLACEMENT_BLOCK);
+        coordinates.setX(getX() + cameraSpeed);
     }
 
     /**
@@ -110,7 +113,7 @@ public class Camera {
      * and can be found in utils.model.Physics
      */
     public void moveLeft() {
-        coordinates.setX(getX() - Physics.NB_DEPLACEMENT_BLOCK);
+        coordinates.setX(getX() - cameraSpeed);
 
     }
     /**
@@ -118,7 +121,7 @@ public class Camera {
      * and can be found in utils.model.Physics
      */
     public void moveDown() {
-        coordinates.setY(getY() + Physics.NB_DEPLACEMENT_BLOCK);
+        coordinates.setY(getY() + cameraSpeed);
 
     }
 
@@ -127,7 +130,7 @@ public class Camera {
      * Used by default when constructing the camera with the player.
      */
     public void setToPlayer(){
-            Coordinates playerCoordinates = character.getCoordinates();
+            Coordinates playerCoordinates = Utils.convertFromTileToPixel(character.getCoordinates());
             // Gets the middle point of the map at ground-level.
 
             int x = (int)playerCoordinates.getX() + Constants.SPRITE_DIM/2;
