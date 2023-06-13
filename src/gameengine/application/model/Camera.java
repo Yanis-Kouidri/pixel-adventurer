@@ -33,6 +33,7 @@ public class Camera {
      * @param lockOnPlayer lock-on
      */
     public Camera(Entity c, Map m, Boolean lockOnPlayer){
+        coordinates = new Coordinates();
         followPlayer = lockOnPlayer;
         character = c;
         map = m;
@@ -130,18 +131,29 @@ public class Camera {
      * Used by default when constructing the camera with the player.
      */
     public void setToPlayer(){
-            Coordinates playerCoordinates = Utils.convertFromTileToPixel(character.getCoordinates());
-            // Gets the middle point of the map at ground-level.
+        Coordinates playerCoordinates = Utils.convertFromTileToPixel(character.getCoordinates());
 
-            int x = (int)playerCoordinates.getX() + Constants.SPRITE_DIM/2;
-            int y = (int)playerCoordinates.getY() + Constants.SPRITE_DIM/2;
+        // Gets the middle point of the map at ground-level.
+        int x = (int)playerCoordinates.getX() + Constants.SPRITE_DIM/2;
+        int y = (int)playerCoordinates.getY() + Constants.SPRITE_DIM/2;
 
-            // Offsets the coordinates so that the middle point of the map is the middle point
-            // of the camera
-            x = x - Constants.SCREEN_WIDTH/2;
-            y = y - Constants.SCREEN_HEIGHT/2;
+        // if the player is at the left or the right edge of the map
+        if (x < Constants.SCREEN_WIDTH / 2) {
+            x = Constants.SCREEN_WIDTH / 2;
+        } else if (x > Constants.MAP_LENGTH - Constants.SCREEN_WIDTH / 2) {
+            x = Constants.MAP_LENGTH - Constants.SCREEN_WIDTH / 2;
+        }
 
-            coordinates = new Coordinates(x,y);
+        // Check if the player is at the top or bottom edge of the map
+        if (y < Constants.SCREEN_HEIGHT / 2) {
+            y = Constants.SCREEN_HEIGHT / 2;
+        } else if (y > Constants.MAP_HEIGHT - Constants.SCREEN_HEIGHT / 2) {
+            y = Constants.MAP_HEIGHT - Constants.SCREEN_HEIGHT / 2;
+        }
+
+        // Offsets the coordinates so that the middle point of the map is the middle point
+        // of the camera
+        offsetCamera(x,y);
     }
 
     /**
@@ -155,12 +167,17 @@ public class Camera {
         int y = (int) (spawnPoint.getY()*Constants.BLOCK_LENGHT);
         System.out.println("Le milieu de la map = " + x + "," + y);
 
-        // Offsets the coordinates so that the middle point of the map is the middle point
-        // of the camera
-        x = x - Constants.SCREEN_WIDTH/2;
-        y = y - Constants.SCREEN_HEIGHT/2;
+        offsetCamera(x,y);
 
-        coordinates = new Coordinates(x,y);
         System.out.println("La camera se trouve = " + x + "," + y);
+    }
+
+    /**
+     * Offsets the coordinates by half the screen width and hal the screen height
+     * to center the camera.
+     */
+    public void offsetCamera(int x, int y){
+        coordinates.setX(x - Constants.SCREEN_WIDTH/2);
+        coordinates.setY(y - Constants.SCREEN_HEIGHT/2);
     }
 }
