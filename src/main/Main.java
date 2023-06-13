@@ -59,27 +59,8 @@ class PixelAdventure extends GameLoop {
      * a constructor.
      */
     public PixelAdventure() {
-        // Init the firsts elements to Application
-        panelMediator = new PanelMediator();
-        menuPanel = new MenuPanel(panelMediator);
-        ApplicationWindow.createInstance(menuPanel);
+        initApp();
 
-        // -------------------- Map model --------------------
-        MapPanel mapPanel = createMapPanel();
-        // For testing map in terminal view
-        /*Tile[][] array = testMap.getMapArray();*/
-        /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
-
-
-        // -------------------- Main Character model --------------------
-        mainCharacter = Character.createInstance();						//we want to display the main character so we create it
-        mainCharacter.setSpawn(mapPanel.getLevel());
-        // -------------------- Main Character view --------------------
-        mainCharacterImage = Utils.getImage("character/mainCharacter.png");
-        entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
-
-        // -------------------- Main Character controller --------------------
-        mainCharacterController = new CharacterController(mainCharacter);
 
 
         // -------------------- Inventory model --------------------
@@ -152,7 +133,10 @@ class PixelAdventure extends GameLoop {
         cameraController.update();
     }
 
-
+    /**
+     * Creating the Map Panel
+     * @return the map
+     */
     private MapPanel createMapPanel(){
         String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
         String backgroundImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
@@ -175,5 +159,33 @@ class PixelAdventure extends GameLoop {
         ApplicationWindow.getFrame().addKeyListener(inventoryController);
         ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
         ApplicationWindow.getFrame().addKeyListener(cameraController);
+    }
+
+    /**
+     * Initializes the application with its panels.
+     */
+    private void initApp(){
+        // Init the firsts elements to Application
+        panelMediator = new PanelMediator();
+        menuPanel = new MenuPanel(panelMediator);
+        mapPanel = createMapPanel();
+        initPlayer();
+        ApplicationWindow.createInstance(menuPanel);
+    }
+
+    /**
+     * Initializes the player with his view and controller associated
+     */
+    private void initPlayer(){
+        // -------------------- Main Character model --------------------
+        mainCharacter = Character.createInstance();						//we want to display the main character so we create it
+        mainCharacter.setSpawn(mapPanel.getLevel());
+        // -------------------- Main Character view --------------------
+        mainCharacterImage = Utils.getImage("character/mainCharacter.png");
+        entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
+
+        // -------------------- Main Character controller --------------------
+        mainCharacterController = new CharacterController(mainCharacter);
+
     }
 }
