@@ -158,7 +158,7 @@ public abstract class Entity{
 	/**
 	 * a method to make the entity jump from NB_DEPLACEMENT_BLOCK
 	 */
-	public void moveUp() {
+	public void jump() {
 		gravitySpeed += GRAVITY;
 		float newPosition = coordinates.getY() - NB_DEPLACEMENT_BLOCK + gravitySpeed;
 		coordinates.setY(newPosition);

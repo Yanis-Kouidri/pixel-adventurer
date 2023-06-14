@@ -88,6 +88,9 @@ public class MainCharacter extends Entity {
 		return instance;
 	}
 	
+	/**
+	 * a method call when the main character need to move left
+	 */
 	@Override
 	public void moveLeft() {
 		if(Collisions.left(getHitBox()) == CollisionType.NONE) {
@@ -102,6 +105,9 @@ public class MainCharacter extends Entity {
 		}
 	}
 	
+	/**
+	 * a method call when the main character need to move right
+	 */
 	@Override
 	public void moveRight() {
 		if(Collisions.right(getHitBox()) == CollisionType.NONE) {
@@ -116,10 +122,13 @@ public class MainCharacter extends Entity {
 		}
 	}
 	
+	/**
+	 * a method call when the main character need to jump
+	 */
 	@Override
-	public void moveUp() {
+	public void jump() {
 		if(Collisions.top(getHitBox()) == CollisionType.NONE) {
-			super.moveUp();			
+			super.jump();			
 		}
 		else {
 			try {

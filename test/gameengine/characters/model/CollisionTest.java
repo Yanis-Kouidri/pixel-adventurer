@@ -176,7 +176,7 @@ public class CollisionTest {
 		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.SOLID);
 
 		//move left an other time to be sure that he is no going further
-		mainCharacter.moveUp();
+		mainCharacter.jump();
 		assertEquals(mainCharacter.getHitBox().getY(), 2.0f);
 	}
 	

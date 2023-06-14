@@ -71,7 +71,7 @@ public class CharacterController implements KeyListener {
      */
     public void update() {
         if (upPressed) {
-            mainCharacter.moveUp();
+            mainCharacter.jump();
             logger.info(mainCharacter.toString());
         }
         if (leftPressed) {
