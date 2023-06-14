@@ -13,8 +13,8 @@ import gameengine.utils.model.Utils;
  */
 public class Collisions {
 	
-	private static Map map;		//the current map
-	private static final int HITBOX_SURFACE_CHECK_COLLISION_POINTS_NUMBER = 3;
+	private static Map map;														//the current map
+	private static final int HITBOX_SURFACE_CHECK_COLLISION_POINTS_NUMBER = 3;	//the number of check that need to be done (ex : to check the left side, you need to check the left/top + left/middle + left/bottom side)
 	
 	
 	/**
@@ -105,8 +105,8 @@ public class Collisions {
 			//left side : the tile to check is at the hitBox X position minus the number of deplacement for a block
 			tilePosition = Utils.truncateFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK);
 		} else {
-			//right side : the tile to check is at the hitBox X position, plus the width of the hitBox, plus the number of deplacement for a block, minus the minimum block deplacement (ex : 2.0 {<-- hitBox X pos} + 2.0 {<-- hitBox width} = 4.0, which is not the position of the block we want to check)
-			tilePosition = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOCK_DEPLACEMENT);
+			//right side : the tile to check is at the hitBox X position, plus the width of the hitBox, plus the number of deplacement for a block, minus the delta value (ex : 1.7 {<-- hitBox X pos} + 2.0 {<-- hitBox width} + 0.3 = 4.0, which is not the position of the block we want to check)
+			tilePosition = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() + Physics.NB_DEPLACEMENT_BLOCK - Physics.DELTA);
 		}
 		return tilePosition;
 	}
@@ -123,8 +123,8 @@ public class Collisions {
 			//top side : the tile to check is at the hitBox Y position minus the number of deplacement for a block
 			tilePosition = Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK);
 		} else {
-			//bottom side : the tile to check is at the hitBox Y position, plus the height of the hitBox, plus the number of deplacement for a block, minus the minimum block deplacement (ex : 2.0 {<-- hitBox Y pos} + 2.0 {<-- hitBox height} = 4.0, which is not the position of the block we want to check)
-			tilePosition = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOCK_DEPLACEMENT);
+			//bottom side : the tile to check is at the hitBox Y position, plus the height of the hitBox, plus the number of deplacement for a block, minus the minimum block deplacement (ex : 1.7 {<-- hitBox Y pos} + 2.0 {<-- hitBox height} + 0.3 = 4.0, which is not the position of the block we want to check)
+			tilePosition = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() + Physics.NB_DEPLACEMENT_BLOCK - Physics.DELTA);
 		}
 		
 		return tilePosition; 
@@ -148,7 +148,7 @@ public class Collisions {
 			case 1 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + (hitBox.getHeight() / 2));									//for the right/left middle side
 			break;
 			
-			case 2 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() - Physics.MINIMUM_BLOCK_DEPLACEMENT);	//for the right/left bottom side
+			case 2 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() - Physics.DELTA);	//for the right/left bottom side
 			break;
 			}
 			
@@ -178,7 +178,7 @@ public class Collisions {
 			case 1 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + (hitBox.getWidth() / 2));									//for the top/bottom middle side
 			break;
 			
-			case 2 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() - Physics.MINIMUM_BLOCK_DEPLACEMENT);	//for the top/bottom right side
+			case 2 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() - Physics.DELTA);	//for the top/bottom right side
 			break;
 			}
 			
