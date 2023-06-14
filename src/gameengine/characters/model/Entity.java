@@ -194,7 +194,7 @@ public abstract class Entity{
 
 	public void setSpawn(Map m){
 		coordinates.setX((float) (m.getSpawnPoint().getX() - 0.5));
-		coordinates.setY((float) ((m.getSpawnPoint().getY()-1) - 0.5));
+		coordinates.setY((float) ((m.getSpawnPoint().getY()-2) - 0.5));
 		System.out.println("> Position of Player : ("+coordinates.getX()+","+coordinates.getY()+")");
 	}
 }

@@ -33,30 +33,30 @@ public class CollisionTest {
 		//+++++++++++ Creation of a 6x6 Tile matrix with only solid and empty block
 		//The lower floor of the map is filled with solid block
 		for(int x = 0; x < 6; x++) {
-			tileMatrix1[x][5] = solidBlock;
-			tileMatrix2[x][5] = solidBlock;
+			tileMatrix1[5][x] = solidBlock;
+			tileMatrix2[5][x] = solidBlock;
 		}
 		
 		//Fill the other floor with empty blocks
 		for(int y = 0; y < 5; y++) {
 			for(int x = 0; x < 6; x++) {
-				tileMatrix1[x][y] = emptyBlock;
-				tileMatrix2[x][y] = emptyBlock;
+				tileMatrix1[y][x] = emptyBlock;
+				tileMatrix2[y][x] = emptyBlock;
 			}
 		}
 		
 		//Addition of few solid blocks to test collisions for map1
-		tileMatrix1[0][4] = solidBlock;
-		tileMatrix1[5][4] = solidBlock;
-		tileMatrix1[2][1] = solidBlock;
+		tileMatrix1[4][0] = solidBlock;
+		tileMatrix1[4][5] = solidBlock;
+		tileMatrix1[1][2] = solidBlock;
 		
 		//creation of the map1
 		map1 = new Map("collisionTest", mapType, 6, 6, 15.0, 0.1, tileMatrix1);
 		
 		//Addition of few solid blocks to test collisions for map2
-		tileMatrix2[0][3] = solidBlock;
-		tileMatrix2[5][3] = solidBlock;
-		tileMatrix2[3][1] = solidBlock;
+		tileMatrix2[3][0] = solidBlock;
+		tileMatrix2[3][5] = solidBlock;
+		tileMatrix2[1][3] = solidBlock;
 		
 		//creation of the map1
 		map2 = new Map("collisionTest", mapType, 6, 6, 15.0, 0.1, tileMatrix2);
@@ -119,7 +119,7 @@ public class CollisionTest {
 		
 		//a collision is detected
 		assertEquals(Collisions.left(mainCharacter.getHitBox()), CollisionType.SOLID);
-		
+			
 		//the character move to the maximum he can
 		mainCharacter.moveLeft();
 		assertEquals(mainCharacter.getHitBox().getX(), 1.0f);

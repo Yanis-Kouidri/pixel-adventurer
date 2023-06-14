@@ -1,16 +1,11 @@
 package gameengine.application.model;
 
-import gameengine.characters.controller.CharacterController;
-import gameengine.characters.model.Character;
 import gameengine.characters.model.Entity;
 import gameengine.map.model.Map;
 import gameengine.utils.model.Constants;
 import gameengine.utils.model.Coordinates;
-import gameengine.utils.model.Physics;
 import gameengine.utils.model.Utils;
 
-import static gameengine.utils.model.Physics.GRAVITY;
-import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
 
 /**
  * Implements the logic on how the view of the player will be placed at.

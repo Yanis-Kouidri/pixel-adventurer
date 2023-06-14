@@ -70,6 +70,7 @@ public class Utils {
 	 */
 	public static final int ceilFloatToInt(float f) {
 		return (int) Math.ceil(f);
+	}
 
 	/**
 	 * Converts coordinates in tile unit to pixel unit
