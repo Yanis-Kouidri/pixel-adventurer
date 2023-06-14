@@ -12,7 +12,7 @@ import gameengine.Exceptions.UnvalidMovementDistanceException;
 
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.
- * @author n7student
+ * @author Thomas Gruner
  *
  */
 public abstract class Entity{

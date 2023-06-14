@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 /**
  * the HitBox class represent the HitBox for an entity
- * @author n7student
+ * @author Thomas Gruner
  *
  */
 public class HitBox {

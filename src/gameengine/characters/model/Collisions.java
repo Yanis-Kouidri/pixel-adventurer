@@ -8,7 +8,7 @@ import gameengine.utils.model.Utils;
 
 /**
  * the Collisions class implements and define all methods specific to the collision detection
- * @author n7student
+ * @author Thomas Gruner
  *
  */
 public class Collisions {

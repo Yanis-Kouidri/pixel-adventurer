@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 // TODO : Ajouter le contrat et essayer de réaranger la classe.
 /**
  * 
- * @author n7student
+ * @author Thomas Gruner
  *
  */
 public class Utils {

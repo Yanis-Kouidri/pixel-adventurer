@@ -4,7 +4,7 @@ import gameengine.Exceptions.UnvalidMovementDistanceException;
 
 /**
  * The Character class is the class for the main character. It's a singleton because only one main character can be create in a game.
- * @author thomas
+ * @author Thomas Gruner
  *
  */
 public class MainCharacter extends Entity {
