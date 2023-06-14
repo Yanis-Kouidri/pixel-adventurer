@@ -3,8 +3,9 @@ package gameengine.application.view;
 import gameengine.application.model.Camera;
 import gameengine.characters.view.EntityView;
 import gameengine.map.view.MapPanel;
-import gameengine.utils.model.Constants;
-import gameengine.utils.model.Coordinates;
+
+import gameengine.utils.model.*;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -54,8 +55,9 @@ public class GameLayerPanel extends CustomPanel {
         layeredPane.add(mapPanel, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(entityView, JLayeredPane.PALETTE_LAYER);
 
-        entityView.setBounds((int) entityView.getEntity().getCoordinates().getX(),(int) entityView.getEntity().getCoordinates().getX(), CHARACTER_LENGHT, CHARACTER_LENGHT);
-        System.out.println("> Where is entityView ? ("+entityView.getX()+";"+entityView.getY()+")");
+        Coordinates entityPosition = Utils.convertFromTileToPixel(entityView.getEntity().getCoordinates());
+
+        entityView.setBounds((int) entityPosition.getX(),(int) entityPosition.getY(), CHARACTER_LENGHT, CHARACTER_LENGHT);
         mapPanel.setBounds(0,0,Constants.MAP_LENGTH, Constants.MAP_HEIGHT);
 
         mapPanel.setCamera(camera); // Adding the camera to the MapPanel
@@ -93,7 +95,7 @@ public class GameLayerPanel extends CustomPanel {
      */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(backgroundImage, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
         Graphics2D g2d = (Graphics2D) g.create();
 
         // Rendering the map and offsetting with the camera's coordinates
@@ -108,11 +110,6 @@ public class GameLayerPanel extends CustomPanel {
         g2d.translate(-cameraX, -cameraY);
 
         mapPanel.paintComponent(g2d);
-
-        // Rendering the entityView at the center of the map
-        // Récupérez les coordonnées de l'entité depuis le modèle
-        int entityX = (int) entityView.getEntity().getCoordinates().getX();
-        int entityY = (int) entityView.getEntity().getCoordinates().getY();
 
         // Dessinez `entityView` en utilisant les coordonnées centrées
         entityView.paintComponent(g2d);

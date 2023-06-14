@@ -16,6 +16,13 @@ import static gameengine.utils.model.Constants.SPRITE_DIM;
 
 /** This class defines the MapPanel object
  * @author Cédric Abdelbaki
+ * @contributor Eric Yu
+ * 			- Added:
+ * 				- getLevel
+ * 				- setCamera
+ * 				- getSprites
+ * 			- Modified
+ * 				- paintComponent
  * @version 0.1
  */
 
@@ -27,10 +34,6 @@ public class MapPanel extends JPanel {
 	private Camera camera;
 	public Map getLevel() {
 		return level;
-	}
-
-	public Tileset getSprites() {
-		return sprites;
 	}
 
 	// The tileset containing the sprites
@@ -97,7 +100,6 @@ s	 */
 		int startTileY = Math.max(mapY, cameraY / SPRITE_DIM);
 		int endTileY = Math.min(mapY + getHeight() / SPRITE_DIM + 1, (cameraY + screenHeight) / SPRITE_DIM + 1);
 
-		int counter = 0;
 		for (int y = startTileY; y < endTileY && y < height; y++) {
 			for (int x = startTileX; x < endTileX && x < width; x++) {
 				Tile currentTile = level.getTileAtPos(y, x);
@@ -110,13 +112,9 @@ s	 */
 					int pixelY = y * SPRITE_DIM;
 
 					g.drawImage(currentSprite, pixelX, pixelY, null);
-					counter++;
-
 				}
 			}
 		}
-//		System.out.println(">> counter = " + counter);
-
 	}
 }
 

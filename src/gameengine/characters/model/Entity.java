@@ -75,8 +75,8 @@ public abstract class Entity{
 	}
 
 	public void setSpawn(Map m){
-		coordinates.setX((int)m.getSpawnPoint().getX()*Constants.BLOCK_LENGHT - Constants.SPRITE_DIM/2);
-		coordinates.setY(((int)m.getSpawnPoint().getY()-1)*Constants.BLOCK_LENGHT - Constants.SPRITE_DIM/2);
+		coordinates.setX((float) (m.getSpawnPoint().getX() - 0.5));
+		coordinates.setY((float) ((m.getSpawnPoint().getY()-1) - 0.5));
 		System.out.println("> Position of Player : ("+coordinates.getX()+","+coordinates.getY()+")");
 	}
 }

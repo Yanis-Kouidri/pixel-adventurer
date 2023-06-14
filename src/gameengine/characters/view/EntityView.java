@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 import gameengine.characters.model.Entity;
+import gameengine.utils.model.Coordinates;
+import gameengine.utils.model.Utils;
 
 import static gameengine.utils.model.Constants.BLOCK_LENGHT;
 import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
@@ -35,10 +37,15 @@ public class EntityView extends JPanel{
 		setBackground( new Color(0, 0, 0, 0) );
 	}
 
+	/**
+	 * Draws the entity on the map.
+	 * @param g the <code>Graphics</code> object to protect
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, (int) entity.getCoordinates().getX(), (int) entity.getCoordinates().getY(), CHARACTER_LENGHT, CHARACTER_LENGHT,this);
+		Coordinates entityPosition = Utils.convertFromTileToPixel(entity.getCoordinates());
+		g.drawImage(image, (int) entityPosition.getX() , (int) entityPosition.getY(), CHARACTER_LENGHT, CHARACTER_LENGHT,this);
 	}
 
 	/**
