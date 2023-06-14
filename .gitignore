@@ -31,3 +31,5 @@ bin
 #Eclipse
 .classpath
 .project
+
+/bin1/

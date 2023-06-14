@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 import gameengine.characters.model.Entity;
+import gameengine.utils.model.Coordinates;
+import gameengine.utils.model.Utils;
 
 import static gameengine.utils.model.Constants.BLOCK_LENGHT;
 import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
@@ -17,6 +19,7 @@ import static gameengine.utils.model.Constants.CHARACTER_LENGHT;
  *
  */
 public class EntityView extends JPanel{
+	private static final long serialVersionUID = 1L;
 	private final Logger logger = Logger.getLogger(String.valueOf(this.getClass()));
 	private Entity entity;		//the entity object to display
 	private Image image;		//the sprite to be displayed
@@ -27,24 +30,23 @@ public class EntityView extends JPanel{
 	 * @param image
 	 */
 	public EntityView(Entity entity, Image image) {
+		setOpaque(false);
 		this.entity = entity;
 		this.image = image;
 
 		// Transparency Image character
 		setBackground( new Color(0, 0, 0, 0) );
 	}
-	
 
 	/**
-	 * paint add what need to be displayed.
-	 * @param g
+	 * Draws the entity on the map.
+	 * @param g the <code>Graphics</code> object to protect
 	 */
 	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-
-		g.drawImage(image, 0, 0, CHARACTER_LENGHT, CHARACTER_LENGHT,this);
-		logger.info("mainCharacter Paint");
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Coordinates entityPosition = Utils.convertFromTileToPixel(entity.getCoordinates());
+		g.drawImage(image, (int) entityPosition.getX() , (int) entityPosition.getY(), CHARACTER_LENGHT, CHARACTER_LENGHT,this);
 	}
 
 	/**
@@ -55,5 +57,13 @@ public class EntityView extends JPanel{
 		float x = entity.getCoordinates().getX() * BLOCK_LENGHT;
 		float y = entity.getCoordinates().getY() * BLOCK_LENGHT;
 		this.setLocation(Math.round(x), Math.round(y));
+	}
+
+	/**
+	 * Gets the entity linked to the view
+	 * @return the player's character
+	 */
+	public Entity getEntity(){
+		return entity;
 	}
 }

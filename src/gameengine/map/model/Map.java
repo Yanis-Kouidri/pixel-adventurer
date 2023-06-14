@@ -1,5 +1,8 @@
 package gameengine.map.model;
 
+import gameengine.utils.model.Constants;
+import gameengine.utils.model.Coordinates;
+
 /** This class allows to instantiate map type objects
  * @author Cédric ABDELBAKI
  * @version 0.1
@@ -45,6 +48,23 @@ public class Map {
 			System.out.println("Error while generating the map");
 		}
 	}
+	
+	/** Initializes a map object with a name, a type, a width, a height and a tile matrice
+	 * @param name The desired map name
+	 * @param type The desired map type
+	 * @param width The desired map width
+	 * @param height The desired map height
+	 * @param amplitude The desired amplitude value for procedural generation
+	 * @param scale The desired scale value for procedural generation
+	 * @param tileMatrice the matrix of tiles
+	 */
+	public Map (String name, MapType type, int width, int height, double amplitude, double scale, Tile[][] tileMatrix) {
+		this.name = name;
+		this.type = type;
+		this.width = width;
+		this.height = height;
+		array = tileMatrix;
+	}
 
 	/** Gets the map name
 	 * @return this.name The map name
@@ -86,7 +106,7 @@ public class Map {
 	 */
 	public Tile getTileAtPos(int x, int y) {
 		try {
-			return this.array[x][y];
+			return this.array[y][x];
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Specified parameters provoke an array index out of bounds error");
 			return null;
@@ -100,10 +120,70 @@ public class Map {
 	 */
 	public void setTileAtPost(Tile tileToSet, int x, int y) {
 		try {
-			this.array[x][y] = null;
-			this.array[x][y] = tileToSet;
+			this.array[y][x] = null;
+			this.array[y][x] = tileToSet;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Specified parameters provoke an array index out of bounds error");
 		}
+	}
+
+	/**
+	 *	Returns the first block that can considered as ground level.
+	 * @param atX the x in tile unit
+	 * @return the y in tile unit
+	 */
+	public int getGroundLevel(int atX){
+		int groundY = 0;
+		for(int y = 0; y< Constants.MAP_ROWS-1; y++){
+			if (array[y][atX].getCollisionBehaviour() == true){
+				groundY = y;
+				break;
+			}
+		}
+		return groundY;
+	}
+
+	/**
+	 * Returns the middle of the map (on the x-axis) in tile unit.
+	 * @return x coordinate in tile unit
+	 */
+	public int getMiddleOfMap(){
+		return getMapWidth()/2;
+	}
+
+	/**
+	 * Returns the spawnPoint's coordinates of the map in tile unit.
+	 * @return the coordinates of the spawnPoint
+	 */
+	public Coordinates getSpawnPoint(){
+		int x = getMiddleOfMap();
+		int y = 0;
+
+		boolean goLeft = true;
+		// Calculating the y value (height) where it first touches the ground.
+		do{
+			y = getGroundLevel(x);
+			// TODO: Manage if the x > MapLength
+			if (y == 0){
+				// First we'll try going to move the spawnPoint to the left
+				// if there is no ground level.
+				if(goLeft){
+					x++;
+					// If we arrive to the end of the map's width we'll start from the middle and go right
+					if(x>getMapWidth()){
+						x=getMiddleOfMap();
+						goLeft=false;
+					}
+				}
+				else{
+					x--;
+					if(x<0){
+						// TODO: Manage if there is no spawnPoint available on this map.
+					}
+				}
+			}
+		}
+		while(y==0);
+		return new Coordinates(x,y);
 	}
 }

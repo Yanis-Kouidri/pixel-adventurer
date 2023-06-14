@@ -38,7 +38,7 @@ public abstract class MenuPanel extends CustomPanel implements MouseListener{
 
 	// The menu background image
 	private Image menuBackground;
-
+  
 	// The main GridBagConstraints object
 	protected GridBagConstraints gbc;
 

@@ -1,9 +1,15 @@
+/**
+ * The "main" package contains the entry point for the application and other related classes.
+ * It provides the core functionality for running the program and initializing necessary components.
+ */
+
 package main;
 import java.awt.*;
 import gameengine.application.controller.CameraController;
 import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
-import gameengine.characters.model.Character;
+import gameengine.characters.model.MainCharacter;
+import gameengine.characters.model.Collisions;
 import gameengine.characters.view.EntityView;
 import gameengine.gameloop.model.GameLoop;
 import gameengine.inventory.controller.InventoryKeyController;
@@ -28,7 +34,6 @@ import javax.swing.*;
  * @contributor Cédric Abdelbaki
  * 				- Modified : MainMenuPanel panel creation
  */
-
 public class Main {
     public static void main(String[] args) {
         PixelAdventure game = new PixelAdventure();
@@ -47,13 +52,16 @@ class PixelAdventure extends GameLoop {
     // The credits panel
     private CreditsPanel creditsPanel;
 
+  private static final float MAIN_CHARACTER_WIDTH = 2.0f;		//the width of the main character
+	private static final float MAIN_CHARACTER_HEIGHT = 2.0f;	//the height of the main character
+
     private PanelMediator panelMediator;
 
     private Tile emptyTile;
 
     private GamePanel gamePanel;
 
-    private Character mainCharacter;		//the main character object
+    private MainCharacter mainCharacter;		//the main character object
     private EntityView entityView;		//the view that need to be displayed on the window
     private Image mainCharacterImage, backgroundImage;
 
@@ -85,9 +93,8 @@ class PixelAdventure extends GameLoop {
         /*Tile[][] array = testMap.getMapArray();*/
         /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
 
-
+        mainCharacter = MainCharacter.createInstance(MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT);		//we want to display the main character so we create it
         // -------------------- Main Character model --------------------
-        mainCharacter = Character.createInstance();						//we want to display the main character so we create it
         mainCharacter.setSpawn(mapPanel.getLevel());
         // -------------------- Main Character view --------------------
         mainCharacterImage = Utils.getImage("character/mainCharacter.png");
@@ -95,7 +102,6 @@ class PixelAdventure extends GameLoop {
 
         // -------------------- Main Character controller --------------------
         mainCharacterController = new CharacterController(mainCharacter);
-
 
         // -------------------- Inventory model --------------------
         Inventory inventoryModel = new Inventory(40);
@@ -145,11 +151,17 @@ class PixelAdventure extends GameLoop {
         gamePanel.addlayeredPanel(inventoryBar, JLayeredPane.POPUP_LAYER);
         gamePanel.addlayeredPanel(inventoryMenu, JLayeredPane.DRAG_LAYER);
 
+        ApplicationWindow.createInstance(menuPanel);
+
         cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
 
         // Add controller to framee
         ApplicationWindow.getFrame().addKeyListener(inventoryController);
         ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
+        
+        //setting up the map into the Collisions class as attribute
+        Collisions.setMap(testMap);
+      
         ApplicationWindow.getFrame().addKeyListener(cameraController);
 
 

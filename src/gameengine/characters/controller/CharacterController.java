@@ -1,6 +1,6 @@
 package gameengine.characters.controller;
 
-import gameengine.characters.model.Character;
+import gameengine.characters.model.MainCharacter;
 import gameengine.characters.model.Entity;
 
 import java.awt.event.KeyEvent;
@@ -12,10 +12,10 @@ public class CharacterController implements KeyListener {
     // Change type to Character (modifiy instance methode in CHaracter)
 
     private final Logger logger = Logger.getLogger(String.valueOf(this.getClass()));
-    private Character mainCharacter;
+    private MainCharacter mainCharacter;
 
     public boolean rightPressed, leftPressed, upPressed;
-    public CharacterController(Character mainCharacter) {
+    public CharacterController(MainCharacter mainCharacter) {
         this.mainCharacter = mainCharacter;
     }
     @Override
@@ -32,15 +32,15 @@ public class CharacterController implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_SPACE) {
             upPressed = true;
-            logger.info("Press " + e.getKeyChar());
+//            logger.info("Press " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_Q) {
             leftPressed = true;
-            logger.info("Press " + e.getKeyChar());
+//            logger.info("Press " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
-            logger.info("Press " + e.getKeyChar());
+//            logger.info("Press " + e.getKeyChar());
         }
     }
 
@@ -54,15 +54,14 @@ public class CharacterController implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_SPACE) {
             upPressed = false;
-            logger.info("Release " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_Q) {
             leftPressed = false;
-            logger.info("Release " + e.getKeyChar());
+//            logger.info("Release " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
-            logger.info("Release " + e.getKeyChar());
+//            logger.info("Release " + e.getKeyChar());
         }
     }
 
@@ -71,16 +70,16 @@ public class CharacterController implements KeyListener {
      */
     public void update() {
         if (upPressed) {
-            mainCharacter.moveUp();
+            mainCharacter.jump();
             logger.info(mainCharacter.toString());
         }
         if (leftPressed) {
             mainCharacter.moveLeft();
-            logger.info(mainCharacter.toString());
+//            logger.info(mainCharacter.toString());
         }
         if (rightPressed) {
             mainCharacter.moveRight();
-            logger.info(mainCharacter.toString());
+//            logger.info(mainCharacter.toString());
         }
 
     }

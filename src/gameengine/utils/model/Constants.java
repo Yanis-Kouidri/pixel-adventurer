@@ -6,7 +6,6 @@ import java.awt.Dimension;
  * @contributor Cédric ABDELBAKI
  * @version 0.2
  */
-
 public class Constants {
     private Constants() {}
 
@@ -52,5 +51,4 @@ public class Constants {
 
 	// The path to the HTML file containing the credits
 	public static final String CREDITS_FILE_PATH = "src/gameassets/application/files/credits.html";
-
 }
