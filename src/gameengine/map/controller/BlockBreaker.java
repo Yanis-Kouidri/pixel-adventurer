@@ -32,7 +32,9 @@ public class BlockBreaker extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
 
+        // For take the pick of mouse pointer
         int mouseOffsetY = 16;
+
         // Click coordinates
         int clickX = e.getX();
         int clickY = e.getY();
@@ -51,22 +53,21 @@ public class BlockBreaker extends MouseAdapter {
 
         // Verified if blockX and Blocky present in the map
         if (blockX >= 0 && blockX < map.getMapWidth() && blockY >= 0 && blockY < map.getMapHeight()) {
-            // Create empty tile
-            // TODO: change with empty block in the constructor ?
-            map.setTileAtPost(emptyTile, blockX, blockY);
+
+            // Verify if the block isn't empty block
             if (!Objects.equals(map.getTileAtPos(blockX, blockY).getTileName(), emptyTile.getTileName())) {
+                // Add block in inventory
                 Item item = new Item(map.getTileAtPos(blockX, blockY).getTileName());
                 try {
-                    inventory.add(item); // ne s'affiche pas
+                    inventory.add(item);
                 } catch (InventoryFullException ex) {
-                    throw new RuntimeException(ex);
+                    System.out.println("Inventory is full.");
                 }
+
+                // Set block to empty block
+                map.setTileAtPost(emptyTile, blockX, blockY);
             }
         }
-        // Debug
-        System.out.println("X= " + blockX + " Y= " + blockY);
-        System.out.println("clickX= " + clickX + " clickY= " + clickY);
-        System.out.println("cameraX= " + camera.getX() + " cameraY= " + camera.getY());
     }
 }
 
