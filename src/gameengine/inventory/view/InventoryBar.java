@@ -22,15 +22,12 @@ public class InventoryBar extends InventoryPanel {
     public final static int NB_OF_ROWS = 1;
 
 
-    public InventoryBar() {
-        super();
+    public InventoryBar(Inventory inventoryToDisplay) {
+        super(inventoryToDisplay);
         this.setLayout(new GridLayout(NB_OF_ROWS, NB_OF_ITEMS_DISPLAY_IN_BAR));
     }
 
-    /**
-     * @param inventoryToDisplay The inventory that you want to display
-     */
-    public void displayInventory(Inventory inventoryToDisplay, ItemsView itemsIcons) {
-        super.displayInventory(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_BAR, itemsIcons);
+    public void displayInventory(ItemsView itemsIcons) {
+        super.displayInventory(NB_OF_ITEMS_DISPLAY_IN_BAR, itemsIcons);
     }
 }

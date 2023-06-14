@@ -83,14 +83,14 @@ class PixelAdventure extends GameLoop {
 
         // -------------------- Inventory model --------------------
         Inventory inventoryModel = new Inventory(40);
-        InventoryBar inventoryBar = new InventoryBar();
-        InventoryMenu iventoryMenu = new InventoryMenu();
+        InventoryBar inventoryBar = new InventoryBar(inventoryModel);
+        InventoryMenu iventoryMenu = new InventoryMenu(inventoryModel);
 
         // -------------------- Inventory view --------------------
         ItemsView texturePack = new ItemsView();
 
-        inventoryBar.displayInventory(inventoryModel, texturePack);
-        iventoryMenu.displayInventory(inventoryModel, texturePack);
+        inventoryBar.displayInventory(texturePack);
+        iventoryMenu.displayInventory(texturePack);
 
         // -------------------- Inventory controller --------------------
         InventoryKeyController inventoryController = new InventoryKeyController(iventoryMenu);

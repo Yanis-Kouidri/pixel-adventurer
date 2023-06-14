@@ -30,8 +30,7 @@ public class InventoryNameDisplayingTest {
         // Create the ItemsView
         ItemsView texturePack = new ItemsView();
 
-        // Create the inventory menu panel
-        InventoryMenu inventoryMenu = new InventoryMenu();
+
 
         // Creation of the inventory himself (model)
         Inventory inventoryExample = new Inventory(INVENTORY_SIZE);
@@ -71,8 +70,11 @@ public class InventoryNameDisplayingTest {
             }
         }
 
+        // Create the inventory menu panel
+        InventoryMenu inventoryMenu = new InventoryMenu(inventoryExample);
+
         // Draw the inventory in the JPanel :
-        inventoryMenu.displayInventory(inventoryExample, texturePack);
+        inventoryMenu.displayInventory(texturePack);
 
         // Add the inventory to the frame
         frame.add(inventoryMenu);

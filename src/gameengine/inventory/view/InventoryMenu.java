@@ -30,8 +30,8 @@ public class InventoryMenu extends InventoryPanel {
     /**
      * Construction of the InventoryMenu define by nb of rows and columns
      */
-    public InventoryMenu() {
-        super();
+    public InventoryMenu(Inventory inventoryToDisplay) {
+        super(inventoryToDisplay);
         this.setLayout(new GridLayout(NB_OF_ROWS,
                 NB_OF_COLS ));
         this.setVisible(false); // By default, the inventory is hide.
@@ -40,10 +40,9 @@ public class InventoryMenu extends InventoryPanel {
 
     /**
      * A method to draw the inventory into the panel
-     * @param inventoryToDisplay The inventory to draw in the menu
      */
-    public void displayInventory(Inventory inventoryToDisplay, ItemsView itemsIcons) {
-        super.displayInventory(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_MENU, itemsIcons);
+    public void displayInventory(ItemsView itemsIcons) {
+        super.displayInventory(NB_OF_ITEMS_DISPLAY_IN_MENU, itemsIcons);
     }
 
 

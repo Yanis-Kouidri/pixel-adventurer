@@ -22,9 +22,6 @@ public class InventoryBarViewTest {
         // Create the ItemsView
         ItemsView texturePack = new ItemsView();
 
-        // Create the inventory panel
-        InventoryBar inventoryBar = new InventoryBar();
-
         Inventory inventoryExample = new Inventory(10);
 
         ImageIcon potionsIcon = new ImageIcon("test/gameassets/item/potions.png");
@@ -56,7 +53,10 @@ public class InventoryBarViewTest {
             throw new RuntimeException(e);
         }
 
-        inventoryBar.displayInventory(inventoryExample, texturePack);
+        // Create the inventory panel
+        InventoryBar inventoryBar = new InventoryBar(inventoryExample);
+
+        inventoryBar.displayInventory(texturePack);
 
         frame.add(inventoryBar);
 

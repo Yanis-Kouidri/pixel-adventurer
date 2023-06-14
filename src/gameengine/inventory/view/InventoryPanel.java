@@ -30,18 +30,26 @@ public class InventoryPanel extends JPanel {
     private final static ImageIcon ITEM_TEXTURE_NOT_FOUND = new ImageIcon(
             "src/gameassets/item/unknown_item.png");
 
+    private final Inventory inventoryToDisplay;
 
-    public InventoryPanel() {
+
+    public InventoryPanel(Inventory inventoryToDisplay) {
         super();
+        this.inventoryToDisplay = inventoryToDisplay;
+    }
+
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+
     }
 
     /**
      * This method adds to the Panel all the inventory items
      * and puts empty square when there is no item
-     * @param inventoryToDisplay The inventory that you want to display (to draw)
      * @param nbOfItem The number of items to display
      */
-    protected void displayInventory(Inventory inventoryToDisplay, int nbOfItem,
+    protected void displayInventory(int nbOfItem,
                                     ItemsView itemsSprite) {
         //TODO replace displayInventory with paintComponent
         this.removeAll(); // Clear the inventory bar before adding new items sprite
