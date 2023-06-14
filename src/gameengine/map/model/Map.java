@@ -89,7 +89,7 @@ public class Map {
 	 */
 	public Tile getTileAtPos(int x, int y) {
 		try {
-			return this.array[x][y];
+			return this.array[y][x];
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Specified parameters provoke an array index out of bounds error");
 			return null;
@@ -103,8 +103,8 @@ public class Map {
 	 */
 	public void setTileAtPost(Tile tileToSet, int x, int y) {
 		try {
-			this.array[x][y] = null;
-			this.array[x][y] = tileToSet;
+			this.array[y][x] = null;
+			this.array[y][x] = tileToSet;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Specified parameters provoke an array index out of bounds error");
 		}
