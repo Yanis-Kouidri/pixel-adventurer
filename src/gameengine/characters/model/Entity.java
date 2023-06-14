@@ -196,5 +196,6 @@ public abstract class Entity{
 		coordinates.setX((float) (m.getSpawnPoint().getX() - 0.5));
 		coordinates.setY((float) ((m.getSpawnPoint().getY()-2) - 0.5));
 		System.out.println("> Position of Player : ("+coordinates.getX()+","+coordinates.getY()+")");
+		updateHitBox();
 	}
 }
