@@ -99,11 +99,15 @@ public class Collisions {
 	 * @return int the x position of the tile
 	 */
 	private static int getXTilePosition (boolean leftSide, HitBox hitBox) {
-		return leftSide ? 
-				//left side : the tile to check is at the hitBox X position minus the number of deplacement for a block
-				Utils.truncateFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK) : 
-					//right side : the tile to check is at the hitBox X position, plus the width of the hitBox, plus the number of deplacement for a block, minus the minimum block deplacement (ex : 2.0 {<-- hitBox X pos} + 2.0 {<-- hitBox width} = 4.0, which is not the position of the block we want to check)
-					Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOCK_DEPLACEMENT);
+		int tilePosition = 0;
+		if (leftSide) {
+			//left side : the tile to check is at the hitBox X position minus the number of deplacement for a block
+			tilePosition = Utils.truncateFloatToInt(hitBox.getX() - Physics.NB_DEPLACEMENT_BLOCK);
+		} else {
+			//right side : the tile to check is at the hitBox X position, plus the width of the hitBox, plus the number of deplacement for a block, minus the minimum block deplacement (ex : 2.0 {<-- hitBox X pos} + 2.0 {<-- hitBox width} = 4.0, which is not the position of the block we want to check)
+			tilePosition = Utils.truncateFloatToInt(hitBox.getX() + hitBox.getWidth() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOCK_DEPLACEMENT);
+		}
+		return tilePosition;
 	}
 	
 	/**
@@ -113,11 +117,16 @@ public class Collisions {
 	 * @return int the y position of the tile
 	 */
 	private static int getYTilePosition (boolean topSide, HitBox hitBox) {
-		return topSide ? 
-				//top side : the tile to check is at the hitBox Y position minus the number of deplacement for a block
-				Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK) : 
-					//bottom side : the tile to check is at the hitBox Y position, plus the height of the hitBox, plus the number of deplacement for a block, minus the minimum block deplacement (ex : 2.0 {<-- hitBox Y pos} + 2.0 {<-- hitBox height} = 4.0, which is not the position of the block we want to check)
-					Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOCK_DEPLACEMENT);
+		int tilePosition = 0;
+		if (topSide) {
+			//top side : the tile to check is at the hitBox Y position minus the number of deplacement for a block
+			tilePosition = Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK);
+		} else {
+			//bottom side : the tile to check is at the hitBox Y position, plus the height of the hitBox, plus the number of deplacement for a block, minus the minimum block deplacement (ex : 2.0 {<-- hitBox Y pos} + 2.0 {<-- hitBox height} = 4.0, which is not the position of the block we want to check)
+			tilePosition = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() + Physics.NB_DEPLACEMENT_BLOCK - Physics.MINIMUM_BLOCK_DEPLACEMENT);
+		}
+		
+		return tilePosition; 
 	}
 	
 	/**
@@ -153,7 +162,7 @@ public class Collisions {
 	
 	/**
 	 * this method regroup the collision management for the top and bottom side by checking if a collision will appear on the next movement
-	 * @param leftSide if the collision detection is for the top side set this parameter to true
+	 * @param topSide if the collision detection is for the top side set this parameter to true
 	 * @param hitBox
 	 * @return CollisionType
 	 */
