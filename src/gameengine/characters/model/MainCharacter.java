@@ -52,8 +52,6 @@ public class MainCharacter extends Entity {
 	
 	/**
 	 * a method to create the instance if doesn't exist with spawn coordinates.
-	 * @param coordX
-	 * @param coordY
 	 * @return Character
 	 */
 	public static MainCharacter createInstance(float width, float height) {
