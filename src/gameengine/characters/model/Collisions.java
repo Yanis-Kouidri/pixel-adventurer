@@ -14,6 +14,7 @@ import gameengine.utils.model.Utils;
 public class Collisions {
 	
 	private static Map map;		//the current map
+	private static final int HITBOX_SURFACE_CHECK_COLLISION_POINTS_NUMBER = 3;
 	
 	
 	/**
@@ -141,7 +142,7 @@ public class Collisions {
 		//for the right/left top side
 		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY());
 		
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < HITBOX_SURFACE_CHECK_COLLISION_POINTS_NUMBER; i++) {
 			switch(i) {
 			
 			case 1 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + (hitBox.getHeight() / 2));									//for the right/left middle side
@@ -172,7 +173,7 @@ public class Collisions {
 		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX());
 		int yPositionToCheck = getYTilePosition(topSide, hitBox);
 		
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < HITBOX_SURFACE_CHECK_COLLISION_POINTS_NUMBER; i++) {
 			switch(i) {
 			case 1 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + (hitBox.getWidth() / 2));									//for the top/bottom middle side
 			break;
