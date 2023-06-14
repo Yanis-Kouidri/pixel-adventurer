@@ -102,7 +102,7 @@ s	 */
 
 		for (int y = startTileY; y < endTileY && y < height; y++) {
 			for (int x = startTileX; x < endTileX && x < width; x++) {
-				Tile currentTile = level.getTileAtPos(y, x);
+				Tile currentTile = level.getTileAtPos(x, y);
 				int currentTileIdentifier = currentTile.getTileId();
 				// If the bloc is air don't load the sprite for better performance.
 				if (currentTileIdentifier != 0){
