@@ -6,9 +6,6 @@ package gameengine.inventory.view;
  * @version 0.1
  */
 public class NoSpriteFoundException extends Exception {
-    public NoSpriteFoundException() {
-        super();
-    }
 
     public NoSpriteFoundException(String message) {
         super(message);

@@ -4,7 +4,9 @@
  */
 
 package main;
+
 import java.awt.*;
+
 import gameengine.application.controller.CameraController;
 import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
@@ -19,6 +21,7 @@ import gameengine.inventory.view.InventoryMenu;
 import gameengine.inventory.view.ItemsView;
 import gameengine.map.controller.BlockBreaker;
 import gameengine.map.model.Map;
+/*import gameengine.map.model.MapArray;*/
 import gameengine.map.model.MapArray;
 import gameengine.map.model.MapType;
 import gameengine.map.model.Tile;
@@ -26,6 +29,7 @@ import gameengine.map.view.MapPanel;
 import gameengine.map.view.Tileset;
 import gameengine.utils.model.Constants;
 import gameengine.utils.model.Utils;
+
 import javax.swing.*;
 
 /**
@@ -39,6 +43,7 @@ public class Main {
         PixelAdventure game = new PixelAdventure();
         game.run();
     }
+
 }
 
 class PixelAdventure extends GameLoop {
@@ -93,8 +98,8 @@ class PixelAdventure extends GameLoop {
         /*Tile[][] array = testMap.getMapArray();*/
         /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
 
-        mainCharacter = MainCharacter.createInstance(MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT);		//we want to display the main character so we create it
         // -------------------- Main Character model --------------------
+        mainCharacter = MainCharacter.createInstance(MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT);		//we want to display the main character so we create it
         mainCharacter.setSpawn(mapPanel.getLevel());
         // -------------------- Main Character view --------------------
         mainCharacterImage = Utils.getImage("character/mainCharacter.png");
@@ -103,16 +108,21 @@ class PixelAdventure extends GameLoop {
         // -------------------- Main Character controller --------------------
         mainCharacterController = new CharacterController(mainCharacter);
 
-        // -------------------- Inventory model --------------------
-        Inventory inventoryModel = new Inventory(40);
-        InventoryBar inventoryBar = new InventoryBar();
-        InventoryMenu inventoryMenu = new InventoryMenu();
-
-        // -------------------- Inventory view --------------------
         ItemsView texturePack = new ItemsView();
 
-        inventoryBar.displayInventory(inventoryModel, texturePack);
-        inventoryMenu.displayInventory(inventoryModel, texturePack);
+        // -------------------- Inventory model --------------------
+        Inventory inventoryModel = new Inventory(40);
+        InventoryBar inventoryBar = new InventoryBar(inventoryModel, texturePack);
+        InventoryMenu inventoryMenu = new InventoryMenu(inventoryModel, texturePack);
+
+        // -------------------- Inventory view --------------------
+
+        inventoryBar.displayInventory();
+        inventoryMenu.displayInventory();
+
+        inventoryModel.addObserver(inventoryBar);
+        inventoryModel.addObserver(inventoryMenu);
+
 
         // -------------------- Inventory controller --------------------
         InventoryKeyController inventoryController = new InventoryKeyController(inventoryMenu);
@@ -140,7 +150,7 @@ class PixelAdventure extends GameLoop {
         int widthInventoryMenu = ApplicationWindow.getFrame().getWidth() -
                 (InventoryMenu.NB_OF_COLS * cellInveyory);
         int heightInventoryMenu = InventoryMenu.NB_OF_ROWS * cellInveyory;
-        inventoryMenu.setBounds(Math.round((float) (widthInventoryMenu) / 2),
+        inventoryMenu.setBounds(Math.round((widthInventoryMenu) / 2),
                 0,
                  widthInventoryMenu,
                 heightInventoryMenu
@@ -153,13 +163,13 @@ class PixelAdventure extends GameLoop {
 
         cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
 
-        // Add controller to framee
+        // Add controller to frame
         ApplicationWindow.getFrame().addKeyListener(inventoryController);
         ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
-        
+
         //setting up the map into the Collisions class as attribute
         Collisions.setMap(testMap);
-      
+
         ApplicationWindow.getFrame().addKeyListener(cameraController);
 
 
@@ -187,6 +197,7 @@ class PixelAdventure extends GameLoop {
         mainCharacterController.update();
         cameraController.update();
     }
+
 
     private MapPanel initMapPanel(){
         String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage

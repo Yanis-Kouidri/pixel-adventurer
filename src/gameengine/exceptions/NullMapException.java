@@ -1,4 +1,4 @@
-package gameengine.Exceptions;
+package gameengine.exceptions;
 
 /**
  * An exception caused by the lack of setUp of the map in the class Collision

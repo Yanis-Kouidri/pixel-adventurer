@@ -6,9 +6,6 @@ package gameengine.inventory.model;
  * @version 0.1
  */
 public class NotEmptyPlaceException extends Exception {
-    public NotEmptyPlaceException() {
-        super();
-    }
 
     public NotEmptyPlaceException(String message) {
         super(message);

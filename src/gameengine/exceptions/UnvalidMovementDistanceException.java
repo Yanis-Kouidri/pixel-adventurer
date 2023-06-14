@@ -1,4 +1,4 @@
-package gameengine.Exceptions;
+package gameengine.exceptions;
 
 import gameengine.utils.model.Physics;
 

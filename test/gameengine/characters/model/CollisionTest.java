@@ -1,13 +1,12 @@
 package gameengine.characters.model;
 
 import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import gameengine.Exceptions.NullMapException;
+import gameengine.exceptions.NullMapException;
 import gameengine.map.model.Map;
 import gameengine.map.model.MapType;
 import gameengine.map.model.Tile;

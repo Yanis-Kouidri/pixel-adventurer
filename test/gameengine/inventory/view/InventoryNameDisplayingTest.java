@@ -7,32 +7,30 @@ import gameengine.inventory.model.NotEmptyPlaceException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 /**
- * Test class to test inventory menu view and controller on a test frame.
+ * This class aim to test the view of item names when the mouse is over
+ *
  * @author Yanis Kouidri
  * @version 0.1
  */
-public class InventoryMenuViewTest {
-
+public class InventoryNameDisplayingTest {
     private static final int INVENTORY_SIZE = 40;
-
-    private static final Random randomGenerator = new Random();
-    private static final int NB_OF_ITEM_TO_ADD = randomGenerator.nextInt(INVENTORY_SIZE);
 
     /**
      * A test to display the inventory in a frame
      */
     public static void createAndShowGUI() {
         // Creation on the frame :
-        JFrame frame = new JFrame("Inventory frame testing");
+        JFrame frame = new JFrame("Inventory item name frame testing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setLayout(new FlowLayout());
 
         // Create the ItemsView
         ItemsView texturePack = new ItemsView();
+
+
 
         // Creation of the inventory himself (model)
         Inventory inventoryExample = new Inventory(INVENTORY_SIZE);
@@ -63,12 +61,10 @@ public class InventoryMenuViewTest {
         Item[] offerItem = {potionItem, crabItem, fishRodItem, troutItem, magicWand};
 
         // Filling the inventory randomly
-        for (int i = 0; i < NB_OF_ITEM_TO_ADD ; i ++) {
+        for (int i = 0; i < offerItem.length ; i ++) {
             try {
-                int itemToAdd = randomGenerator.nextInt(offerItem.length + 1);
-                if (itemToAdd < offerItem.length) {
-                    inventoryExample.add(i, offerItem[itemToAdd]);
-                }
+                inventoryExample.add(i, offerItem[i]);
+
             } catch (NotEmptyPlaceException e) { // If the same place is chosen twice
                 System.err.println("That not should append" + e.getMessage());
             }
@@ -76,8 +72,6 @@ public class InventoryMenuViewTest {
 
         // Create the inventory menu panel
         InventoryMenu inventoryMenu = new InventoryMenu(inventoryExample, texturePack);
-        inventoryExample.addObserver(inventoryMenu);
-
 
         // Draw the inventory in the JPanel :
         inventoryMenu.displayInventory();
@@ -97,7 +91,7 @@ public class InventoryMenuViewTest {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(InventoryMenuViewTest::createAndShowGUI);
+        SwingUtilities.invokeLater(InventoryNameDisplayingTest::createAndShowGUI);
     }
 }
 
