@@ -12,6 +12,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
 
+/**
+ * Determine the block to break, destroy it and add the block as an item to the inventory.
+ */
 public class BlockBreaker extends MouseAdapter {
 
     private final Map map;
@@ -29,6 +32,10 @@ public class BlockBreaker extends MouseAdapter {
         this.emptyTile = emptyTile;
     }
 
+    /**
+     * Invoked when the mouse button has been clicked on the component
+     * @param e the event to be processed
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -51,7 +58,7 @@ public class BlockBreaker extends MouseAdapter {
         int blockX = adjustedClickX + adjustedCameraX;
         int blockY = adjustedClickY + adjustedCameraY;
 
-        // Verified if blockX and Blocky present in the map
+        // Verified if blockX and blockY present in the map
         if (blockX >= 0 && blockX < map.getMapWidth() && blockY >= 0 && blockY < map.getMapHeight()) {
 
             // Verify if the block isn't empty block
