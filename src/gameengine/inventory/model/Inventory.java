@@ -106,6 +106,7 @@ public class Inventory {
         }
         // Removing item
         this.content[indexPlace] = null;
+        notifyObservers();
     }
 
     /**
