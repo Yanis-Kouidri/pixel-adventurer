@@ -9,7 +9,7 @@ import java.awt.*;
 
 import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
-import gameengine.characters.model.Character;
+import gameengine.characters.model.MainCharacter;
 import gameengine.characters.model.Collisions;
 import gameengine.characters.view.EntityView;
 import gameengine.gameloop.model.GameLoop;
@@ -40,7 +40,7 @@ class PixelAdventure extends GameLoop {
 
     private GamePanel gamePanel;
 
-    private Character mainCharacter;		//the main character object
+    private MainCharacter mainCharacter;		//the main character object
     private EntityView entityView;		//the view that need to be displayed on the window
     private Image mainCharacterImage, backgroundImage;
 
@@ -60,7 +60,7 @@ class PixelAdventure extends GameLoop {
         String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
         String backgroudImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
 
-        mainCharacter = Character.createInstance();						//we want to display the main character so we create it
+        mainCharacter = MainCharacter.createInstance();						//we want to display the main character so we create it
         entityView = new EntityView(mainCharacter, mainCharacterImage);		//we now specify that we want to create a view of this character
         mainCharacterController = new CharacterController(mainCharacter);
 

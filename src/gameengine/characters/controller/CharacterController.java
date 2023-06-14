@@ -1,6 +1,6 @@
 package gameengine.characters.controller;
 
-import gameengine.characters.model.Character;
+import gameengine.characters.model.MainCharacter;
 import gameengine.characters.model.Entity;
 
 import java.awt.event.KeyEvent;
@@ -12,10 +12,10 @@ public class CharacterController implements KeyListener {
     // Change type to Character (modifiy instance methode in CHaracter)
 
     private final Logger logger = Logger.getLogger(String.valueOf(this.getClass()));
-    private Character mainCharacter;
+    private MainCharacter mainCharacter;
 
     public boolean rightPressed, leftPressed, upPressed;
-    public CharacterController(Character mainCharacter) {
+    public CharacterController(MainCharacter mainCharacter) {
         this.mainCharacter = mainCharacter;
     }
     @Override

@@ -7,14 +7,14 @@ import gameengine.Exceptions.UnvalidMovementDistanceException;
  * @author thomas
  *
  */
-public class Character extends Entity {
+public class MainCharacter extends Entity {
 	
-	private static Character instance = null;		//the instance of the main character
+	private static MainCharacter instance = null;		//the instance of the main character
 	
 	/**
 	 * a constructor.
 	 */
-	private Character() {
+	private MainCharacter() {
 		super();
 	}
 	
@@ -23,7 +23,7 @@ public class Character extends Entity {
 	 * @param coordX
 	 * @param coordY
 	 */
-	private Character(float coordX, float coordY) {
+	private MainCharacter(float coordX, float coordY) {
 		super(coordX, coordY);
 	}
 	
@@ -34,7 +34,7 @@ public class Character extends Entity {
 	 * @param width
 	 * @param height
 	 */
-	private Character(float coordX, float coordY, float width, float height) {
+	private MainCharacter(float coordX, float coordY, float width, float height) {
 		super(coordX, coordY, width, height);
 	}
 	
@@ -42,9 +42,9 @@ public class Character extends Entity {
 	 * a method to create the instance.
 	 * @return Character
 	 */
-	public static Character createInstance() {
+	public static MainCharacter createInstance() {
 		if(instance == null) {
-			instance = new Character();
+			instance = new MainCharacter();
 		}
 		
 		return instance;
@@ -56,9 +56,9 @@ public class Character extends Entity {
 	 * @param coordY
 	 * @return Character
 	 */
-	public static Character createInstance(float coordX, float coordY) {
+	public static MainCharacter createInstance(float coordX, float coordY) {
 		if(instance == null) {
-			instance = new Character(coordX, coordY);
+			instance = new MainCharacter(coordX, coordY);
 		}
 		
 		return instance;
@@ -72,9 +72,9 @@ public class Character extends Entity {
 	 * @param height
 	 * @return Character
 	 */
-	public static Character createInstance(float coordX, float coordY, float width, float height) {
+	public static MainCharacter createInstance(float coordX, float coordY, float width, float height) {
 		if(instance == null) {
-			instance = new Character(coordX, coordY, width, height);
+			instance = new MainCharacter(coordX, coordY, width, height);
 		}
 		
 		return instance;
@@ -84,7 +84,7 @@ public class Character extends Entity {
 	 * a method returning the instance of the mainCharacter.
 	 * @return Character
 	 */
-	public static Character getInstance() {
+	public static MainCharacter getInstance() {
 		return instance;
 	}
 	

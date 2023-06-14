@@ -12,10 +12,10 @@ public class CharacterTest {
 
     public final static double EPSILON = 0.001f;
 
-    public Character mainCharacter;
-    public Character mainCharacterTest;
+    public MainCharacter mainCharacter;
+    public MainCharacter mainCharacterTest;
 
-    private void removeInstanceCharacter(Character chr)  {
+    private void removeInstanceCharacter(MainCharacter chr)  {
         try {
             if (chr != null) {
                 Field field = chr.getClass().getDeclaredField("instance");
@@ -41,7 +41,7 @@ public class CharacterTest {
 
     @Before
     public void setUp() {
-        mainCharacter = Character.createInstance();
+        mainCharacter = MainCharacter.createInstance();
     }
 
     @After
@@ -54,8 +54,8 @@ public class CharacterTest {
     @Test
     public void characterDefaultCoords() {
         cleanUp();
-        assertNull(Character.getInstance());
-        mainCharacter = Character.createInstance();
+        assertNull(MainCharacter.getInstance());
+        mainCharacter = MainCharacter.createInstance();
         assertTrue(mainCharacter.getCoordinates().getX() == 0
                 && mainCharacter.getCoordinates().getY() == 0);
     }
@@ -63,28 +63,28 @@ public class CharacterTest {
     @Test
     public void characterOneInstance() {
         cleanUp();
-        assertNull(Character.getInstance());
+        assertNull(MainCharacter.getInstance());
 
-        mainCharacter = Character.createInstance();
-        mainCharacterTest = Character.createInstance();
+        mainCharacter = MainCharacter.createInstance();
+        mainCharacterTest = MainCharacter.createInstance();
         assertSame(mainCharacter, mainCharacterTest);
     }
 
     @Test
     public void characterOneInstanceSameCoords() {
         cleanUp();
-        assertNull(Character.getInstance());
-        mainCharacter = Character.createInstance(1,2);
-        mainCharacterTest = Character.createInstance(1,2);
+        assertNull(MainCharacter.getInstance());
+        mainCharacter = MainCharacter.createInstance(1,2);
+        mainCharacterTest = MainCharacter.createInstance(1,2);
         assertSame(mainCharacter, mainCharacterTest);
     }
 
     @Test
     public void characterOneInstanceDifferentCoords() {
         cleanUp();
-        assertNull(Character.getInstance());
-        mainCharacter = Character.createInstance(1,2);
-        mainCharacterTest = Character.createInstance(3,4);
+        assertNull(MainCharacter.getInstance());
+        mainCharacter = MainCharacter.createInstance(1,2);
+        mainCharacterTest = MainCharacter.createInstance(3,4);
         assert mainCharacter.getCoordinates() == mainCharacterTest.getCoordinates();
         assertSame(mainCharacter, mainCharacterTest);
     }
@@ -92,8 +92,8 @@ public class CharacterTest {
     @Test
     public void characterCoords() {
         cleanUp();
-        assertNull(Character.getInstance());
-        mainCharacter = Character.createInstance(1,2);
+        assertNull(MainCharacter.getInstance());
+        mainCharacter = MainCharacter.createInstance(1,2);
 
         assertTrue(mainCharacter.getCoordinates().getX() == 1
                 && mainCharacter.getCoordinates().getY() == 2);
@@ -102,7 +102,7 @@ public class CharacterTest {
     // Character Deplacement
     @Test
     public void characterMoveRight() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
 
@@ -114,7 +114,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveLeft() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
 
@@ -126,7 +126,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveUpOnce() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
 
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
@@ -140,7 +140,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveUpTwice() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         int howMany = 2;
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
@@ -155,7 +155,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveUpFiveTimes() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         int howMany = 5;
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
@@ -171,7 +171,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveUpTenTimes() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         int howMany = 10;
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
@@ -187,7 +187,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveRightMoveLeft() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
 
@@ -200,7 +200,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveLeftMoveRight() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
 
@@ -213,7 +213,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveLeftMoveUp() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
 
@@ -227,7 +227,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveUpMoveLeft() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
 
@@ -241,7 +241,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveRightMoveUp() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
 
@@ -255,7 +255,7 @@ public class CharacterTest {
 
     @Test
     public void characterMoveUpMoveRight() {
-        assertNotNull(Character.getInstance());
+        assertNotNull(MainCharacter.getInstance());
         float testX = mainCharacter.getCoordinates().getX();
         float testY = mainCharacter.getCoordinates().getY();
 

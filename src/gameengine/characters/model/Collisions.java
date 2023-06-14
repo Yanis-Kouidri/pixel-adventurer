@@ -132,7 +132,7 @@ public class Collisions {
 		//for the right/left top side
 		int yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY());
 		
-		for(int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3; i++) {
 			switch(i) {
 			
 			case 1 : yPositionToCheck = Utils.truncateFloatToInt(hitBox.getY() + (hitBox.getHeight() / 2));									//for the right/left middle side
@@ -143,7 +143,7 @@ public class Collisions {
 			}
 			
 			//if a collision has already been detected, it is useless to check for collisions again
-			if(collision == CollisionType.NONE && collisionDetected(xPositionToCheck, yPositionToCheck)) {
+			if (collision == CollisionType.NONE && collisionDetected(xPositionToCheck, yPositionToCheck)) {
 				collision = CollisionType.SOLID;
 			}
 		}
@@ -163,7 +163,7 @@ public class Collisions {
 		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX());
 		int yPositionToCheck = getYTilePosition(topSide, hitBox);
 		
-		for(int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3; i++) {
 			switch(i) {
 			case 1 : xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX() + (hitBox.getWidth() / 2));									//for the top/bottom middle side
 			break;
@@ -173,7 +173,7 @@ public class Collisions {
 			}
 			
 			//if a collision has already been detected, it is useless to check for collisions again
-			if(collision == CollisionType.NONE && collisionDetected(xPositionToCheck, yPositionToCheck)) {
+			if (collision == CollisionType.NONE && collisionDetected(xPositionToCheck, yPositionToCheck)) {
 				collision = CollisionType.SOLID;
 			}
 		}
