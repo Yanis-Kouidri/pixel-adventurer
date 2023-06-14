@@ -89,16 +89,16 @@ class PixelAdventure extends GameLoop {
         // -------------------- Inventory model --------------------
         Inventory inventoryModel = new Inventory(40);
         InventoryBar inventoryBar = new InventoryBar();
-        InventoryMenu iventoryMenu = new InventoryMenu();
+        InventoryMenu inventoryMenu = new InventoryMenu();
 
         // -------------------- Inventory view --------------------
         ItemsView texturePack = new ItemsView();
 
         inventoryBar.displayInventory(inventoryModel, texturePack);
-        iventoryMenu.displayInventory(inventoryModel, texturePack);
+        inventoryMenu.displayInventory(inventoryModel, texturePack);
 
         // -------------------- Inventory controller --------------------
-        InventoryKeyController inventoryController = new InventoryKeyController(iventoryMenu);
+        InventoryKeyController inventoryController = new InventoryKeyController(inventoryMenu);
 
 
         // Set element in space of panel
@@ -123,7 +123,7 @@ class PixelAdventure extends GameLoop {
         int widthInventoryMenu = ApplicationWindow.getFrame().getWidth() -
                 (InventoryMenu.NB_OF_COLS * cellInveyory);
         int heightInventoryMenu = InventoryMenu.NB_OF_ROWS * cellInveyory;
-        iventoryMenu.setBounds(Math.round((widthInventoryMenu) / 2),
+        inventoryMenu.setBounds(Math.round((float) (widthInventoryMenu) / 2),
                 0,
                  widthInventoryMenu,
                 heightInventoryMenu
@@ -132,13 +132,13 @@ class PixelAdventure extends GameLoop {
         GameLayerPanel gameLayerPanel = new GameLayerPanel(panelMediator,entityView, mapPanel);
         gamePanel = new GamePanel(panelMediator, gameLayerPanel);
         gamePanel.addlayeredPanel(inventoryBar, JLayeredPane.POPUP_LAYER);
-        gamePanel.addlayeredPanel(iventoryMenu, JLayeredPane.DRAG_LAYER);
+        gamePanel.addlayeredPanel(inventoryMenu, JLayeredPane.DRAG_LAYER);
 
         ApplicationWindow.createInstance(menuPanel);
 
         cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
 
-        // Add controller to frame
+        // Add controller to framee
         ApplicationWindow.getFrame().addKeyListener(inventoryController);
         ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
         ApplicationWindow.getFrame().addKeyListener(cameraController);
