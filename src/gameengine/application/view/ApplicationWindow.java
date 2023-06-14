@@ -1,5 +1,7 @@
 package gameengine.application.view;
 
+import gameengine.utils.model.Constants;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -23,7 +25,7 @@ public class ApplicationWindow {
 
 		// instantiation of Main Frame
 		frame = new JFrame();
-		frame.setSize(1024, 720);
+		frame.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 		frame.setTitle("Pixel Adventurer");
 		frame.setResizable(false);
 		frame.setVisible(true);

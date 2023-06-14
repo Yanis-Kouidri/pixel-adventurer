@@ -14,12 +14,12 @@ public class InventoryBar extends InventoryPanel {
     /**
      * This constant defines the number of squares in the inventory bar
      */
-    private final static int NB_OF_ITEMS_DISPLAY_IN_BAR = 10;
+    public final static int NB_OF_ITEMS_DISPLAY_IN_BAR = 10;
 
     /**
      * The number of rows for the inventory bar (One because it's a bar)
      */
-    private final static int NB_OF_ROWS = 1;
+    public final static int NB_OF_ROWS = 1;
 
 
     public InventoryBar() {
@@ -30,7 +30,7 @@ public class InventoryBar extends InventoryPanel {
     /**
      * @param inventoryToDisplay The inventory that you want to display
      */
-    public void displayInventory(Inventory inventoryToDisplay) {
-        super.displayInventory(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_BAR);
+    public void displayInventory(Inventory inventoryToDisplay, ItemsView itemsIcons) {
+        super.displayInventory(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_BAR, itemsIcons);
     }
 }

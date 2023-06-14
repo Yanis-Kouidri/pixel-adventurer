@@ -70,5 +70,13 @@ public class Utils {
 	 */
 	public static final int ceilFloatToInt(float f) {
 		return (int) Math.ceil(f);
+
+	/**
+	 * Converts coordinates in tile unit to pixel unit
+	 * @param c coordinates to convert
+	 * @return converted coordinates
+	 */
+	public static Coordinates convertFromTileToPixel(Coordinates c){
+		return new Coordinates(c.getX()*Constants.BLOCK_LENGHT, c.getY()*Constants.BLOCK_LENGHT);
 	}
 }

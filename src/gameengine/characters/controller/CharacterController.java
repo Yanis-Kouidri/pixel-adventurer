@@ -32,15 +32,15 @@ public class CharacterController implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_SPACE) {
             upPressed = true;
-            logger.info("Press " + e.getKeyChar());
+//            logger.info("Press " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_Q) {
             leftPressed = true;
-            logger.info("Press " + e.getKeyChar());
+//            logger.info("Press " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
-            logger.info("Press " + e.getKeyChar());
+//            logger.info("Press " + e.getKeyChar());
         }
     }
 
@@ -54,15 +54,14 @@ public class CharacterController implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_SPACE) {
             upPressed = false;
-            logger.info("Release " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_Q) {
             leftPressed = false;
-            logger.info("Release " + e.getKeyChar());
+//            logger.info("Release " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
-            logger.info("Release " + e.getKeyChar());
+//            logger.info("Release " + e.getKeyChar());
         }
     }
 
@@ -76,11 +75,11 @@ public class CharacterController implements KeyListener {
         }
         if (leftPressed) {
             mainCharacter.moveLeft();
-            logger.info(mainCharacter.toString());
+//            logger.info(mainCharacter.toString());
         }
         if (rightPressed) {
             mainCharacter.moveRight();
-            logger.info(mainCharacter.toString());
+//            logger.info(mainCharacter.toString());
         }
 
     }

@@ -1,9 +1,13 @@
 package gameengine.characters.model;
 
+import gameengine.map.model.Map;
+import gameengine.map.view.MapPanel;
+import gameengine.utils.model.Constants;
 import gameengine.utils.model.Coordinates;
 import gameengine.utils.model.HitBox;
 import gameengine.utils.model.Physics;
 import gameengine.utils.model.Utils;
+
 
 import static gameengine.utils.model.Physics.GRAVITY;
 import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
@@ -93,7 +97,7 @@ public abstract class Entity{
 	}
 	
 	/**
-	 * a method to get the entity coordinates.
+	 * a method to get the entity coordinates in pixels.
 	 * @return Coordinates
 	 */
 	public final Coordinates getCoordinates() {
@@ -186,5 +190,11 @@ public abstract class Entity{
 	@Override
 	public String toString() {
 		return coordinates.toString();
+	}
+
+	public void setSpawn(Map m){
+		coordinates.setX((float) (m.getSpawnPoint().getX() - 0.5));
+		coordinates.setY((float) ((m.getSpawnPoint().getY()-1) - 0.5));
+		System.out.println("> Position of Player : ("+coordinates.getX()+","+coordinates.getY()+")");
 	}
 }
