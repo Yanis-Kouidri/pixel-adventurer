@@ -18,6 +18,7 @@ import gameengine.inventory.model.Inventory;
 import gameengine.inventory.view.InventoryBar;
 import gameengine.inventory.view.InventoryMenu;
 import gameengine.inventory.view.ItemsView;
+import gameengine.map.controller.BlockBreaker;
 import gameengine.map.model.Map;
 /*import gameengine.map.model.MapArray;*/
 import gameengine.map.model.MapArray;
@@ -35,13 +36,14 @@ public class Main {
         PixelAdventure game = new PixelAdventure();
         game.run();
     }
-
 }
 
 class PixelAdventure extends GameLoop {
 
     private MenuPanel menuPanel;
     private PanelMediator panelMediator;
+
+    private Tile emptyTile;
 
     private GamePanel gamePanel;
 
@@ -52,6 +54,9 @@ class PixelAdventure extends GameLoop {
     private CharacterController mainCharacterController;
     private MapPanel mapPanel;
     private CameraController cameraController;
+
+    private Map testMap;
+
     private int updatePerSecond = 30;
 
     /**
@@ -137,6 +142,10 @@ class PixelAdventure extends GameLoop {
         ApplicationWindow.getFrame().addKeyListener(inventoryController);
         ApplicationWindow.getFrame().addKeyListener(mainCharacterController);
         ApplicationWindow.getFrame().addKeyListener(cameraController);
+
+
+        BlockBreaker blockBreaker = new BlockBreaker(testMap, gamePanel.getCamera(), inventoryModel, emptyTile);
+        ApplicationWindow.getFrame().addMouseListener(blockBreaker);
     }
 
     @Override
@@ -160,15 +169,14 @@ class PixelAdventure extends GameLoop {
         cameraController.update();
     }
 
-
     private MapPanel initMapPanel(){
         String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
         String backgroundImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
-        Tile emptyTile = new Tile(0, "empty", false);
+        emptyTile = new Tile(0, "empty", false);
         Tile surfaceTile = new Tile(1, "grass", true);
         Tile undergroundTile = new Tile(2, "dirt", true);
         MapType testMapType = new MapType("testType", emptyTile, surfaceTile, undergroundTile);
-        Map testMap = new Map("testMap", testMapType, Constants.MAP_COLUMNS, Constants.MAP_ROWS, 15.0, 0.1);
+        testMap = new Map("testMap", testMapType, Constants.MAP_COLUMNS, Constants.MAP_ROWS, 15.0, 0.1);
         Tile[][] array = testMap.getMapArray();
         MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight());
         Tileset set = new Tileset(tileSetPath);
