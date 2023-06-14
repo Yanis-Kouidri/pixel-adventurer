@@ -16,10 +16,10 @@ import gameengine.Exceptions.UnvalidMovementDistanceException;
  *
  */
 public abstract class Entity{
-	private Coordinates coordinates;		//the coordinates of the entity
-	private float width, height;		//la taille de l'entité par rapport à la taille d'un bloc
-	private HitBox hitBox;					//la hitBox de l'entité
-	private float gravitySpeed = 0;			// speed = number block per seconds
+	private Coordinates coordinates;			//the coordinates of the entity
+	private float width, height;				//the entity width and height
+	private HitBox hitBox;						//the entity hitbox
+	private float gravitySpeed = 0.0f;			// speed = number block per seconds
 	
 	
 	/**
