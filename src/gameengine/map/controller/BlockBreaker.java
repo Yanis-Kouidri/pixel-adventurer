@@ -14,6 +14,7 @@ import java.util.Objects;
 
 /**
  * Determine the block to break, destroy it and add the block as an item to the inventory.
+ * @author Jeremy Theret
  */
 public class BlockBreaker extends MouseAdapter {
 
