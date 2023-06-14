@@ -1,6 +1,6 @@
 package gameengine.characters.model;
 
-import gameengine.Exceptions.NullMapException;
+import gameengine.exceptions.NullMapException;
 import gameengine.map.model.Map;
 import gameengine.utils.model.HitBox;
 import gameengine.utils.model.Physics;

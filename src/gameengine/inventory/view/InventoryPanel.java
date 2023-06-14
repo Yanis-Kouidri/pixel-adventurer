@@ -32,12 +32,8 @@ public class InventoryPanel extends JPanel implements InventoryObserver {
             "src/gameassets/item/unknown_item.png");
 
     private final Inventory inventoryToDisplay;
-
     private final int nbOfItem;
     private final ItemsView texturePack;
-
-
-
 
     public InventoryPanel(Inventory inventoryToDisplay, int nbOfItem, ItemsView texturePack) {
         super();

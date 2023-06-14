@@ -1,6 +1,6 @@
 package gameengine.characters.model;
 
-import gameengine.Exceptions.UnvalidMovementDistanceException;
+import gameengine.exceptions.UnvalidMovementDistanceException;
 
 /**
  * The Character class is the class for the main character. It's a singleton because only one main character can be create in a game.
@@ -17,11 +17,11 @@ public class MainCharacter extends Entity {
 	private MainCharacter() {
 		super();
 	}
-	
+
 	/**
 	 * a constructor taking spawn coordinates.
-	 * @param coordX
-	 * @param coordY
+	 * @param width
+	 * @param height
 	 */
 	private MainCharacter(float width, float height) {
 		super(width, height);

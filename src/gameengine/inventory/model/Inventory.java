@@ -1,5 +1,8 @@
 package gameengine.inventory.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * This class defines the player inventory
  * @author Yanis Kouidri
@@ -20,7 +23,7 @@ public class Inventory {
      */
     private final int numberOfPlace;
 
-    private InventoryObserver observer;
+    private final Set<InventoryObserver> observers;
 
     // Constructor :
 
@@ -33,7 +36,7 @@ public class Inventory {
         }
         this.content = new Item[numberOfPlace];
         this.numberOfPlace = numberOfPlace;
-        this.observer = null;
+        this.observers = new HashSet<>();
     }
 
     // Methods :
@@ -62,16 +65,18 @@ public class Inventory {
      * Add an observer for an inventory
      * @param observer observer to add
      */
-    public void setObserver(InventoryObserver observer) {
-        this.observer = observer;
+    public void addObserver(InventoryObserver observer) {
+        this.observers.add(observer);
     }
 
     /**
      * Notify the observer that the inventory is updated
      */
     private void notifyObservers() {
-        if (observer != null) { // If an observer is set, notify its
-            observer.onItemAdded();
+        if (!observers.isEmpty()) { // If an observer is set, notify its
+            for (InventoryObserver anObserver: observers) {
+                anObserver.onItemAdded();
+            }
         }
     }
 

@@ -19,6 +19,7 @@ import gameengine.inventory.model.Inventory;
 import gameengine.inventory.view.InventoryBar;
 import gameengine.inventory.view.InventoryMenu;
 import gameengine.inventory.view.ItemsView;
+import gameengine.map.controller.BlockBreaker;
 import gameengine.map.model.Map;
 /*import gameengine.map.model.MapArray;*/
 import gameengine.map.model.MapArray;
@@ -97,9 +98,8 @@ class PixelAdventure extends GameLoop {
         /*Tile[][] array = testMap.getMapArray();*/
         /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
 
-        mainCharacter = MainCharacter.createInstance(MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT);		//we want to display the main character so we create it
         // -------------------- Main Character model --------------------
-        						//we want to display the main character so we create it
+        mainCharacter = MainCharacter.createInstance(MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT);		//we want to display the main character so we create it
         mainCharacter.setSpawn(mapPanel.getLevel());
         // -------------------- Main Character view --------------------
         mainCharacterImage = Utils.getImage("character/mainCharacter.png");
@@ -113,17 +113,19 @@ class PixelAdventure extends GameLoop {
         // -------------------- Inventory model --------------------
         Inventory inventoryModel = new Inventory(40);
         InventoryBar inventoryBar = new InventoryBar(inventoryModel, texturePack);
-        InventoryMenu iventoryMenu = new InventoryMenu(inventoryModel, texturePack);
+        InventoryMenu inventoryMenu = new InventoryMenu(inventoryModel, texturePack);
 
         // -------------------- Inventory view --------------------
-        ItemsView texturePack = new ItemsView();
-
 
         inventoryBar.displayInventory();
-        iventoryMenu.displayInventory();
+        inventoryMenu.displayInventory();
+
+        inventoryModel.addObserver(inventoryBar);
+        inventoryModel.addObserver(inventoryMenu);
+
 
         // -------------------- Inventory controller --------------------
-        InventoryKeyController inventoryController = new InventoryKeyController(iventoryMenu);
+        InventoryKeyController inventoryController = new InventoryKeyController(inventoryMenu);
 
 
         // Set element in space of panel
@@ -148,7 +150,7 @@ class PixelAdventure extends GameLoop {
         int widthInventoryMenu = ApplicationWindow.getFrame().getWidth() -
                 (InventoryMenu.NB_OF_COLS * cellInveyory);
         int heightInventoryMenu = InventoryMenu.NB_OF_ROWS * cellInveyory;
-        iventoryMenu.setBounds(Math.round((widthInventoryMenu) / 2),
+        inventoryMenu.setBounds(Math.round((widthInventoryMenu) / 2),
                 0,
                  widthInventoryMenu,
                 heightInventoryMenu

@@ -44,7 +44,7 @@ public class InventoryObserverTest {
         // Create the inventory menu panel
         InventoryMenu inventoryMenu = new InventoryMenu(inventoryExample, texturePack);
 
-        inventoryExample.setObserver(inventoryMenu);
+        inventoryExample.addObserver(inventoryMenu);
 
 
         // Draw the inventory in the JPanel :

@@ -1,8 +1,6 @@
 package gameengine.characters.model;
 
 import gameengine.map.model.Map;
-import gameengine.map.view.MapPanel;
-import gameengine.utils.model.Constants;
 import gameengine.utils.model.Coordinates;
 import gameengine.utils.model.HitBox;
 import gameengine.utils.model.Physics;
@@ -12,7 +10,7 @@ import gameengine.utils.model.Utils;
 import static gameengine.utils.model.Physics.GRAVITY;
 import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
 
-import gameengine.Exceptions.UnvalidMovementDistanceException;
+import gameengine.exceptions.UnvalidMovementDistanceException;
 
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.
