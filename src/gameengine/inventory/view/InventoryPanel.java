@@ -25,7 +25,7 @@ public class InventoryPanel extends JPanel {
     private final static int SQUARE_BORDER_THICKNESS = 2;
 
     /**
-     * The default texture for an Item who haven't one
+     * The default texture for an Item who hasn't one
      */
     private final static ImageIcon ITEM_TEXTURE_NOT_FOUND = new ImageIcon(
             "src/gameassets/item/unknown_item.png");
@@ -36,12 +36,14 @@ public class InventoryPanel extends JPanel {
     }
 
     /**
-     * This method add to the Panel all the inventory items and put empty square when there is no item
+     * This method adds to the Panel all the inventory items
+     * and puts empty square when there is no item
      * @param inventoryToDisplay The inventory that you want to display (to draw)
      * @param nbOfItem The number of items to display
      */
     protected void displayInventory(Inventory inventoryToDisplay, int nbOfItem,
                                     ItemsView itemsSprite) {
+        //TODO replace displayInventory with paintComponent
         this.removeAll(); // Clear the inventory bar before adding new items sprite
 
         // Creation of border
