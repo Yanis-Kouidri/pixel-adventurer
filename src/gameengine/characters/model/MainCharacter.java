@@ -23,8 +23,8 @@ public class MainCharacter extends Entity {
 	 * @param coordX
 	 * @param coordY
 	 */
-	private MainCharacter(float coordX, float coordY) {
-		super(coordX, coordY);
+	private MainCharacter(float width, float height) {
+		super(width, height);
 	}
 	
 	/**
@@ -56,9 +56,9 @@ public class MainCharacter extends Entity {
 	 * @param coordY
 	 * @return Character
 	 */
-	public static MainCharacter createInstance(float coordX, float coordY) {
+	public static MainCharacter createInstance(float width, float height) {
 		if(instance == null) {
-			instance = new MainCharacter(coordX, coordY);
+			instance = new MainCharacter(width, height);
 		}
 		
 		return instance;
@@ -93,6 +93,7 @@ public class MainCharacter extends Entity {
 	 */
 	@Override
 	public void moveLeft() {
+		System.out.println(this);
 		if(Collisions.left(getHitBox()) == CollisionType.NONE) {
 			super.moveLeft();			
 		} else {
@@ -109,6 +110,7 @@ public class MainCharacter extends Entity {
 	 */
 	@Override
 	public void moveRight() {
+		System.out.println(this);
 		if(Collisions.right(getHitBox()) == CollisionType.NONE) {
 			super.moveRight();			
 		} else {

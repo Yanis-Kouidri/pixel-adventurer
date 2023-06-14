@@ -41,10 +41,10 @@ public abstract class Entity{
 	 * @param coordX
 	 * @param coordY
 	 */
-	public Entity(float coordX, float coordY) {
-		width = 1;
-		height = 1;
-		coordinates = new Coordinates(coordX, coordY);
+	public Entity(float width, float height) {
+		this.width = width;
+		this.height = height;
+		coordinates = new Coordinates();
 		initHitBox();
 	}
 	

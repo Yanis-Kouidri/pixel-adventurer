@@ -41,6 +41,9 @@ public class Main {
 
 class PixelAdventure extends GameLoop {
 
+	private static final float MAIN_CHARACTER_WIDTH = 2.0f;		//the width of the main character
+	private static final float MAIN_CHARACTER_HEIGHT = 2.0f;	//the height of the main character
+	
     private MenuPanel menuPanel;
     private PanelMediator panelMediator;
 
@@ -76,7 +79,7 @@ class PixelAdventure extends GameLoop {
         /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
 
 
-        mainCharacter = MainCharacter.createInstance();						//we want to display the main character so we create it
+        mainCharacter = MainCharacter.createInstance(MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT);		//we want to display the main character so we create it
         // -------------------- Main Character model --------------------
         mainCharacter.setSpawn(mapPanel.getLevel());
         // -------------------- Main Character view --------------------
