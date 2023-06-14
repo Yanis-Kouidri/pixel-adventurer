@@ -2,7 +2,7 @@ package gameengine.Exceptions;
 
 /**
  * An exception caused by the lack of setUp of the map in the class Collision
- * @author n7student
+ * @author Thomas Gruner
  *
  */
 public class NullMapException extends RuntimeException{

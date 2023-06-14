@@ -4,7 +4,7 @@ import gameengine.utils.model.Physics;
 
 /**
  * an exception provocated by the wrong distance estimation that need to be browse after a collision detection
- * @author n7student
+ * @author Thomas Gruner
  *
  */
 public class UnvalidMovementDistanceException extends Exception{
