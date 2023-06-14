@@ -17,7 +17,7 @@ public class InventoryTest {
 
 
     /**
-     * Adding a random number generator to randomise tests and cover more cases
+     * Adding a random number generator to randomized tests and cover more cases
      */
     private final Random randomGenerator = new Random();
 
@@ -80,7 +80,7 @@ public class InventoryTest {
 
     @Test
     public void getNumberOfItemsNotEmpty() {
-        int nbOfItemAdd = 0; //The number of items add into the inventory
+        int nbOfItemAdd = 0; //The number of items adds into the inventory
         try {
             testInventory.add(nbOfItemAdd++, item1);
             testInventory.add(nbOfItemAdd++, item2);
@@ -177,7 +177,7 @@ public class InventoryTest {
             throw new RuntimeException(e);
         }
 
-        // Here, I except a InventoryFullException because my inventory is indeed full
+        // Here, I except an InventoryFullException because my inventory is indeed full
         assertThrows(InventoryFullException.class, () -> testInventory.getFirstEmptyPlace());
     }
 

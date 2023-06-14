@@ -34,8 +34,6 @@ public class InventoryObserverTest {
         // Creation of icons for items
         ImageIcon troutIcon = new ImageIcon("test/gameassets/item/trout.png");
 
-        //
-
         // Creation of item and adding of texture
 
         Item troutItem = new Item("Trout");

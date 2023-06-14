@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Test class to test the view of the inventory bar in a test Jframe
+ * Test class to test the view of the inventory bar in a test JFrame
  * @author Yanis Kouidri
  * @version 0.1
  */

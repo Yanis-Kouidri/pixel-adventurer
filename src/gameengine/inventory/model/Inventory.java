@@ -16,7 +16,7 @@ public class Inventory {
     private final Item[] content;
 
     /**
-     * The fix number of spots of an inventory
+     * The fix number of spots in an inventory
      */
     private final int numberOfPlace;
 
@@ -39,7 +39,7 @@ public class Inventory {
     // Methods :
 
     /**
-     * @return The total number of places of the inventory
+     * @return The total number of places in the inventory
      */
     public int getNumberOfPlace() {
         return numberOfPlace;
@@ -58,14 +58,17 @@ public class Inventory {
         return nbOfItems;
     }
 
-    public InventoryObserver getObserver() {
-        return observer;
-    }
-
+    /**
+     * Add an observer for an inventory
+     * @param observer observer to add
+     */
     public void setObserver(InventoryObserver observer) {
         this.observer = observer;
     }
 
+    /**
+     * Notify the observer that the inventory is updated
+     */
     private void notifyObservers() {
         if (observer != null) { // If an observer is set, notify its
             observer.onItemAdded();
@@ -80,7 +83,7 @@ public class Inventory {
     }
 
     /**
-     * @return True is there is no item in the inventory, false if not.
+     * @return True, there is no item in the inventory, false if not.
      */
     public boolean isEmpty() {
         return getNumberOfItems() == 0;
@@ -108,7 +111,7 @@ public class Inventory {
     /**
      * To get the first empty place of the inventory
      * Useful if you don't know how to place an item
-     * @return The index of the first empty place of the inventory
+     * @return The index of the first empty place in the inventory
      * @throws InventoryFullException Throws if the inventory is full
      */
     public int getFirstEmptyPlace() throws InventoryFullException {
@@ -188,7 +191,7 @@ public class Inventory {
     /**
      * A static private function to check is an index place passed in arg is relevant compare to the inventory length
      * @param indexToCheck The index that you want to check if it is relevant compares to the number of places
-     * @param numberOfPlace The number of places of the inventory
+     * @param numberOfPlace The number of places in the inventory
      * @throws ArrayIndexOutOfBoundsException exception throws if index is irrelevant
      */
     private static void relevantIndex(int indexToCheck, int numberOfPlace) throws ArrayIndexOutOfBoundsException {

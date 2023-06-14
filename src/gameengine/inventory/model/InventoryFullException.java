@@ -11,7 +11,4 @@ public class InventoryFullException extends Exception {
         super();
     }
 
-    public InventoryFullException(String message) {
-        super(message);
-    }
 }

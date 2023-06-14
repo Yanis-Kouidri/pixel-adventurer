@@ -5,7 +5,7 @@ import gameengine.inventory.model.Inventory;
 import java.awt.*;
 
 /**
- * The inventory bar represent a short view of the 10 first items of the inventory
+ * The inventory bar represents a short view of the 10 first items in the inventory
  * @author Yanis Kouidri
  * @version 0.1
  */

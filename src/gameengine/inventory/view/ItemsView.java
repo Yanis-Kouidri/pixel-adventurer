@@ -28,7 +28,7 @@ public class ItemsView {
     }
 
     /**
-     * Add a new item in the tree map or change his sprite if the name already exist
+     * Add a new item in the tree map or change his sprite if the name already exists
      * @param itemName name of the item to bound to a sprite (or change)
      * @param sprite visual of the item
      */

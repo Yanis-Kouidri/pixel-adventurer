@@ -6,9 +6,6 @@ package gameengine.inventory.model;
  * @version 0.1
  */
 public class NothingToRemoveException extends Exception {
-    public NothingToRemoveException() {
-        super();
-    }
 
     public NothingToRemoveException(String message) {
         super(message);

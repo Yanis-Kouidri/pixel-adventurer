@@ -54,7 +54,7 @@ public class InventoryPanel extends JPanel implements InventoryObserver {
 
     /**
      * This method adds to the Panel all the inventory items
-     * and puts empty square when there is no item
+     * and puts empty square when there is no item.
      */
     public void displayInventory() {
         this.removeAll(); // Clear the inventory bar before adding new items sprite
@@ -68,9 +68,9 @@ public class InventoryPanel extends JPanel implements InventoryObserver {
             // Get the i th item
             Item currentItem = inventoryToDisplay.getItemByIndex(i);
             JLabel itemSpaceSprite;
-            JLabel itemSpaceName;
 
-            if (currentItem != null) { // If there is an item at i th position, display it :
+            if (currentItem != null) { // If there is an item at the i th position,
+                // display it :
 
                 try { // Get the sprite bound to the currentItem
                     itemSpaceSprite =  texturePack.getSprite(currentItem.getName());

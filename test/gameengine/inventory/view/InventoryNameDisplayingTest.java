@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * This class aim to test the view of items name when the mouse is over
+ * This class aim to test the view of item names when the mouse is over
  *
  * @author Yanis Kouidri
  * @version 0.1
@@ -65,7 +65,7 @@ public class InventoryNameDisplayingTest {
             try {
                 inventoryExample.add(i, offerItem[i]);
 
-            } catch (NotEmptyPlaceException e) { // If the same place is choose twice
+            } catch (NotEmptyPlaceException e) { // If the same place is chosen twice
                 System.err.println("That not should append" + e.getMessage());
             }
         }
