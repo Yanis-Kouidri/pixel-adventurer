@@ -151,8 +151,6 @@ class PixelAdventure extends GameLoop {
         gamePanel.addlayeredPanel(inventoryBar, JLayeredPane.POPUP_LAYER);
         gamePanel.addlayeredPanel(inventoryMenu, JLayeredPane.DRAG_LAYER);
 
-        ApplicationWindow.createInstance(menuPanel);
-
         cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
 
         // Add controller to framee
