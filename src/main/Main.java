@@ -4,9 +4,7 @@
  */
 
 package main;
-
 import java.awt.*;
-
 import gameengine.application.controller.CameraController;
 import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
@@ -21,7 +19,6 @@ import gameengine.inventory.view.InventoryMenu;
 import gameengine.inventory.view.ItemsView;
 import gameengine.map.controller.BlockBreaker;
 import gameengine.map.model.Map;
-/*import gameengine.map.model.MapArray;*/
 import gameengine.map.model.MapArray;
 import gameengine.map.model.MapType;
 import gameengine.map.model.Tile;
@@ -29,9 +26,14 @@ import gameengine.map.view.MapPanel;
 import gameengine.map.view.Tileset;
 import gameengine.utils.model.Constants;
 import gameengine.utils.model.Utils;
-
 import javax.swing.*;
 
+/**
+ * The "main" package contains the entry point for the application and other related classes.
+ * It provides the core functionality for running the program and initializing necessary components.
+ * @contributor Cédric Abdelbaki
+ * 				- Modified : MainMenuPanel panel creation
+ */
 public class Main {
     public static void main(String[] args) {
         PixelAdventure game = new PixelAdventure();
@@ -41,10 +43,18 @@ public class Main {
 
 class PixelAdventure extends GameLoop {
 
-	private static final float MAIN_CHARACTER_WIDTH = 2.0f;		//the width of the main character
+	// The main menu
+    private MainMenuPanel mainMenuPanel;
+
+    // The commands menu
+    private CommandsPanel commandsPanel;
+
+    // The credits panel
+    private CreditsPanel creditsPanel;
+
+  private static final float MAIN_CHARACTER_WIDTH = 2.0f;		//the width of the main character
 	private static final float MAIN_CHARACTER_HEIGHT = 2.0f;	//the height of the main character
-	
-    private MenuPanel menuPanel;
+
     private PanelMediator panelMediator;
 
     private Tile emptyTile;
@@ -69,15 +79,19 @@ class PixelAdventure extends GameLoop {
     public PixelAdventure() {
         // Init the firsts elements to Application
         panelMediator = new PanelMediator();
-        menuPanel = new MenuPanel(panelMediator);
-        ApplicationWindow.createInstance(menuPanel);
+        mainMenuPanel = new MainMenuPanel(panelMediator);
+        panelMediator.setMainMenuPanel(mainMenuPanel);
+        commandsPanel = new CommandsPanel(panelMediator);
+        panelMediator.setCommandsPanel(commandsPanel);
+        creditsPanel = new CreditsPanel(panelMediator);
+        panelMediator.setCreditsPanel(creditsPanel);
+        ApplicationWindow.createInstance(mainMenuPanel);
 
         // -------------------- Map model --------------------
         MapPanel mapPanel = initMapPanel();
         // For testing map in terminal view
         /*Tile[][] array = testMap.getMapArray();*/
         /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
-
 
         mainCharacter = MainCharacter.createInstance(MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT);		//we want to display the main character so we create it
         // -------------------- Main Character model --------------------
@@ -88,7 +102,6 @@ class PixelAdventure extends GameLoop {
 
         // -------------------- Main Character controller --------------------
         mainCharacterController = new CharacterController(mainCharacter);
-
 
         // -------------------- Inventory model --------------------
         Inventory inventoryModel = new Inventory(40);
@@ -137,8 +150,6 @@ class PixelAdventure extends GameLoop {
         gamePanel = new GamePanel(panelMediator, gameLayerPanel);
         gamePanel.addlayeredPanel(inventoryBar, JLayeredPane.POPUP_LAYER);
         gamePanel.addlayeredPanel(inventoryMenu, JLayeredPane.DRAG_LAYER);
-
-        ApplicationWindow.createInstance(menuPanel);
 
         cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
 
