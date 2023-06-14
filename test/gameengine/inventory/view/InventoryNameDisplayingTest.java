@@ -71,10 +71,10 @@ public class InventoryNameDisplayingTest {
         }
 
         // Create the inventory menu panel
-        InventoryMenu inventoryMenu = new InventoryMenu(inventoryExample);
+        InventoryMenu inventoryMenu = new InventoryMenu(inventoryExample, texturePack);
 
         // Draw the inventory in the JPanel :
-        inventoryMenu.displayInventory(texturePack);
+        inventoryMenu.displayInventory();
 
         // Add the inventory to the frame
         frame.add(inventoryMenu);

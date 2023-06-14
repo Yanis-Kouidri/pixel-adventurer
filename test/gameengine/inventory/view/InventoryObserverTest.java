@@ -2,24 +2,18 @@ package gameengine.inventory.view;
 
 import gameengine.inventory.controller.InventoryKeyController;
 import gameengine.inventory.model.Inventory;
+import gameengine.inventory.model.InventoryFullException;
 import gameengine.inventory.model.Item;
-import gameengine.inventory.model.NotEmptyPlaceException;
+
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
-/**
- * Test class to test inventory menu view and controller on a test frame.
- * @author Yanis Kouidri
- * @version 0.1
- */
-public class InventoryMenuViewTest {
+
+public class InventoryObserverTest {
 
     private static final int INVENTORY_SIZE = 40;
 
-    private static final Random randomGenerator = new Random();
-    private static final int NB_OF_ITEM_TO_ADD = randomGenerator.nextInt(INVENTORY_SIZE);
 
     /**
      * A test to display the inventory in a frame
@@ -38,44 +32,20 @@ public class InventoryMenuViewTest {
         Inventory inventoryExample = new Inventory(INVENTORY_SIZE);
 
         // Creation of icons for items
-        ImageIcon potionsIcon = new ImageIcon("test/gameassets/item/potions.png");
-        ImageIcon crabIcon = new ImageIcon("test/gameassets/item/crab.png");
-        ImageIcon fishingRodIcon = new ImageIcon("test/gameassets/item/fishing-rod.png");
         ImageIcon troutIcon = new ImageIcon("test/gameassets/item/trout.png");
 
         //
 
-        // Creation of items and adding of texture
-        Item potionItem = new Item("Potions");
-        texturePack.addItem("Potions", potionsIcon);
-
-        Item crabItem = new Item("Crab");
-        texturePack.addItem("Crab", crabIcon);
-
-        Item fishRodItem = new Item("Fishing");
-        texturePack.addItem("Fishing", fishingRodIcon);
+        // Creation of item and adding of texture
 
         Item troutItem = new Item("Trout");
         texturePack.addItem("Trout", troutIcon);
 
-        Item magicWand = new Item("Magic Wand");
 
-        Item[] offerItem = {potionItem, crabItem, fishRodItem, troutItem, magicWand};
-
-        // Filling the inventory randomly
-        for (int i = 0; i < NB_OF_ITEM_TO_ADD ; i ++) {
-            try {
-                int itemToAdd = randomGenerator.nextInt(offerItem.length + 1);
-                if (itemToAdd < offerItem.length) {
-                    inventoryExample.add(i, offerItem[itemToAdd]);
-                }
-            } catch (NotEmptyPlaceException e) { // If the same place is chosen twice
-                System.err.println("That not should append" + e.getMessage());
-            }
-        }
 
         // Create the inventory menu panel
         InventoryMenu inventoryMenu = new InventoryMenu(inventoryExample, texturePack);
+
         inventoryExample.setObserver(inventoryMenu);
 
 
@@ -84,6 +54,7 @@ public class InventoryMenuViewTest {
 
         // Add the inventory to the frame
         frame.add(inventoryMenu);
+        inventoryMenu.setVisible(true);
 
         // Make the JFrame appears
         frame.setVisible(true);
@@ -94,10 +65,23 @@ public class InventoryMenuViewTest {
         frame.setFocusable(true);
         frame.requestFocus();
 
+        // Filling the inventory after the creation
+
+        for (int i = 0 ; i < inventoryExample.getNumberOfPlace() ; i++) {
+            try {
+                inventoryExample.add(troutItem);
+                //Thread.sleep(500);
+            } catch (InventoryFullException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+
+
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(InventoryMenuViewTest::createAndShowGUI);
+        SwingUtilities.invokeLater(InventoryObserverTest::createAndShowGUI);
     }
 }
-

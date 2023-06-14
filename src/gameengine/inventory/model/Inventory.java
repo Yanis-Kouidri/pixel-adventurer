@@ -1,7 +1,7 @@
 package gameengine.inventory.model;
 
 /**
- * This class define the player inventory
+ * This class defines the player inventory
  * @author Yanis Kouidri
  * @version 0.1
  */
@@ -16,9 +16,11 @@ public class Inventory {
     private final Item[] content;
 
     /**
-     * The fix number of spot of an inventory
+     * The fix number of spots of an inventory
      */
     private final int numberOfPlace;
+
+    private InventoryObserver observer;
 
     // Constructor :
 
@@ -31,6 +33,7 @@ public class Inventory {
         }
         this.content = new Item[numberOfPlace];
         this.numberOfPlace = numberOfPlace;
+        this.observer = null;
     }
 
     // Methods :
@@ -43,7 +46,7 @@ public class Inventory {
     }
 
     /**
-     * @return The number of object present in the inventory
+     * @return The number of object presents in the inventory
      */
     public int getNumberOfItems() {
         int nbOfItems = 0;
@@ -55,8 +58,22 @@ public class Inventory {
         return nbOfItems;
     }
 
+    public InventoryObserver getObserver() {
+        return observer;
+    }
+
+    public void setObserver(InventoryObserver observer) {
+        this.observer = observer;
+    }
+
+    private void notifyObservers() {
+        if (observer != null) { // If an observer is set, notify its
+            observer.onItemAdded();
+        }
+    }
+
     /**
-     * @return True if all the inventory places are occupied, if not, return false
+     * @return True, if all the inventory places are occupied, if not, return false
      */
     public boolean isFull() {
         return getNumberOfItems() == this.numberOfPlace;
@@ -95,7 +112,7 @@ public class Inventory {
      * @throws InventoryFullException Throws if the inventory is full
      */
     public int getFirstEmptyPlace() throws InventoryFullException {
-        // If inventory is full, there is no empty place
+        // If the inventory is full, there is no empty place
         if (this.isFull()) {
             throw new InventoryFullException();
         }
@@ -133,6 +150,7 @@ public class Inventory {
                     + " is already taken by an item");
         }
         content[indexPlace] = new Item(newItem.getName(), newItem.getDescription());
+        notifyObservers();
     }
 
     /**
@@ -169,8 +187,8 @@ public class Inventory {
 
     /**
      * A static private function to check is an index place passed in arg is relevant compare to the inventory length
-     * @param indexToCheck The index that you want to check if it's relevant compare to the number of place
-     * @param numberOfPlace The number of place of the inventory
+     * @param indexToCheck The index that you want to check if it is relevant compares to the number of places
+     * @param numberOfPlace The number of places of the inventory
      * @throws ArrayIndexOutOfBoundsException exception throws if index is irrelevant
      */
     private static void relevantIndex(int indexToCheck, int numberOfPlace) throws ArrayIndexOutOfBoundsException {

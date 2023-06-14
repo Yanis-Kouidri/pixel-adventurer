@@ -30,19 +30,12 @@ public class InventoryMenu extends InventoryPanel {
     /**
      * Construction of the InventoryMenu define by nb of rows and columns
      */
-    public InventoryMenu(Inventory inventoryToDisplay) {
-        super(inventoryToDisplay);
+    public InventoryMenu(Inventory inventoryToDisplay, ItemsView texturePack) {
+        super(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_MENU, texturePack);
         this.setLayout(new GridLayout(NB_OF_ROWS,
                 NB_OF_COLS ));
         this.setVisible(false); // By default, the inventory is hide.
 
-    }
-
-    /**
-     * A method to draw the inventory into the panel
-     */
-    public void displayInventory(ItemsView itemsIcons) {
-        super.displayInventory(NB_OF_ITEMS_DISPLAY_IN_MENU, itemsIcons);
     }
 
 

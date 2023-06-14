@@ -54,9 +54,9 @@ public class InventoryBarViewTest {
         }
 
         // Create the inventory panel
-        InventoryBar inventoryBar = new InventoryBar(inventoryExample);
+        InventoryBar inventoryBar = new InventoryBar(inventoryExample, texturePack);
 
-        inventoryBar.displayInventory(texturePack);
+        inventoryBar.displayInventory();
 
         frame.add(inventoryBar);
 
