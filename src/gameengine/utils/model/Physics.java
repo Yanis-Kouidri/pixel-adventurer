@@ -2,7 +2,7 @@ package gameengine.utils.model;
 
 /**
  * a class containing constants about the world interractions
- * @author n7student
+ * @author Thomas Gruner
  *
  */
 public class Physics {

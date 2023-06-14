@@ -83,10 +83,4 @@ public class HitBox {
 		this.width = width;
 		this.height = height;
 	}
-	
-//	public void drawHitBox(Graphics g) {
-//		g.setColor(Color.CYAN);
-//		g.fillRect((int) x * Constants.BLOCK_LENGHT, (int) y * Constants.BLOCK_LENGHT, (int) width * Constants.BLOCK_LENGHT, (int) height * Constants.BLOCK_LENGHT);
-//		//TODO : logs
-//	}
 }

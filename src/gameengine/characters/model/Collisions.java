@@ -35,8 +35,7 @@ public class Collisions {
 	private static boolean collisionDetected(int xPositionToCheck, int yPositionToCheck) {
 		if(map == null) {
 			throw new NullMapException("ERROR : The map is not set for the Collision class");
-		}
-		else {
+		} else {
 			return map.getTileAtPos(xPositionToCheck, yPositionToCheck).getCollisionBehaviour();			
 		}
 	}

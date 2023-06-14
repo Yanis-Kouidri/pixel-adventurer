@@ -95,8 +95,7 @@ public class MainCharacter extends Entity {
 	public void moveLeft() {
 		if(Collisions.left(getHitBox()) == CollisionType.NONE) {
 			super.moveLeft();			
-		}
-		else {
+		} else {
 			try {
 				super.moveLeftOnCollision();
 			} catch (UnvalidMovementDistanceException e) {
@@ -112,8 +111,7 @@ public class MainCharacter extends Entity {
 	public void moveRight() {
 		if(Collisions.right(getHitBox()) == CollisionType.NONE) {
 			super.moveRight();			
-		}
-		else {
+		} else {
 			try {
 				super.moveRightOnCollision();
 			} catch (UnvalidMovementDistanceException e) {
@@ -129,8 +127,7 @@ public class MainCharacter extends Entity {
 	public void jump() {
 		if(Collisions.top(getHitBox()) == CollisionType.NONE) {
 			super.jump();			
-		}
-		else {
+		} else {
 			try {
 				super.moveUpOnCollision();
 			} catch (UnvalidMovementDistanceException e) {
