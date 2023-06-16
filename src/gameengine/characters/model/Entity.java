@@ -1,8 +1,6 @@
 package gameengine.characters.model;
 
 import gameengine.map.model.Map;
-import gameengine.map.view.MapPanel;
-import gameengine.utils.model.Constants;
 import gameengine.utils.model.Coordinates;
 import gameengine.utils.model.HitBox;
 import gameengine.utils.model.Physics;
@@ -11,6 +9,9 @@ import gameengine.utils.model.Utils;
 
 import static gameengine.utils.model.Physics.GRAVITY;
 import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import gameengine.Exceptions.UnvalidMovementDistanceException;
 
@@ -24,6 +25,7 @@ public abstract class Entity{
 	private float width, height;				//the entity width and height
 	private HitBox hitBox;						//the entity hitbox
 	private float gravitySpeed = 0.0f;			// speed = number block per seconds
+	private static List<Entity> instances = new ArrayList<>();
 	
 	
 	/**
@@ -34,6 +36,8 @@ public abstract class Entity{
 		height = 1;
 		coordinates = new Coordinates();
 		initHitBox();
+		
+		instances.add(this);
 	}
 	
 	/**
@@ -46,6 +50,8 @@ public abstract class Entity{
 		this.height = height;
 		coordinates = new Coordinates();
 		initHitBox();
+		
+		instances.add(this);
 	}
 	
 	/**
@@ -60,6 +66,8 @@ public abstract class Entity{
 		this.height = height;
 		coordinates = new Coordinates(coordX, coordY);
 		initHitBox();
+		
+		instances.add(this);
 	}
 	
 	/**
@@ -102,6 +110,10 @@ public abstract class Entity{
 	 */
 	public final Coordinates getCoordinates() {
 		return coordinates;
+	}
+	
+	public static List<Entity> getInstances(){
+		return instances;
 	}
 
 	/**
@@ -175,8 +187,32 @@ public abstract class Entity{
 	 */
 	public void moveUpOnCollision() throws UnvalidMovementDistanceException {
 		float yPos = hitBox.getY();
-		float newPosition = (float) Utils.truncateFloatToInt(yPos);
-		float distance = yPos - newPosition;
+		float newPosition = (float) Utils.ceilFloatToInt(yPos);
+		float distance = newPosition - yPos;
+		
+		if(distance > Physics.NB_DEPLACEMENT_BLOCK) {
+			throw new UnvalidMovementDistanceException(distance, yPos, hitBox.getY());
+		}
+		else {
+			coordinates.setY(newPosition);
+			updateHitBox();		
+		}
+	}
+	
+	private void fall() {
+		float newPosition = coordinates.getY() + NB_DEPLACEMENT_BLOCK;
+		coordinates.setY(newPosition);
+		updateHitBox();		
+	}
+	
+	/**
+	 * a method to make the entity jump when a collision is detected to the maximum it can
+	 * @throws UnvalidMovementDistanceException 
+	 */
+	public void fallOnCollision() throws UnvalidMovementDistanceException {
+		float yPos = hitBox.getY();
+		float newPosition = (float) Utils.ceilFloatToInt(yPos);
+		float distance = newPosition - yPos;
 		
 		if(distance > Physics.NB_DEPLACEMENT_BLOCK) {
 			throw new UnvalidMovementDistanceException(distance, yPos, hitBox.getY());
@@ -187,6 +223,19 @@ public abstract class Entity{
 		}
 	}
 
+	public void fallingCheck() {
+		if(Collisions.bottom(getHitBox()) == CollisionType.NONE) {
+				fall();
+		} else {
+			try {
+				fallOnCollision();
+			} catch (UnvalidMovementDistanceException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
 	@Override
 	public String toString() {
 		return coordinates.toString();
@@ -198,4 +247,5 @@ public abstract class Entity{
 		System.out.println("> Position of Player : ("+coordinates.getX()+","+coordinates.getY()+")");
 		updateHitBox();
 	}
+	
 }

@@ -6,6 +6,7 @@
 package main;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import gameengine.application.controller.CameraController;
 import gameengine.application.view.*;
@@ -31,6 +32,8 @@ import gameengine.utils.model.Constants;
 import gameengine.utils.model.Utils;
 
 import javax.swing.*;
+
+import org.w3c.dom.Entity;
 
 public class Main {
     public static void main(String[] args) {
@@ -111,7 +114,6 @@ class PixelAdventure extends GameLoop {
         mapPanel.setBounds(0,0, ApplicationWindow.getFrame().getWidth(),
                 ApplicationWindow.getFrame().getHeight());
 
-
         int cellInveyory = 50;
 
 
@@ -173,8 +175,14 @@ class PixelAdventure extends GameLoop {
     }
 
     protected void update() {
+    	java.util.List<gameengine.characters.model.Entity> entityInstances = gameengine.characters.model.Entity.getInstances();
         mainCharacterController.update();
         cameraController.update();
+        
+        for(gameengine.characters.model.Entity instance : entityInstances) {
+        	instance.fallingCheck();
+        }
+        
     }
 
     private MapPanel initMapPanel(){
