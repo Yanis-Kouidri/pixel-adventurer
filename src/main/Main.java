@@ -13,6 +13,7 @@ import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
 import gameengine.characters.model.MainCharacter;
 import gameengine.characters.model.Collisions;
+import gameengine.characters.model.EntityJumpStateType;
 import gameengine.characters.view.EntityView;
 import gameengine.gameloop.model.GameLoop;
 import gameengine.inventory.controller.InventoryKeyController;
@@ -178,11 +179,6 @@ class PixelAdventure extends GameLoop {
     	java.util.List<gameengine.characters.model.Entity> entityInstances = gameengine.characters.model.Entity.getInstances();
         mainCharacterController.update();
         cameraController.update();
-        
-        for(gameengine.characters.model.Entity instance : entityInstances) {
-        	instance.fallingCheck();
-        }
-        
     }
 
     private MapPanel initMapPanel(){

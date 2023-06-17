@@ -131,7 +131,7 @@ public class MainCharacter extends Entity {
 			super.jump();			
 		} else {
 			try {
-				super.moveUpOnCollision();
+				super.jumpOnCollision();
 			} catch (UnvalidMovementDistanceException e) {
 				e.printStackTrace();
 			}

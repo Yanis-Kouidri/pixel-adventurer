@@ -26,6 +26,7 @@ public abstract class Entity{
 	private HitBox hitBox;						//the entity hitbox
 	private float gravitySpeed = 0.0f;			// speed = number block per seconds
 	private static List<Entity> instances = new ArrayList<>();
+	private EntityJumpStateType actualJumpState;
 	
 	
 	/**
@@ -36,6 +37,8 @@ public abstract class Entity{
 		height = 1;
 		coordinates = new Coordinates();
 		initHitBox();
+		
+		actualJumpState = EntityJumpStateType.ON_THE_FLOOR;
 		
 		instances.add(this);
 	}
@@ -50,6 +53,8 @@ public abstract class Entity{
 		this.height = height;
 		coordinates = new Coordinates();
 		initHitBox();
+		
+		actualJumpState = EntityJumpStateType.ON_THE_FLOOR;
 		
 		instances.add(this);
 	}
@@ -66,6 +71,8 @@ public abstract class Entity{
 		this.height = height;
 		coordinates = new Coordinates(coordX, coordY);
 		initHitBox();
+
+		actualJumpState = EntityJumpStateType.ON_THE_FLOOR;
 		
 		instances.add(this);
 	}
@@ -114,6 +121,10 @@ public abstract class Entity{
 	
 	public static List<Entity> getInstances(){
 		return instances;
+	}
+	
+	public void resetGravitySpeed() {
+		gravitySpeed = 0.0f;
 	}
 
 	/**
@@ -170,22 +181,40 @@ public abstract class Entity{
 			updateHitBox();			
 		}
 	}
+	
+	/**
+	 * a method that return the actual entity jumping state
+	 * @return EntityJumpStateType
+	 */
+	public EntityJumpStateType getJumpingState() {
+		return actualJumpState;
+	}
+	
+	public void setJumpingState(EntityJumpStateType state) {
+		actualJumpState = state;
+	}
 
 	/**
-	 * a method to make the entity jump from NB_DEPLACEMENT_BLOCK
+	 * a method to make the entity isJumping from NB_DEPLACEMENT_BLOCK
 	 */
 	public void jump() {
-		gravitySpeed += GRAVITY;
-		float newPosition = coordinates.getY() - NB_DEPLACEMENT_BLOCK + gravitySpeed;
-		coordinates.setY(newPosition);
-		updateHitBox();
+		if(NB_DEPLACEMENT_BLOCK - gravitySpeed > 0) {
+			actualJumpState = EntityJumpStateType.GOING_UP;
+			float newPosition = coordinates.getY() - NB_DEPLACEMENT_BLOCK + gravitySpeed;
+			coordinates.setY(newPosition);
+			updateHitBox();
+			gravitySpeed += GRAVITY;			
+		} else {
+			actualJumpState = EntityJumpStateType.GOING_DOWN;
+			resetGravitySpeed();
+		}			
 	}
 	
 	/**
-	 * a method to make the entity jump when a collision is detected to the maximum it can
+	 * a method to make the entity isJumping when a collision is detected to the maximum it can
 	 * @throws UnvalidMovementDistanceException 
 	 */
-	public void moveUpOnCollision() throws UnvalidMovementDistanceException {
+	public void jumpOnCollision() throws UnvalidMovementDistanceException {
 		float yPos = hitBox.getY();
 		float newPosition = (float) Utils.ceilFloatToInt(yPos);
 		float distance = newPosition - yPos;
@@ -197,40 +226,75 @@ public abstract class Entity{
 			coordinates.setY(newPosition);
 			updateHitBox();		
 		}
-	}
-	
-	private void fall() {
-		float newPosition = coordinates.getY() + NB_DEPLACEMENT_BLOCK;
-		coordinates.setY(newPosition);
-		updateHitBox();		
+		
+		actualJumpState = EntityJumpStateType.ON_THE_FLOOR;
+		
+		//reset of the gravity speed when a collision is detected
+		resetGravitySpeed();
 	}
 	
 	/**
-	 * a method to make the entity jump when a collision is detected to the maximum it can
+	 * a method to make the entity fall 
+	 * @throws UnvalidMovementDistanceException 
+	 */
+	private void fall() {
+		float newPosition = coordinates.getY() + NB_DEPLACEMENT_BLOCK + gravitySpeed;
+		coordinates.setY(newPosition);
+		updateHitBox();		
+		gravitySpeed += GRAVITY;
+	}
+	
+	/**
+	 * a method to make the entity fall when a collision is detected to the maximum it can
 	 * @throws UnvalidMovementDistanceException 
 	 */
 	public void fallOnCollision() throws UnvalidMovementDistanceException {
 		float yPos = hitBox.getY();
 		float newPosition = (float) Utils.ceilFloatToInt(yPos);
-		float distance = newPosition - yPos;
+		// TODO : enlever si pas utile
+		//float distanceFromTheGround = Utils.truncateFloatToInt(newPosition - yPos);
 		
-		if(distance > Physics.NB_DEPLACEMENT_BLOCK) {
-			throw new UnvalidMovementDistanceException(distance, yPos, hitBox.getY());
-		}
-		else {
+//		if(distanceFromTheGround > Physics.NB_DEPLACEMENT_BLOCK) {
+//			throw new UnvalidMovementDistanceException(distanceFromTheGround, yPos, hitBox.getY());
+//		}
+//		else {
 			coordinates.setY(newPosition);
-			updateHitBox();		
+			updateHitBox();	
+		//}
+		//gravitySpeed = 0.0f;
+	}
+	
+	private boolean notOnTheGround() {
+		boolean notOnTheGround = true;
+		float test = hitBox.getY() % 1;
+		
+		if(hitBox.getY() % 1 <= Physics.DELTA) {
+			notOnTheGround = false;
 		}
+		
+		return notOnTheGround;
 	}
 
+	/**
+	 * a method to check if an entity need to fall
+	 */
 	public void fallingCheck() {
+
 		if(Collisions.bottom(getHitBox()) == CollisionType.NONE) {
-				fall();
+			actualJumpState = EntityJumpStateType.GOING_DOWN;
+			fall();
 		} else {
-			try {
-				fallOnCollision();
-			} catch (UnvalidMovementDistanceException e) {
-				e.printStackTrace();
+			if(notOnTheGround()) {
+				try {
+					actualJumpState = EntityJumpStateType.GOING_DOWN;
+					fallOnCollision();
+				} catch (UnvalidMovementDistanceException e) {
+					e.printStackTrace();
+					System.out.println();
+				}				
+			}
+			else {
+				actualJumpState = EntityJumpStateType.ON_THE_FLOOR;
 			}
 		}
 		
