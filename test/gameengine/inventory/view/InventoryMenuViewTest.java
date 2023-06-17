@@ -34,9 +34,6 @@ public class InventoryMenuViewTest {
         // Create the ItemsView
         ItemsView texturePack = new ItemsView();
 
-        // Create the inventory menu panel
-        InventoryMenu inventoryMenu = new InventoryMenu();
-
         // Creation of the inventory himself (model)
         Inventory inventoryExample = new Inventory(INVENTORY_SIZE);
 
@@ -72,18 +69,23 @@ public class InventoryMenuViewTest {
                 if (itemToAdd < offerItem.length) {
                     inventoryExample.add(i, offerItem[itemToAdd]);
                 }
-            } catch (NotEmptyPlaceException e) { // If the same place is choose twice
+            } catch (NotEmptyPlaceException e) { // If the same place is chosen twice
                 System.err.println("That not should append" + e.getMessage());
             }
         }
 
+        // Create the inventory menu panel
+        InventoryMenu inventoryMenu = new InventoryMenu(inventoryExample, texturePack);
+        inventoryExample.addObserver(inventoryMenu);
+
+
         // Draw the inventory in the JPanel :
-        inventoryMenu.displayInventory(inventoryExample, texturePack);
+        inventoryMenu.displayInventory();
 
         // Add the inventory to the frame
         frame.add(inventoryMenu);
 
-
+        // Make the JFrame appears
         frame.setVisible(true);
 
         // Adding a controller to the frame to record keyTyping for open/close the inventory

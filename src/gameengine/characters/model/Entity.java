@@ -13,7 +13,7 @@ import static gameengine.utils.model.Physics.NB_DEPLACEMENT_BLOCK;
 import java.util.ArrayList;
 import java.util.List;
 
-import gameengine.Exceptions.UnvalidMovementDistanceException;
+import gameengine.exceptions.UnvalidMovementDistanceException;
 
 /**
  * Entity is the abstract class where all characters are inherited from. ex : mainCharacter, ennemies, animals, etc.

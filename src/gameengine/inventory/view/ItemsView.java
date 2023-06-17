@@ -28,7 +28,7 @@ public class ItemsView {
     }
 
     /**
-     * Add a new item in the tree map or change his sprite if the name already exist
+     * Add a new item in the tree map or change his sprite if the name already exists
      * @param itemName name of the item to bound to a sprite (or change)
      * @param sprite visual of the item
      */
@@ -36,6 +36,12 @@ public class ItemsView {
         itemIconAssos.put(itemName, sprite);
     }
 
+    /**
+     * Get a visual (sprite) by giving an item name.
+     * @param itemName The name of the item that you want to get the sprite.
+     * @return A JLabel with the sprite corresponding to your item name.
+     * @throws NoSpriteFoundException Raised when the item name you give correspond to no sprite.
+     */
     public JLabel getSprite(String itemName) throws NoSpriteFoundException {
         ImageIcon itemIcon = itemIconAssos.get(itemName);
         if (itemIcon == null) {

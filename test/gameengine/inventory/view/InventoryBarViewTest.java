@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Test class to test the view of the inventory bar in a test Jframe
+ * Test class to test the view of the inventory bar in a test JFrame
  * @author Yanis Kouidri
  * @version 0.1
  */
@@ -21,9 +21,6 @@ public class InventoryBarViewTest {
 
         // Create the ItemsView
         ItemsView texturePack = new ItemsView();
-
-        // Create the inventory panel
-        InventoryBar inventoryBar = new InventoryBar();
 
         Inventory inventoryExample = new Inventory(10);
 
@@ -56,7 +53,10 @@ public class InventoryBarViewTest {
             throw new RuntimeException(e);
         }
 
-        inventoryBar.displayInventory(inventoryExample, texturePack);
+        // Create the inventory panel
+        InventoryBar inventoryBar = new InventoryBar(inventoryExample, texturePack);
+
+        inventoryBar.displayInventory();
 
         frame.add(inventoryBar);
 

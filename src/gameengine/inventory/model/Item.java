@@ -34,6 +34,12 @@ public class Item {
      * @param description The item description
      */
     public Item(String name, String description) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null");
+        }
+        if (description == null) {
+            throw new IllegalArgumentException("Description cannot be null");
+        }
         this.name = name;
         this.description = description;
     }

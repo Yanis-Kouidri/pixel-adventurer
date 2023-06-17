@@ -5,7 +5,7 @@ import gameengine.inventory.model.Inventory;
 import java.awt.*;
 
 /**
- * The inventory menu is a panel that show the whole inventory with icon for items
+ * The inventory menu is a panel that shows the whole inventory with icon for items
  * @author Yanis Kouidri
  * @version 0.1
  */
@@ -28,22 +28,14 @@ public class InventoryMenu extends InventoryPanel {
 
 
     /**
-     * Construction of the InventoryMenu define by nb of rows and columns
+     * Construction of the InventoryMenu defines by nb of rows and columns
      */
-    public InventoryMenu() {
-        super();
+    public InventoryMenu(Inventory inventoryToDisplay, ItemsView texturePack) {
+        super(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_MENU, texturePack);
         this.setLayout(new GridLayout(NB_OF_ROWS,
                 NB_OF_COLS ));
         this.setVisible(false); // By default, the inventory is hide.
 
-    }
-
-    /**
-     * A method to draw the inventory into the panel
-     * @param inventoryToDisplay The inventory to draw in the menu
-     */
-    public void displayInventory(Inventory inventoryToDisplay, ItemsView itemsIcons) {
-        super.displayInventory(inventoryToDisplay, NB_OF_ITEMS_DISPLAY_IN_MENU, itemsIcons);
     }
 
 
