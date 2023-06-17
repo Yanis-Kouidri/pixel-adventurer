@@ -25,9 +25,9 @@ public abstract class Entity{
 	private float width, height;				//the entity width and height
 	private HitBox hitBox;						//the entity hitbox
 	private float gravitySpeed = 0.0f;			// speed = number block per seconds
-	private static List<Entity> instances = new ArrayList<>();
-	private EntityJumpStateType actualJumpState;
-	private boolean gravityReset;
+	private static List<Entity> instances = new ArrayList<>();		//a list containing every entity instances
+	private EntityJumpStateType actualJumpState;					//the actual state of the entity that permit it or not to jump
+	private boolean gravityReset;				//a boolean used to know if the entity gravity speed has already been reset 
 	
 	
 	/**
@@ -253,7 +253,8 @@ public abstract class Entity{
 			updateHitBox();		
 		}
 		
-		actualJumpState = EntityJumpStateType.ON_THE_FLOOR;
+		//if a collision is detected on a jump, the entity is going down
+		actualJumpState = EntityJumpStateType.GOING_DOWN;
 		
 		//reset of the gravity speed when a collision is detected
 		resetGravitySpeed();
@@ -292,9 +293,12 @@ public abstract class Entity{
 		gravitySpeed = 0.0f;
 	}
 	
+	/**
+	 * a method that return true if the character is not on the ground and reset the gravity
+	 * @return boolean
+	 */
 	private boolean notOnTheGround() {
 		boolean notOnTheGround = true;
-		float test = hitBox.getY() % 1;
 		
 		if(hitBox.getY() % 1 <= Physics.DELTA) {
 			notOnTheGround = false;
@@ -311,11 +315,13 @@ public abstract class Entity{
 	public void fallingCheck() {
 		
 		if(Collisions.bottom(getHitBox(), gravitySpeed) == CollisionType.NONE) {
+			//no collision, so the entity is falling
 			actualJumpState = EntityJumpStateType.GOING_DOWN;
 			fall();
 		} else {
 			if(notOnTheGround()) {
 				try {
+					//a collision detected, but not on the ground yet, the entity is still going down
 					actualJumpState = EntityJumpStateType.GOING_DOWN;
 					fallOnCollision();
 				} catch (UnvalidMovementDistanceException e) {
@@ -324,6 +330,7 @@ public abstract class Entity{
 				}				
 			}
 			else {
+				//if the entity is on the ground, then it's state is on the floor
 				actualJumpState = EntityJumpStateType.ON_THE_FLOOR;
 			}
 		}
@@ -335,6 +342,10 @@ public abstract class Entity{
 		return coordinates.toString() + "gravity speed = " + gravitySpeed;
 	}
 
+	/**
+	 * a method to set the spawn coordinates of an entity
+	 * @param m
+	 */
 	public void setSpawn(Map m){
 		coordinates.setX((float) (m.getSpawnPoint().getX() - 0.5));
 		coordinates.setY((float) ((m.getSpawnPoint().getY()-2) - 0.5));
