@@ -71,10 +71,10 @@ public class Collisions {
 	 * @param hitBox
 	 * @return CollisionType
 	 */
-	public static CollisionType bottom(HitBox hitBox) {
+	public static CollisionType bottom(HitBox hitBox, float gravitySpeed) {
 		CollisionType collision = CollisionType.NONE;
 		
-		collision = vertical(false, hitBox);
+		collision = vertical(false, hitBox, gravitySpeed);
 		
 		return collision;
 	}
@@ -84,10 +84,10 @@ public class Collisions {
 	 * @param hitBox
 	 * @return CollisionType
 	 */
-	public static CollisionType top(HitBox hitBox) {
+	public static CollisionType top(HitBox hitBox, float gravitySpeed) {
 		CollisionType  collision = CollisionType.NONE;
 
-		collision = vertical(true, hitBox);
+		collision = vertical(true, hitBox, gravitySpeed);
 		
 		return collision;
 	}
@@ -116,14 +116,14 @@ public class Collisions {
 	 * @param hitBox
 	 * @return int the y position of the tile
 	 */
-	private static int getYTilePosition (boolean topSide, HitBox hitBox) {
+	private static int getYTilePosition (boolean topSide, HitBox hitBox, float gravitySpeed) {
 		int tilePosition = 0;
 		if (topSide) {
 			//top side : the tile to check is at the hitBox Y position minus the number of deplacement for a block
-			tilePosition = Utils.truncateFloatToInt(hitBox.getY() - Physics.NB_DEPLACEMENT_BLOCK);
+			tilePosition = Utils.truncateFloatToInt(hitBox.getY() - gravitySpeed- Physics.NB_DEPLACEMENT_BLOCK);
 		} else {
 			//bottom side : the tile to check is at the hitBox Y position, plus the height of the hitBox, plus the number of deplacement for a block, minus the minimum block deplacement (ex : 1.7 {<-- hitBox Y pos} + 2.0 {<-- hitBox height} + 0.3 = 4.0, which is not the position of the block we want to check)
-			tilePosition = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() + Physics.NB_DEPLACEMENT_BLOCK - Physics.DELTA);
+			tilePosition = Utils.truncateFloatToInt(hitBox.getY() + hitBox.getHeight() + gravitySpeed + Physics.NB_DEPLACEMENT_BLOCK - Physics.DELTA);
 		}
 		
 		return tilePosition; 
@@ -166,11 +166,11 @@ public class Collisions {
 	 * @param hitBox
 	 * @return CollisionType
 	 */
-	private static CollisionType vertical(boolean topSide, HitBox hitBox) {
+	private static CollisionType vertical(boolean topSide, HitBox hitBox, float gravitySpeed) {
 		CollisionType collision = CollisionType.NONE;
 		//for the top/bottom left side
 		int xPositionToCheck = Utils.truncateFloatToInt(hitBox.getX());
-		int yPositionToCheck = getYTilePosition(topSide, hitBox);
+		int yPositionToCheck = getYTilePosition(topSide, hitBox, gravitySpeed);
 		
 		for (int i = 0; i < HITBOX_SURFACE_CHECK_COLLISION_POINTS_NUMBER; i++) {
 			switch(i) {

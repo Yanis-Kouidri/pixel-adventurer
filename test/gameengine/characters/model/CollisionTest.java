@@ -16,6 +16,7 @@ public class CollisionTest {
 
 	private static MainCharacter mainCharacter;
 	private static Map map1, map2, map3;
+	private float gravitySpeed = 0;
 	
 	@BeforeClass
 	public static void setUp() {
@@ -187,12 +188,12 @@ public class CollisionTest {
 		Collisions.setMap(map1);
 		
 		//no collisions in the actual position
-		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.NONE);
+		assertEquals(Collisions.top(mainCharacter.getHitBox(), gravitySpeed), CollisionType.NONE);
 
 		mainCharacter.setLocation(2.0f, 2.0f);
 		
 		//collisions with the new location
-		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.SOLID);
+		assertEquals(Collisions.top(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
 
 		//move left an other time to be sure that he is no going further
 		mainCharacter.jump();
@@ -257,12 +258,12 @@ public class CollisionTest {
 		Collisions.setMap(map2);
 		
 		//no collisions in the actual position
-		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.NONE);
+		assertEquals(Collisions.top(mainCharacter.getHitBox(), gravitySpeed), CollisionType.NONE);
 
 		mainCharacter.setLocation(2.0f, 2.0f);
 		
 		//collisions with the new location
-		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.SOLID);
+		assertEquals(Collisions.top(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
 	}
 	
 	/**
@@ -322,7 +323,7 @@ public class CollisionTest {
 		
 		mainCharacter.setLocation(1.5f, 2.0f);
 		
-		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.SOLID);
+		assertEquals(Collisions.top(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
 	}
 	
 	/**
@@ -338,12 +339,12 @@ public class CollisionTest {
 		
 		for(int i = 0; i < 3; i++) {
 			//no collision detected during the first block travel
-			assertEquals(Collisions.bottom(mainCharacter.getHitBox()), CollisionType.NONE);
+			assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.NONE);
 			
 			mainCharacter.fallingCheck();
 		}
 		
-		assertEquals(Collisions.bottom(mainCharacter.getHitBox()), CollisionType.SOLID);
+		assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
 		
 		mainCharacter.fallingCheck();
 		
@@ -363,12 +364,12 @@ public class CollisionTest {
 		
 		for(int i = 0; i < 3; i++) {
 			//no collision detected during the first block travel
-			assertEquals(Collisions.bottom(mainCharacter.getHitBox()), CollisionType.NONE);
+			assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.NONE);
 			
 			mainCharacter.fallingCheck();
 		}
 		
-		assertEquals(Collisions.bottom(mainCharacter.getHitBox()), CollisionType.SOLID);
+		assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
 		
 		mainCharacter.fallingCheck();
 		
@@ -388,12 +389,12 @@ public class CollisionTest {
 		
 		for(int i = 0; i < 3; i++) {
 			//no collision detected during the first block travel
-			assertEquals(Collisions.bottom(mainCharacter.getHitBox()), CollisionType.NONE);
+			assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.NONE);
 			
 			mainCharacter.fallingCheck();
 		}
 		
-		assertEquals(Collisions.bottom(mainCharacter.getHitBox()), CollisionType.SOLID);
+		assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
 		
 		mainCharacter.fallingCheck();
 		
@@ -405,7 +406,7 @@ public class CollisionTest {
 		//set up collision with a map of null
 		Collisions.setMap(null);
 		
-		Collisions.top(mainCharacter.getHitBox());
+		Collisions.top(mainCharacter.getHitBox(), gravitySpeed);
 	}
 	
 	@Test(expected = NullMapException.class)
@@ -413,7 +414,7 @@ public class CollisionTest {
 		//set up collision with a map of null
 		Collisions.setMap(null);
 		
-		Collisions.bottom(mainCharacter.getHitBox());
+		Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed);
 	}
 	
 	@Test(expected = NullMapException.class)

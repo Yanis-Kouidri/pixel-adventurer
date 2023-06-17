@@ -68,11 +68,10 @@ public class CharacterController implements KeyListener {
         	if(mainCharacter.getJumpingState() != EntityJumpStateType.GOING_DOWN) {
         		mainCharacter.jump();        		
         	} else {
-        		mainCharacter.resetGravitySpeed();
         		mainCharacter.fallingCheck(); 
         	}
         } else {
-        	mainCharacter.resetGravitySpeed();
+        	mainCharacter.resetGravitySpeedOnce();
         	mainCharacter.fallingCheck(); 
         }
         if (leftPressed) { 

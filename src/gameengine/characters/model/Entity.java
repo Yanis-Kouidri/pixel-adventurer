@@ -27,6 +27,7 @@ public abstract class Entity{
 	private float gravitySpeed = 0.0f;			// speed = number block per seconds
 	private static List<Entity> instances = new ArrayList<>();
 	private EntityJumpStateType actualJumpState;
+	private boolean gravityReset;
 	
 	
 	/**
@@ -119,12 +120,37 @@ public abstract class Entity{
 		return coordinates;
 	}
 	
+	/**
+	 * a method to get all instances of entities
+	 * @return List<Entity>
+	 */
 	public static List<Entity> getInstances(){
 		return instances;
 	}
 	
+	/**
+	 * a method to reset the gravity speed
+	 */
 	public void resetGravitySpeed() {
 		gravitySpeed = 0.0f;
+	}
+	
+	/**
+	 * a method to reset the gravity speed
+	 */
+	public void resetGravitySpeedOnce() {
+		if(gravityReset) {
+			gravitySpeed = 0.0f;
+			gravityReset = false;
+		}
+	}
+	
+	/**
+	 * getter of the gravity speed
+	 * @return float
+	 */
+	public float getGravitySpeed() {
+		return gravitySpeed;
 	}
 
 	/**
@@ -238,6 +264,7 @@ public abstract class Entity{
 	 * @throws UnvalidMovementDistanceException 
 	 */
 	private void fall() {
+		System.out.println(this);
 		float newPosition = coordinates.getY() + NB_DEPLACEMENT_BLOCK + gravitySpeed;
 		coordinates.setY(newPosition);
 		updateHitBox();		
@@ -249,19 +276,20 @@ public abstract class Entity{
 	 * @throws UnvalidMovementDistanceException 
 	 */
 	public void fallOnCollision() throws UnvalidMovementDistanceException {
+		System.out.println(this);
 		float yPos = hitBox.getY();
 		float newPosition = (float) Utils.ceilFloatToInt(yPos);
 		// TODO : enlever si pas utile
-		//float distanceFromTheGround = Utils.truncateFloatToInt(newPosition - yPos);
+		float distanceFromTheGround = Utils.truncateFloatToInt(newPosition - yPos);
 		
-//		if(distanceFromTheGround > Physics.NB_DEPLACEMENT_BLOCK) {
-//			throw new UnvalidMovementDistanceException(distanceFromTheGround, yPos, hitBox.getY());
-//		}
-//		else {
+		if(distanceFromTheGround > Physics.NB_DEPLACEMENT_BLOCK) {
+			throw new UnvalidMovementDistanceException(distanceFromTheGround, yPos, hitBox.getY());
+		}
+		else {
 			coordinates.setY(newPosition);
 			updateHitBox();	
-		//}
-		//gravitySpeed = 0.0f;
+		}
+		gravitySpeed = 0.0f;
 	}
 	
 	private boolean notOnTheGround() {
@@ -270,6 +298,8 @@ public abstract class Entity{
 		
 		if(hitBox.getY() % 1 <= Physics.DELTA) {
 			notOnTheGround = false;
+			gravityReset = true;
+			resetGravitySpeed();
 		}
 		
 		return notOnTheGround;
@@ -279,8 +309,8 @@ public abstract class Entity{
 	 * a method to check if an entity need to fall
 	 */
 	public void fallingCheck() {
-
-		if(Collisions.bottom(getHitBox()) == CollisionType.NONE) {
+		
+		if(Collisions.bottom(getHitBox(), gravitySpeed) == CollisionType.NONE) {
 			actualJumpState = EntityJumpStateType.GOING_DOWN;
 			fall();
 		} else {
@@ -302,7 +332,7 @@ public abstract class Entity{
 	
 	@Override
 	public String toString() {
-		return coordinates.toString();
+		return coordinates.toString() + "gravity speed = " + gravitySpeed;
 	}
 
 	public void setSpawn(Map m){
