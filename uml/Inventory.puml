@@ -32,6 +32,9 @@ class Item {
 ----
 + getName(): String
 + getDesc(): String
+----
++ Item(name: String)
++ Item(name: String, desc: String)
 }
 note right : Any object that a player can hold in its inventory
 
