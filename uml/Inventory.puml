@@ -3,37 +3,26 @@
 
 title "Class diagram for Inventory"
 
-class Character {
-- name: String
-- inventory: Inventory
-----
-+ getName(): String
-+ getInventory(): Inventory
-----
-+ Player(name: String)
-}
-note left : The player himself
-
 class Inventory {
 - content: Item[]
 - numberOfPlace: int
 
 ----
 + getNumberOfPlace(): int
++ getNumberOfItems(): int
 + isFull(): boolean
 + isEmpty(): boolean
 + getNumberOfItems();
 + remove(indexPlace: int) throws NothingToRemoveException, ArrayIndexOutOfBoundsException
 + getFirstEmptySpace(): int
-' Get the index of the first free space of inventory
+' Get the index of the first free space in the inventory
++ add(newItem: Item) throws InventoryFullException
 + add(indexPlace: int, newItem: Item) throws ArrayIndexOutOfBoundsException, NotEmptyPlaceException
 + getItemByIndex(indexPlace: int): Item throws ArrayIndexOutOfBoundsException
 - relevantIndex(indexToCheck: int, numberOfPlace: int) throws ArrayIndexOutOfBoundsException
 
-- show()
-'Print the inventory on the console to debug
 ----
-+ Inventory(nbOfSpace: int)
++ Inventory(nbOfPlaces: int)
 }
 note left : The player inventory
 
@@ -48,7 +37,6 @@ note right : Any object that a player can hold in its inventory
 
 
 Inventory *-- Item
-Character *-- Inventory
 
 
 @enduml
