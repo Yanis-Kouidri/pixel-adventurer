@@ -65,7 +65,7 @@ public class InventoryObserverTest {
 
         // Filling the inventory after the creation
 
-        for (int i = 0 ; i < inventoryExample.getNumberOfPlace() ; i++) {
+        for (int i = 0; i < inventoryExample.getNumberOfPlaces() ; i++) {
             try {
                 inventoryExample.add(troutItem);
                 //Thread.sleep(500);
