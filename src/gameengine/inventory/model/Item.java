@@ -37,6 +37,9 @@ public class Item {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
         }
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("A name must have characters");
+        }
         if (description == null) {
             throw new IllegalArgumentException("Description cannot be null");
         }
