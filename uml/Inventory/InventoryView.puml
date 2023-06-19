@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class InventoryPanel {
++ displayInventory()
++ toggleInventoryVisibility()
++ onItemAdded()
+}
+
+class InventoryMenu {
++ NB_OF_ITEM_TO_DISPLAY: int
+
+}
+
+class InventoryBar {
++ NB_OF_ITEM_TO_DISPLAY: int
+}
+
+class ItemView {
++ itemIconAssos: Map<String, ImageIcon>
++ addItem(itemName: String, sprite ImageIcon)
++ getSprite(itemName: String): ImageIcon
+}
+
+JPanel *-- InventoryPanel
+InventoryPanel *-- InventoryMenu
+InventoryPanel *-- InventoryBar
+InventoryPanel <.. ItemView
+
+
+@enduml
