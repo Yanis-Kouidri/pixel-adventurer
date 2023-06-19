@@ -2,6 +2,7 @@ package gameengine.characters.controller;
 
 import gameengine.characters.model.MainCharacter;
 import gameengine.characters.model.Entity;
+import gameengine.characters.model.EntityJumpStateType;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -32,15 +33,12 @@ public class CharacterController implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_SPACE) {
             upPressed = true;
-//            logger.info("Press " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_Q) {
             leftPressed = true;
-//            logger.info("Press " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
-//            logger.info("Press " + e.getKeyChar());
         }
     }
 
@@ -48,7 +46,6 @@ public class CharacterController implements KeyListener {
      * Trigger the key released key and assign one action for that
      * @param e the key released
      */
-
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
@@ -57,11 +54,9 @@ public class CharacterController implements KeyListener {
         }
         if (code == KeyEvent.VK_Q) {
             leftPressed = false;
-//            logger.info("Release " + e.getKeyChar());
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
-//            logger.info("Release " + e.getKeyChar());
         }
     }
 
@@ -70,16 +65,23 @@ public class CharacterController implements KeyListener {
      */
     public void update() {
         if (upPressed) {
-            mainCharacter.jump();
-            logger.info(mainCharacter.toString());
+        	if(mainCharacter.getJumpingState() != EntityJumpStateType.GOING_DOWN) {
+        		//if the main character is on the ground or he is actually jumping, then he can continue going up
+        		mainCharacter.jump();        		
+        	} else {
+        		//if he is already going down, then he can't jump again until he touch the ground
+        		mainCharacter.fallingCheck(); 
+        	}
+        } else {
+        	//if the space bar is not pressed, then reset the speed only one (in case the main character wasn't touching the ground), and fall
+        	mainCharacter.resetGravitySpeedOnce();
+        	mainCharacter.fallingCheck(); 
         }
-        if (leftPressed) {
+        if (leftPressed) { 
             mainCharacter.moveLeft();
-//            logger.info(mainCharacter.toString());
         }
         if (rightPressed) {
             mainCharacter.moveRight();
-//            logger.info(mainCharacter.toString());
         }
 
     }

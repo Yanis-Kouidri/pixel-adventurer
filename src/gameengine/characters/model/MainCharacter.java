@@ -125,14 +125,16 @@ public class MainCharacter extends Entity {
 	 */
 	@Override
 	public void jump() {
-		if(Collisions.top(getHitBox()) == CollisionType.NONE) {
+		System.out.println(this);
+		if(Collisions.top(getHitBox(), getGravitySpeed()) == CollisionType.NONE) {
 			super.jump();			
 		} else {
 			try {
-				super.moveUpOnCollision();
+				super.jumpOnCollision();
 			} catch (UnvalidMovementDistanceException e) {
 				e.printStackTrace();
 			}
 		}
 	}
+	
 }

@@ -14,7 +14,8 @@ import gameengine.map.model.Tile;
 public class CollisionTest {
 
 	private static MainCharacter mainCharacter;
-	private static Map map1, map2;
+	private static Map map1, map2, map3;
+	private float gravitySpeed = 0;
 	
 	@BeforeClass
 	public static void setUp() {
@@ -23,6 +24,7 @@ public class CollisionTest {
 		
 		Tile tileMatrix1[][] = new Tile[6][6];
 		Tile tileMatrix2[][] = new Tile[6][6];
+		Tile tileMatrix3[][] = new Tile[6][6];
 		
 		MapType mapType = new MapType("collision Test", emptyBlock, solidBlock, null);
 		
@@ -34,6 +36,7 @@ public class CollisionTest {
 		for(int x = 0; x < 6; x++) {
 			tileMatrix1[5][x] = solidBlock;
 			tileMatrix2[5][x] = solidBlock;
+			tileMatrix3[5][x] = solidBlock;
 		}
 		
 		//Fill the other floor with empty blocks
@@ -41,6 +44,7 @@ public class CollisionTest {
 			for(int x = 0; x < 6; x++) {
 				tileMatrix1[y][x] = emptyBlock;
 				tileMatrix2[y][x] = emptyBlock;
+				tileMatrix3[y][x] = emptyBlock;
 			}
 		}
 		
@@ -57,8 +61,18 @@ public class CollisionTest {
 		tileMatrix2[3][5] = solidBlock;
 		tileMatrix2[1][3] = solidBlock;
 		
-		//creation of the map1
+		//creation of the map2
 		map2 = new Map("collisionTest", mapType, 6, 6, 15.0, 0.1, tileMatrix2);
+		
+		//Addition of few solid blocks to test collisions for map3
+		tileMatrix3[5][0] = emptyBlock;
+		tileMatrix3[5][1] = emptyBlock;
+		tileMatrix3[5][3] = emptyBlock;
+		tileMatrix3[5][4] = emptyBlock;
+		tileMatrix3[5][5] = emptyBlock;
+		
+		//creation of map3
+		map3 = new Map("collisionTest", mapType, 6, 6, 15.0, 0.1, tileMatrix3);
 		
 		//Affichage de la map1
 		System.out.println("Map num 1 :");
@@ -69,6 +83,12 @@ public class CollisionTest {
 		//Affichage de la map1
 		System.out.println("Map num 2 :");
 		displayMap(map2);
+		System.out.println();
+		System.out.println();
+		
+		//Affichage de la map3
+		System.out.println("Map num 3 :");
+		displayMap(map3);
 		System.out.println();
 		System.out.println();
 		
@@ -167,12 +187,12 @@ public class CollisionTest {
 		Collisions.setMap(map1);
 		
 		//no collisions in the actual position
-		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.NONE);
+		assertEquals(Collisions.top(mainCharacter.getHitBox(), gravitySpeed), CollisionType.NONE);
 
 		mainCharacter.setLocation(2.0f, 2.0f);
 		
 		//collisions with the new location
-		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.SOLID);
+		assertEquals(Collisions.top(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
 
 		//move left an other time to be sure that he is no going further
 		mainCharacter.jump();
@@ -237,12 +257,12 @@ public class CollisionTest {
 		Collisions.setMap(map2);
 		
 		//no collisions in the actual position
-		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.NONE);
+		assertEquals(Collisions.top(mainCharacter.getHitBox(), gravitySpeed), CollisionType.NONE);
 
 		mainCharacter.setLocation(2.0f, 2.0f);
 		
 		//collisions with the new location
-		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.SOLID);
+		assertEquals(Collisions.top(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
 	}
 	
 	/**
@@ -302,7 +322,82 @@ public class CollisionTest {
 		
 		mainCharacter.setLocation(1.5f, 2.0f);
 		
-		assertEquals(Collisions.top(mainCharacter.getHitBox()), CollisionType.SOLID);
+		assertEquals(Collisions.top(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
+	}
+	
+	/**
+	 * this test is for the bottom left side of the character when the character is falling.
+	 */
+	@Test
+	public void collisionBottomLeft() {
+		
+		//set up Collisions with the map2
+		Collisions.setMap(map3);
+		
+		mainCharacter.setLocation(2.0f, 2.0f);
+		
+		for(int i = 0; i < 3; i++) {
+			//no collision detected during the first block travel
+			assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.NONE);
+			
+			mainCharacter.fallingCheck();
+		}
+		
+		assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
+		
+		mainCharacter.fallingCheck();
+		
+		assertEquals(mainCharacter.getHitBox().getY() + mainCharacter.getHitBox().getHeight(), 5.0f);
+	}
+	
+	/**
+	 * this test is for the bottom middle side of the character when the character is falling.
+	 */
+	@Test
+	public void collisionBottomMiddle() {
+		
+		//set up Collisions with the map2
+		Collisions.setMap(map3);
+		
+		mainCharacter.setLocation(1.5f, 2.0f);
+		
+		for(int i = 0; i < 3; i++) {
+			//no collision detected during the first block travel
+			assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.NONE);
+			
+			mainCharacter.fallingCheck();
+		}
+		
+		assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
+		
+		mainCharacter.fallingCheck();
+		
+		assertEquals(mainCharacter.getHitBox().getY() + mainCharacter.getHitBox().getHeight(), 5.0f);
+	}
+	
+	/**
+	 * this test is for the bottom right side of the character when the character is falling.
+	 */
+	@Test
+	public void collisionBottomMRight() {
+		
+		//set up Collisions with the map2
+		Collisions.setMap(map3);
+		
+		mainCharacter.setLocation(0.9f, 2.0f);
+		
+		for(int i = 0; i < 3; i++) {
+			//no collision detected during the first block travel
+			assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.NONE);
+			
+			mainCharacter.fallingCheck();
+		}
+		
+		assertEquals(Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed), CollisionType.SOLID);
+		
+		mainCharacter.fallingCheck();
+		
+		assertEquals(mainCharacter.getHitBox().getY() + mainCharacter.getHitBox().getHeight(), 5.0f);
 	}
 	
 	@Test(expected = NullMapException.class)
@@ -310,7 +405,7 @@ public class CollisionTest {
 		//set up collision with a map of null
 		Collisions.setMap(null);
 		
-		Collisions.top(mainCharacter.getHitBox());
+		Collisions.top(mainCharacter.getHitBox(), gravitySpeed);
 	}
 	
 	@Test(expected = NullMapException.class)
@@ -318,7 +413,7 @@ public class CollisionTest {
 		//set up collision with a map of null
 		Collisions.setMap(null);
 		
-		Collisions.bottom(mainCharacter.getHitBox());
+		Collisions.bottom(mainCharacter.getHitBox(), gravitySpeed);
 	}
 	
 	@Test(expected = NullMapException.class)
