@@ -92,7 +92,7 @@ public abstract class MenuPanel extends CustomPanel implements MouseListener{
 
 	/** Defines the buttons style
 	 * @author 
-	 * @param buttonsPanel The JPanel containing the buttons
+	 * @param button The JPanel containing the buttons
 	 */
 	public void defineButtonStyle(JButton button) {
 		Font buttonFont = new Font("Atari", Font.PLAIN, 24);
