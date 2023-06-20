@@ -16,8 +16,7 @@ public class Camera {
     Entity character; // Follows this character
     Boolean followPlayer; // Tells if the camera will lock on the player or not.
 
-    // change to private
-    public final float cameraSpeed = 10;
+    private final float cameraSpeed = 10; //Speed of Camera
 
     /**
      * Will construct a camera using the map and the character.
