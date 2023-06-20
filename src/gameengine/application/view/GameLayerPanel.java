@@ -95,13 +95,7 @@ public class GameLayerPanel extends CustomPanel {
         // Renders the map until we get to the start or the end.
         int cameraX = camera.getX();
         int cameraY = camera.getY();
-
-        // TODO: Adjust camera position to stay within map bounds
-//        int maxCameraX = mapPanel.getMapX()*SPRITE_DIM - Constants.SCREEN_WIDTH;
-//        int maxCameraY = mapPanel.getMapY()*SPRITE_DIM - Constants.SCREEN_HEIGHT;
-
         g2d.translate(-cameraX, -cameraY);
-
         mapPanel.paintComponent(g2d);
 
         // Dessinez `entityView` en utilisant les coordonnées centrées
