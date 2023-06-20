@@ -72,13 +72,6 @@ public class GameLayerPanel extends CustomPanel {
 
     }
 
-    /**
-     * Returns the Map View.
-     * @return the mapPanel
-     */
-    public MapPanel getMapPanel(){
-        return mapPanel;
-    }
 
     /**
      * Returns the camera object.
