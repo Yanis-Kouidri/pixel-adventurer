@@ -21,21 +21,24 @@ public class Inventory {
     /**
      * The fix number of spots in an inventory
      */
-    private final int numberOfPlace;
+    private final int numberOfPlaces;
 
+    /**
+     * The set of observers who will be updated when an item is added of removed
+     */
     private final Set<InventoryObserver> observers;
 
     // Constructor :
 
     /**
-     * @param numberOfPlace The number of available places in the inventory
+     * @param numberOfPlaces The number of available places in the inventory
      */
-    public Inventory(int numberOfPlace) {
-        if (numberOfPlace <= 0) {
+    public Inventory(int numberOfPlaces) {
+        if (numberOfPlaces <= 0) {
             throw new IllegalArgumentException("Inventory number of place must be positive");
         }
-        this.content = new Item[numberOfPlace];
-        this.numberOfPlace = numberOfPlace;
+        this.content = new Item[numberOfPlaces];
+        this.numberOfPlaces = numberOfPlaces;
         this.observers = new HashSet<>();
     }
 
@@ -44,8 +47,8 @@ public class Inventory {
     /**
      * @return The total number of places in the inventory
      */
-    public int getNumberOfPlace() {
-        return numberOfPlace;
+    public int getNumberOfPlaces() {
+        return numberOfPlaces;
     }
 
     /**
@@ -73,7 +76,7 @@ public class Inventory {
      * Notify the observer that the inventory is updated
      */
     private void notifyObservers() {
-        if (!observers.isEmpty()) { // If an observer is set, notify its
+        if (!observers.isEmpty()) { // If at least one observer is set, notify it or they
             for (InventoryObserver anObserver: observers) {
                 anObserver.onItemAdded();
             }
@@ -84,7 +87,7 @@ public class Inventory {
      * @return True, if all the inventory places are occupied, if not, return false
      */
     public boolean isFull() {
-        return getNumberOfItems() == this.numberOfPlace;
+        return getNumberOfItems() == this.numberOfPlaces;
     }
 
     /**
@@ -103,7 +106,7 @@ public class Inventory {
      */
     public void remove(int indexPlace) throws NothingToRemoveException, ArrayIndexOutOfBoundsException {
         //Checking if indexPlace get in parameter is relevant
-        relevantIndex(indexPlace, this.numberOfPlace);
+        relevantIndex(indexPlace, this.numberOfPlaces);
 
         // Checking if this indexPlace is no already empty
         if (this.content[indexPlace] == null) {
@@ -151,7 +154,7 @@ public class Inventory {
     public void add(int indexPlace, Item newItem) throws ArrayIndexOutOfBoundsException,
             NotEmptyPlaceException {
         //Checking if indexPlace get in parameter is relevant
-        relevantIndex(indexPlace, this.numberOfPlace);
+        relevantIndex(indexPlace, this.numberOfPlaces);
 
         // Checking if this indexPlace is empty
         if (this.content[indexPlace] != null) {
@@ -185,7 +188,7 @@ public class Inventory {
      */
     public Item getItemByIndex(int indexPlace) throws ArrayIndexOutOfBoundsException {
         // Checking if indexPlace get in parameter is relevant
-        relevantIndex(indexPlace, this.numberOfPlace);
+        relevantIndex(indexPlace, this.numberOfPlaces);
 
         if (this.content[indexPlace] == null) {
             return null;

@@ -1,6 +1,7 @@
 package gameengine.inventory.view;
 
 import javax.swing.*;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -16,7 +17,7 @@ public class ItemsView {
     /**
      * A tree map to associate each item name to his bounded icon
      */
-    TreeMap<String, ImageIcon> itemIconAssos;
+    Map<String, ImageIcon> itemIconAssos;
 
     // Constructor :
 

@@ -69,7 +69,7 @@ public class InventoryTest {
     @Test
     public void getNumberOfPlace() {
         assertEquals("The inventory as the wrong number of places",
-                NUMBER_OF_PLACE, testInventory.getNumberOfPlace());
+                NUMBER_OF_PLACE, testInventory.getNumberOfPlaces());
     }
 
     @Test
