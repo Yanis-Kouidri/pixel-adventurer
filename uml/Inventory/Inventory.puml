@@ -1,0 +1,76 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package model {
+class Inventory {
+- content: Item[]
+- numberOfPlace: int
+
+----
++ getNumberOfPlace(): int
++ getNumberOfItems(): int
++ isFull(): boolean
++ isEmpty(): boolean
++ getNumberOfItems();
++ remove(indexPlace: int) throws NothingToRemoveException, ArrayIndexOutOfBoundsException
++ getFirstEmptySpace(): int
+' Get the index of the first free space in the inventory
++ add(newItem: Item) throws InventoryFullException
++ add(indexPlace: int, newItem: Item) throws ArrayIndexOutOfBoundsException, NotEmptyPlaceException
++ getItemByIndex(indexPlace: int): Item throws ArrayIndexOutOfBoundsException
+- relevantIndex(indexToCheck: int, numberOfPlace: int) throws ArrayIndexOutOfBoundsException
+
+----
++ Inventory(nbOfPlaces: int)
+}
+
+
+class Item {
+- name: String
+- desc: String
+----
++ getName(): String
++ getDesc(): String
+----
++ Item(name: String)
++ Item(name: String, desc: String)
+}
+note right : Any object that a player can hold in its inventory
+
+
+Inventory "\n   *" *-- Item
+}
+
+package View {
+class InventoryPanel {
+- nbOfItem: int
++ displayInventory()
++ toggleInventoryVisibility()
++ onItemAdded()
+}
+
+class InventoryMenu {
++ NB_OF_ITEM_TO_DISPLAY: int
+
+}
+
+class InventoryBar {
++ NB_OF_ITEM_TO_DISPLAY: int
+}
+
+class ItemView {
++ itemIconAssos: Map<String, ImageIcon>
++ addItem(itemName: String, sprite ImageIcon)
++ getSprite(itemName: String): ImageIcon
+}
+
+JPanel <|-- InventoryPanel
+InventoryPanel <|-- InventoryMenu
+InventoryPanel <|-- InventoryBar
+InventoryPanel "texturePack" *-- ItemView
+InventoryPanel "inventoryToDisplay" *-- Inventory
+}
+
+Inventory .. ItemView
+
+@enduml
