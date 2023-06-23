@@ -9,7 +9,7 @@ public class Physics {
 
     private Physics() {}
 
-    public static final float GRAVITY = 0.02f;						//the gravity constant 
+    public static final float GRAVITY = 0.015f;						//the gravity constant 
 
     public static final float NB_DEPLACEMENT_BLOCK = 0.3f;			//the number of block that an entity can move per deplacement
     

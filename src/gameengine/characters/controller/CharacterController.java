@@ -67,7 +67,7 @@ public class CharacterController implements KeyListener {
         if (upPressed) {
         	if(mainCharacter.getJumpingState() != EntityJumpStateType.GOING_DOWN) {
         		//if the main character is on the ground or he is actually jumping, then he can continue going up
-        		mainCharacter.jump();        		
+        		mainCharacter.jump();       		
         	} else {
         		//if he is already going down, then he can't jump again until he touch the ground
         		mainCharacter.fallingCheck(); 
