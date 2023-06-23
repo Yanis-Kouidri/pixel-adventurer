@@ -6,14 +6,12 @@
 package main;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import gameengine.application.controller.CameraController;
 import gameengine.application.view.*;
 import gameengine.characters.controller.CharacterController;
 import gameengine.characters.model.MainCharacter;
 import gameengine.characters.model.Collisions;
-import gameengine.characters.model.EntityJumpStateType;
 import gameengine.characters.view.EntityView;
 import gameengine.gameloop.model.GameLoop;
 import gameengine.inventory.controller.InventoryKeyController;
@@ -23,7 +21,6 @@ import gameengine.inventory.view.InventoryMenu;
 import gameengine.inventory.view.ItemsView;
 import gameengine.map.controller.BlockBreaker;
 import gameengine.map.model.Map;
-/*import gameengine.map.model.MapArray;*/
 import gameengine.map.model.MapArray;
 import gameengine.map.model.MapType;
 import gameengine.map.model.Tile;
@@ -37,8 +34,9 @@ import javax.swing.*;
 /**
  * The "main" package contains the entry point for the application and other related classes.
  * It provides the core functionality for running the program and initializing necessary components.
- * @contributor Cédric Abdelbaki
+ * @author  Cédric Abdelbaki
  * 				- Modified : MainMenuPanel panel creation
+ * @author Yanis Kouidri
  */
 public class Main {
     public static void main(String[] args) {
@@ -53,32 +51,51 @@ class PixelAdventure extends GameLoop {
 	// The main menu
     private MainMenuPanel mainMenuPanel;
 
-    // The commands menu
+    // The command menu
     private CommandsPanel commandsPanel;
 
     // The credits panel
     private CreditsPanel creditsPanel;
 
-  private static final float MAIN_CHARACTER_WIDTH = 2.0f;		//the width of the main character
+    private static final float MAIN_CHARACTER_WIDTH = 2.0f;		//the width of the main character
 	private static final float MAIN_CHARACTER_HEIGHT = 2.0f;	//the height of the main character
 
-    private PanelMediator panelMediator;
+    private final PanelMediator panelMediator;
 
     private Tile emptyTile;
 
-    private GamePanel gamePanel;
+    private final GamePanel gamePanel;
 
-    private MainCharacter mainCharacter;		//the main character object
-    private EntityView entityView;		//the view that need to be displayed on the window
-    private Image mainCharacterImage, backgroundImage;
+    /**
+     * the main character object
+     */
+    private final MainCharacter mainCharacter;
 
-    private CharacterController mainCharacterController;
-    private MapPanel mapPanel;
-    private CameraController cameraController;
+    /**
+     * the view that needs to be displayed on the window
+     */
+    private final EntityView entityView;
+    private final Image mainCharacterImage;
+
+    private final CharacterController mainCharacterController;
+
+    private final CameraController cameraController;
 
     private Map testMap;
 
-    private int updatePerSecond = 30;
+    private final static int updatePerSecond = 30;
+
+    private Tileset set;
+
+    /**
+     * String uses to name the surface block
+     */
+    private static final String SURFACE_BLOCK = "gravel";
+
+    /**
+     * String uses to name the coat block (all block under the surface)
+     */
+    private static final String COAT_BLOCK = "rock";
 
     /**
      * a constructor.
@@ -101,7 +118,9 @@ class PixelAdventure extends GameLoop {
         /* MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight()); */
 
         // -------------------- Main Character model --------------------
-        mainCharacter = MainCharacter.createInstance(MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT);		//we want to display the main character so we create it
+        mainCharacter = MainCharacter.createInstance(MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT);		//we want
+        // to display the main character,
+        // so we create it
         mainCharacter.setSpawn(mapPanel.getLevel());
         // -------------------- Main Character view --------------------
         mainCharacterImage = Utils.getImage("character/mainCharacter.png");
@@ -111,6 +130,14 @@ class PixelAdventure extends GameLoop {
         mainCharacterController = new CharacterController(mainCharacter);
 
         ItemsView texturePack = new ItemsView();
+
+        // Get surface and coat block texture
+        Image groundImage = set.getTileSprite(1);
+        Image coatImage = set.getTileSprite(2);
+
+        // Add them to the texture pack
+        texturePack.addItem(SURFACE_BLOCK, new ImageIcon(groundImage));
+        texturePack.addItem(COAT_BLOCK, new ImageIcon(coatImage));
 
         // -------------------- Inventory model --------------------
         Inventory inventoryModel = new Inventory(40);
@@ -136,22 +163,21 @@ class PixelAdventure extends GameLoop {
         mapPanel.setBounds(0,0, ApplicationWindow.getFrame().getWidth(),
                 ApplicationWindow.getFrame().getHeight());
 
-        int cellInveyory = 50;
+        int cellInventory = 50;
 
 
-        int widthInventoryBar = cellInveyory * InventoryBar.NB_OF_ITEMS_DISPLAY_IN_BAR;
-        int heightInventoryBar = cellInveyory;
+        int widthInventoryBar = cellInventory * InventoryBar.NB_OF_ITEMS_DISPLAY_IN_BAR;
         inventoryBar.setBounds(
                 ApplicationWindow.getFrame().getWidth() - widthInventoryBar,
                 ApplicationWindow.getFrame().getHeight() - 75, // Review the origin of screen and modify
                 widthInventoryBar,
-                heightInventoryBar
+                cellInventory
         );
 
         int widthInventoryMenu = ApplicationWindow.getFrame().getWidth() -
-                (InventoryMenu.NB_OF_COLS * cellInveyory);
-        int heightInventoryMenu = InventoryMenu.NB_OF_ROWS * cellInveyory;
-        inventoryMenu.setBounds(Math.round((widthInventoryMenu) / 2),
+                (InventoryMenu.NB_OF_COLS * cellInventory);
+        int heightInventoryMenu = InventoryMenu.NB_OF_ROWS * cellInventory;
+        inventoryMenu.setBounds(Math.round((float) (widthInventoryMenu) / 2),
                 0,
                  widthInventoryMenu,
                 heightInventoryMenu
@@ -180,7 +206,7 @@ class PixelAdventure extends GameLoop {
 
     @Override
     protected void processGameLoop() {
-        logger.info("Gameloop starts");
+        logger.info("Game loop starts");
         while (isGameRunning()) {
             processInput(updatePerSecond);
             update(); // Model Update
@@ -195,7 +221,6 @@ class PixelAdventure extends GameLoop {
     }
 
     protected void update() {
-    	java.util.List<gameengine.characters.model.Entity> entityInstances = gameengine.characters.model.Entity.getInstances();
         mainCharacterController.update();
         cameraController.update();
     }
@@ -203,16 +228,19 @@ class PixelAdventure extends GameLoop {
 
     private MapPanel initMapPanel(){
         String tileSetPath = "src/gameassets/map/tileset/testTileset.png"; // Change String to Image or BufferedImage
-        String backgroundImagePath = "src/gameassets/map/images/testBackground.png"; // Change String to Image or BufferedImage
+
         emptyTile = new Tile(0, "empty", false);
-        Tile surfaceTile = new Tile(1, "grass", true);
-        Tile undergroundTile = new Tile(2, "dirt", true);
+        Tile surfaceTile = new Tile(1, SURFACE_BLOCK, true);
+        Tile undergroundTile = new Tile(2, COAT_BLOCK, true);
+
         MapType testMapType = new MapType("testType", emptyTile, surfaceTile, undergroundTile);
         testMap = new Map("testMap", testMapType, Constants.MAP_COLUMNS, Constants.MAP_ROWS, 15.0, 0.1);
+
         Tile[][] array = testMap.getMapArray();
         MapArray.printMapForTest(array, testMap.getMapWidth(), testMap.getMapHeight());
-        Tileset set = new Tileset(tileSetPath);
+        set = new Tileset(tileSetPath);
         System.out.println(surfaceTile.getTileName());
+
         return new MapPanel(testMap, set);
     }
 }

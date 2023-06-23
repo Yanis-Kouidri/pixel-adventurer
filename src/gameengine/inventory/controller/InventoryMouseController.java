@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
+ * To show item name (In progress)
  * @author Yanis Kouidri
  * @version 0.1
  */

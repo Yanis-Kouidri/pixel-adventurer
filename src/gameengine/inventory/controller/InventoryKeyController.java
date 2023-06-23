@@ -18,7 +18,7 @@ public class InventoryKeyController implements KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {
-        // When the player type 'e'
+        // When the player types 'e'
         if (e.getKeyChar() == 'e') {
             inventoryPanel.toggleInventoryVisibility(); // Show/hide the inventory
         }
