@@ -106,6 +106,5 @@ public class InventoryPanel extends JPanel implements InventoryObserver {
     @Override
     public void onItemAdded() {
         displayInventory();
-        System.out.println("Inventory update");
     }
 }
