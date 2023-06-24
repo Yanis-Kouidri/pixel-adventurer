@@ -3,6 +3,7 @@
 
 title "Class diagram for Inventory"
 
+package model {
 class Inventory {
 - content: Item[]
 - numberOfPlace: int
@@ -24,7 +25,7 @@ class Inventory {
 ----
 + Inventory(nbOfPlaces: int)
 }
-note left : The player inventory
+
 
 class Item {
 - name: String
@@ -39,7 +40,7 @@ class Item {
 note right : Any object that a player can hold in its inventory
 
 
-Inventory *-- Item
-
+Inventory "\n   *" *-- Item
+}
 
 @enduml
