@@ -1,0 +1,87 @@
+@startuml
+'https://plantuml.com/class-diagram
+package model {
+    class Map {
+        - name: String
+        - width: int
+        - height: int
+        - seed: long
+        - array: Tile[][]
+        ----
+        + getTileAtPos(x: int, y: int): Tile
+        + setTileAtPos(tile: Tile, x: int, y: int)
+        + getGroundLevel(x: int): int
+        + getMiddleOfMap(): int
+        + getSpawnPoint(): Coordinates
+    }
+
+    class MapArray {
+        Final
+        {Static} generateMapArray(type: MapType, width: int, height: int, seed: long, amplitude: double, scale double): Tile[][]
+        {Static} computePerlinNoise(xTimesScales: double, seed: long): double
+        {Static} interpolate(randomValueA: double, randomValueB: double, decimalPart: double): double
+        {Static} generateRandomValue(integer: int, seed: long): double
+    }
+
+    class MapType {
+        - name: String
+    }
+
+    class Tile {
+        - identifier: int
+        - name: String
+        - collision: boolean
+    }
+
+MapType "surfaceTile" o-- Tile
+MapType "emptyTile" o-- Tile
+MapType "\n \n undergroundTile" o-- Tile
+
+MapArray -- Map
+MapArray ..> MapType
+MapArray ..> Map
+
+Map "type" o-- MapType
+Map <.. Tile
+}
+
+package view {
+    class TileSet {
+        - set: BufferedImage
+        - nbTiles: int
+        - cachedImages: HashMap<Integer, Image>
+        + getTileSprite(tileIdentifier: int): Image
+        + createCache():
+        + computeNumberTiles(): int
+    }
+
+    class MapPanel {
+        - camera: Camera
+        - width: int
+        - height: int
+        - mapX: int
+        - mapY: int
+        + setCamera(c Camera)
+        + paintComponent(g Graphics)
+    }
+}
+
+MapPanel ..> Map
+MapPanel ..> TileSet
+MapPanel "level" o-- Map
+MapPanel "sprites" o-- TileSet
+
+package controller {
+    class blockBreaker {
+        - camera: Camera
+        - inventory: Inventory
+        + mouseClicked(e: mouseEvent)
+    }
+
+    blockBreaker "\nlevel" o-- Map
+    blockBreaker "\nemptyTile" o-- Map
+}
+
+
+
+@enduml

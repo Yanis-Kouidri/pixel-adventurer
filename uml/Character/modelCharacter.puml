@@ -1,0 +1,94 @@
+@startuml
+
+class Coordinate {
+  - x : float
+  - y : float
+
+  + getX() : float
+  + getY() : float
+  + setX(nb int)
+  + setY(nb int)
+
+  + Coordinate(x int, y int)
+}
+
+abstract class Entity {
+  - {static} instances : List<Entity>
+  - gravitySpeed : float
+  - gravityReset : boolean
+
+
+  - updateHitbox()
+  - fall()
+  - fallOnCollision()
+  + fallingCheck()
+  + setSpawn(map Map)
+  + setLocation(coordX float, coordY float)
+  + resetGravitySpeed()
+  + moveRight()
+  + moveLeft()
+  + jump()
+  # moveRightOnCollision()
+  # moveLeftOnCollision()
+  # jumpOnCollision()
+
+  + Entity(coordX float, coordY float, width float, height float)
+
+}
+
+class HitBox {
+  - width : float
+  - height : float
+
+  + updateHitbox(coordinate Coordinate, width float, height float)
+
+  + HitBox(coordinate Coordinate, width float, height float)
+}
+
+enum EntityJumpStateType {
+  ON_THE_FLOOR
+  GOING_UP
+  GOING_DOWN
+}
+
+enum CollisionType {
+  LIQUID
+  SOLID
+  NONE
+}
+
+class Collisions {
+  - map : Map
+
+  - {static} collisionDetected(xPositionToCheck int, yPositionToCheck int) : boolean
+  - {static} getXTilePosition(leftSide boolean, hitBpx HitBox) : int
+  - {static} getYTilePosition(topSide boolean, hitBpx HitBox) : int
+  - {static} lateral(leftSide boolean, hitBpx HitBox) : CollisionType
+  - {static} vertical(leftSide boolean, hitBpx HitBox) : CollisionType
+
+  + {static} setMap(map Map)
+  + {static} left(hitBox HitBox) : CollisionType
+  + {static} right(hitBox HitBox) : CollisionType
+  + {static} bottom(hitBox HitBox) : CollisionType
+  + {static} top(hitBox HitBox) : CollisionType
+
+}
+
+class MainCharacter
+
+Coordinate "position" -down-*  Entity
+Coordinate "coordinate" -down-* HitBox
+
+Entity  *- "\n\n\n\n    *" Entity
+
+EntityJumpStateType "actualJumpState" -up- Entity
+HitBox "hirbox" -up-* Entity
+
+Entity <|-down- MainCharacter
+
+Collisions - Entity
+
+Collisions .up. CollisionType
+
+
+@enduml
