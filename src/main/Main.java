@@ -42,8 +42,13 @@ import javax.swing.*;
  */
 public class Main {
     public static void main(String[] args) {
-        PixelAdventure game = new PixelAdventure();
-        game.run();
+        EventQueue.invokeLater(new Runnable(){
+            public void run(){
+                PixelAdventure game = new PixelAdventure();
+                game.run();
+            }
+        });
+
     }
 
 }
