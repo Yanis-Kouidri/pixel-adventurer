@@ -40,8 +40,13 @@ import javax.swing.*;
  */
 public class Main {
     public static void main(String[] args) {
-        PixelAdventure game = new PixelAdventure();
-        game.run();
+        EventQueue.invokeLater(new Runnable(){
+            public void run(){
+                PixelAdventure game = new PixelAdventure();
+                game.run();
+            }
+        });
+
     }
 
 }
@@ -188,7 +193,7 @@ class PixelAdventure extends GameLoop {
         gamePanel.addlayeredPanel(inventoryBar, JLayeredPane.POPUP_LAYER);
         gamePanel.addlayeredPanel(inventoryMenu, JLayeredPane.DRAG_LAYER);
 
-        cameraController = new CameraController(gamePanel.getCamera(), gameLayerPanel);
+        cameraController = new CameraController(gamePanel.getCamera());
 
         // Add controller to frame
         ApplicationWindow.getFrame().addKeyListener(inventoryController);

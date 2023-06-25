@@ -13,13 +13,11 @@ import java.awt.event.KeyListener;
 public class CameraController implements KeyListener {
     Camera camera; // The camera model which will be modified
 
-    GameLayerPanel gameLayerPanel; // The panel which will be reflected by the changes.
 
     public boolean rightPressed, leftPressed, upPressed, downPressed; //
 
-    public CameraController(Camera cam, GameLayerPanel glp) {
+    public CameraController(Camera cam) {
         camera = cam;
-        gameLayerPanel = glp;
     }
 
     /**
