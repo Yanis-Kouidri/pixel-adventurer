@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Joueur -> Map: Casse un bloc
+Map --> Inventory: Met à jour l'inventaire
+
+Inventory -> Inventory: Notifie tous ses contrôleurs
+Inventory -> InventoryObserver1: Met à jour la vue du menu
+InventoryObserver1 -> InventoryObserver1: Redessine l'inventaire
+Inventory -> InventoryObserver2: Met à jour la vue de la barre
+InventoryObserver2 -> InventoryObserver2: Redessine l'inventaire
+
+
+
+@enduml

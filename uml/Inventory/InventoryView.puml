@@ -1,7 +1,9 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+package View {
 class InventoryPanel {
+- nbOfItem: int
 + displayInventory()
 + toggleInventoryVisibility()
 + onItemAdded()
@@ -22,10 +24,12 @@ class ItemView {
 + getSprite(itemName: String): ImageIcon
 }
 
-JPanel *-- InventoryPanel
-InventoryPanel *-- InventoryMenu
-InventoryPanel *-- InventoryBar
-InventoryPanel <.. ItemView
+JPanel <|-- InventoryPanel
+InventoryPanel <|-- InventoryMenu
+InventoryPanel <|-- InventoryBar
+InventoryPanel "texturePack" *-- ItemView
 
+}
+InventoryPanel "inventoryToDisplay" *-- Inventory
 
 @enduml
